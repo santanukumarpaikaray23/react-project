@@ -1,0 +1,81 @@
+import React from "react";
+import { Card, Grid, CardContent, Typography, Avatar, TextField } from "@material-ui/core";
+
+class Symptoms extends React.Component {
+  render() {
+    const { history } = this.props
+    return (
+      <div style={{ background: "#eeeeee", height: "100vh" }}>
+        <Grid
+          container
+          alignItems="center"
+          justify="center"
+          direction="row"
+        // style={{ height: "5vh" }}
+        >
+          <Typography variant="h6" color="textSecondary" style={{ marginTop: "20px" }}>Find your doctor by symptoms</Typography>
+          {"\n"}
+        </Grid>
+        <Grid container style={{ padding: "20px" }}>
+          <Grid item xs={4}>
+            <TextField fullWidth InputProps={{ readOnly: true, style: { fontSize: 0, fontWeight: "bold" } }} />
+          </Grid>
+          <Grid item xs={4}>
+            <Typography align="center" style={{ fontWeight: "bold" }}>PAIN/HURT</Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <TextField fullWidth InputProps={{ readOnly: true, style: { fontSize: 0 } }} />
+          </Grid>
+          <Grid container align="center" style={{ padding: "10px" }} >
+            <Grid item xs={3}>
+              <Avatar style={{ height: "40px", width: "40px" }}></Avatar>
+              <Typography>ABDOMEN</Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Avatar style={{ height: "40px", width: "40px" }} ></Avatar>
+              <Typography>BACK</Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Avatar style={{ height: "40px", width: "40px" }} ></Avatar>
+              <Typography>CHEST</Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Avatar style={{ height: "40px", width: "40px" }} ></Avatar>
+              <Typography>EAR</Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid container style={{ padding: "20px" }}>
+          <Grid item xs={4}>
+            <TextField fullWidth InputProps={{ readOnly: true, style: { fontSize: 0 } }} />
+          </Grid>
+          <Grid item xs={4}>
+            <Typography align="center" style={{ fontWeight: "bold" }}>I FEEL</Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <TextField fullWidth InputProps={{ readOnly: true, style: { fontSize: 0 } }} />
+          </Grid>
+          <Grid container align="center" style={{ padding: "10px" }} >
+            <Grid item xs={3}>
+              <Avatar src="ic_add_square_o.svg" style={{ height: "40px", width: "40px" }} ></Avatar>
+              <Typography>CHILLS</Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Avatar src="ic_add_square_o.svg" style={{ height: "40px", width: "40px" }} ></Avatar>
+              <Typography>FEVER</Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Avatar src="ic_add_square_o.svg" style={{ height: "40px", width: "40px" }} ></Avatar>
+              <Typography>LIGHT-HEADED</Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Avatar src="ic_add_square_o.svg" style={{ height: "40px", width: "40px" }} ></Avatar>
+              <Typography>FEVER</Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+      </div>
+    );
+  }
+}
+export default Symptoms
