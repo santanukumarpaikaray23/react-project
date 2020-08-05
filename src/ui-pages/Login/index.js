@@ -88,7 +88,7 @@ class Login extends React.Component {
   handlerRequestOtp = async () => {
     const { setAppData, history, checked, phoneno } = this.props;
     const apiResponse = await httpRequest({
-      endPoint: `/requestOtp/${phoneno}/Patient`,
+      endPoint: `:8080/requestOtp/${phoneno}/Patient`,
       method: "get",
       instance: "instanceOne",
     })
