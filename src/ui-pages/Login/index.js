@@ -20,39 +20,52 @@ const theme = createMuiTheme({
 });
 
 const AntSwitch = withStyles(theme => ({
-  root: {
-    width: 50,
-    height: 24,
-    padding: 2
-  },
   switchBase: {
-    padding: 2,
-    color: theme.palette.grey[500],
-    "&$checked": {
-      transform: "translateX(12px)",
-      color: theme.palette.common.white,
-      "& + $track": {
-        opacity: 1,
-        backgroundColor: theme.palette.primary.main,
-        borderColor: theme.palette.primary.main
-      }
-    }
+    color: theme.palette.primary.main,
+    '&$checked': {
+      color: theme.palette.primary.main,
+    },
+    '&$checked + $track': {
+      backgroundColor: theme.palette.primary.main
+    },
   },
-  thumb: {
-    marginTop: "1%",
-    width: 20,
-    height: 20,
-    boxShadow: "none"
-  },
-  track: {
-    border: `0.5px solid ${theme.palette.grey[500]}`,
-    // borderRadius: 16 / 2,
-    borderRadius: "31px",
-    borderRadius: "31px",
-    opacity: 1,
-    backgroundColor: theme.palette.common.white
-  },
-  checked: {}
+  checked: {},
+  track: {},
+  // root: {
+  //   width: 50,
+  //   height: 24,
+  //   padding: 2
+  // },
+  // switchBase: {
+  //   padding: 2,
+  //   color: theme.palette.grey[500],
+  //   "&$checked": {
+  //     transform: "translateX(12px)",
+  //     color: theme.palette.common.white,
+  //     "& + $track": {
+  //       opacity: 1,
+  //       backgroundColor: theme.palette.primary.main,
+  //       borderColor: theme.palette.primary.main
+  //     }
+  //   }
+  // },
+  // thumb: {
+  //   marginTop: "1%",
+  //   width: 20,
+  //   height: 20,
+  //   boxShadow: "none"
+  // },
+  // track: {
+  //   border: `0.5px solid ${theme.palette.grey[500]}`,
+  //   // borderRadius: 16 / 2,
+  //   borderRadius: "31px",
+  //   borderRadius: "31px",
+  //   opacity: 1,
+  //   backgroundColor: theme.palette.common.white
+  // },
+  // checked: {
+  //   color:"white"
+  // }
 }))(Switch);
 
 class Login extends React.Component {
@@ -88,7 +101,7 @@ class Login extends React.Component {
   handlerRequestOtp = async () => {
     const { setAppData, history, checked, phoneno } = this.props;
     const apiResponse = await httpRequest({
-      endPoint: `:8080/requestOtp/${phoneno}/Patient`,
+      endPoint: `/requestOtp/${phoneno}/Patient`,
       method: "get",
       instance: "instanceOne",
     })
@@ -116,14 +129,11 @@ class Login extends React.Component {
             </ThemeProvider >
           </Card>
           {mobile ? (
-            <Typography color="error" variant="subtitle1">
-              Please enter a valid phone number
-            </Typography>
+          <Typography variant="caption" color="textSecondary" >Assistive Text</Typography>
           ) : (
               ""
             )}
-          <Typography variant="caption" color="textSecondary" >Assistive Text</Typography>
-          <br />
+          {/* <Typography variant="caption" color="textSecondary" >Assistive Text</Typography> */}
           <br />
           {receiveOtp ?
             <Grid container>
@@ -131,8 +141,8 @@ class Login extends React.Component {
                 checked={checked}
                 onChange={(e) => setAppData("login.checked", !checked)}
                 name="ViewSwitch" />
-              <Typography variant="subtitle2" color="textSecondary" style={{ marginLeft: "3%", marginTop: "2%" }}>Agree for</Typography>
-              <Typography variant="subtitle2" color="primary" style={{ marginLeft: "1%", marginTop: "2%" }}>Terms and Conditions</Typography>
+              <Typography variant="subtitle2" color="textSecondary" style={{ marginLeft: "3%", marginTop: "4%" }}>Agree for</Typography>
+              <Typography variant="subtitle2" color="primary" style={{ marginLeft: "1%", marginTop: "4%" }}>Terms and Conditions</Typography>
             </Grid> : ""}
           <br />
           {receiveOtp ?
@@ -146,7 +156,7 @@ class Login extends React.Component {
                 color: "white"
               }}
               onClick={() => handlerRequestOtp()}>
-              <Typography variant="Button">RECEIVE OTP</Typography>
+              <Typography variant="h6">RECEIVE OTP</Typography>
             </Button>
             :
             <Button
@@ -159,7 +169,7 @@ class Login extends React.Component {
                 color: "white"
               }}
               onClick={() => this.loginChange()}>
-              <Typography variant="Button">Login</Typography>
+              <Typography variant="h6">Login</Typography>
             </Button>}
           <br />
           <br />
