@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { withStyles,ThemeProvider, createMuiTheme} from "@material-ui/core/styles";
+import { withStyles, ThemeProvider, createMuiTheme, Avatar } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,12 +11,17 @@ import ArrowBack from "@material-ui/icons/ArrowBack";
 import UserRoutes from "../../../../ui-routes/UserRoutes";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
-import { mapDispatchToProps,headings } from "../../../../ui-utils/commons";
+import { mapDispatchToProps, headings } from "../../../../ui-utils/commons";
 import { withRouter } from "react-router-dom";
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import "./index.css"
 
 const styles = (theme) => ({
   root: {
-    display: "flex",
+    // display: "flex",
+    // height:'100vh',
+    // width:"100vw"
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -30,12 +35,12 @@ const styles = (theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
-    padding: "0 8px",
-    ...theme.mixins.toolbar,
-    minHeight:"47px",
+    // padding: "0 8px",
+    // ...theme.mixins.toolbar,
+    minHeight: "47px",
   },
   content: {
-    flexGrow: 1,
+    // flexGrow: 1,
     // padding: "8px 8px 8px",
   },
   webHeader: {
@@ -45,8 +50,17 @@ const styles = (theme) => ({
     flexGrow: 1,
     marginLeft: "16px",
   },
-  iconColor:{
-    color:"white"
+  iconColor: {
+    color: "white"
+  },
+  bottom: {
+    // paddingLeft:"10px",
+    // paddingRight:"10px",
+    width: "360px",
+    position: "fixed",
+    top: "auto",
+    background: "#eeeeee",
+    bottom: 0
   }
 });
 
@@ -54,57 +68,89 @@ const theme = createMuiTheme({
   overrides: {
     MuiIconButton: {
       label: {
-        justifyContent:"start"
+        justifyContent: "start"
       },
-      root:{
-      padding:"7px"
+      root: {
+        padding: "7px"
       }
     },
-    MuiToolbar:{
-      gutters:{
-        paddingLeft:"0px",
-        paddingRight:"0px"
+    MuiToolbar: {
+      gutters: {
+        paddingLeft: "0px",
+        paddingRight: "0px"
       }
     },
   },
 });
 
 class MiniDrawer extends React.Component {
-
+  state = {
+    value: "recents"
+  };
+  handleChange = (event, newValue) => {
+    console.log(newValue, "hiii");
+    this.setState({ value: newValue });
+  };
   render() {
-    const { classes, history } = this.props;
+    const { classes, history, bottomBoolean, setAppData } = this.props;
+    const { value } = this.state;
+    const { handleChange } = this
     let endPoint = document.location.hash.split("#")[1];
     return (
       <div className={classes.root}>
         <CssBaseline />
-              <AppBar
-                elevation={0}
-                // key={index}
-                position="fixed"
-                className={classNames(classes.appBar)}>
-                <ThemeProvider theme={theme}>
-                <Toolbar style={{display:"flex"}}>
-                  <IconButton
-                    onClick={(e) => {
-                      history.goBack();
-                    }}
-                    classes={{root:classes.iconColor}} 
-                  >
-                  <img width="30%" height="30%" src='logo.svg' alt="verify_icon" />
-                  </IconButton>
-                  <Typography
-                    variant="h6"
-                    color="inherit"
-                    noWrap
-                    classes={{ root: classes.webHeader }}>
-                  </Typography>
-                </Toolbar>
-              </ThemeProvider>
-              </AppBar>
+        <AppBar
+          elevation={0}
+          // key={index}
+          position="fixed"
+          className={classNames(classes.appBar)}>
+          <ThemeProvider theme={theme}>
+            <Toolbar style={{ display: "flex" }}>
+              <IconButton
+                onClick={(e) => {
+                  history.goBack();
+                }}
+                classes={{ root: classes.iconColor }}>
+                <div style={{ borderRadius: "50%", background: "white", width: "50px", height: "50px" }}>
+                  <img width="90%" height="120%" src='logo-no-title.svg' alt="verify_icon" />
+                </div>
+              </IconButton>
+              <Typography
+                variant="h6"
+                color="inherit"
+                noWrap
+                classes={{ root: classes.webHeader }}>
+              </Typography>
+            </Toolbar>
+          </ThemeProvider>
+        </AppBar>
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <UserRoutes />
         </main>
+        <BottomNavigation value={value} onChange={handleChange} className={classes.bottom}>
+          <BottomNavigationAction label="Home" value="recents" icon={
+            bottomBoolean === true ? 
+            <img width="60%" height="60%" src='ic_home_f.svg' alt="verify_icon" 
+             />
+             :<img width="60%" height="60%" src='ic_home_o.svg' alt="verify_icon"/>}
+            onClick={() => { history.push("/user-home"); setAppData("userInfo.bottomBoolean", !bottomBoolean) }} />
+          <BottomNavigationAction label="Chat" value="favorites" icon={bottomBoolean === true ?
+            <img width="60%" height="60%" src='ic_chat_o.svg' alt="verify_icon" /> :
+            <img width="60%" height="60%" src='ic_chat_f.svg' alt="verify_icon" />}
+            onClick={() => history.push("/user-home/chat")} />
+          <BottomNavigationAction label="Calendar" value="nearby" icon={bottomBoolean === true ?
+            <img width="60%" height="60%" src='ic_caleandar_o.svg' alt="verify_icon" /> :
+            <img width="60%" height="60%" src='ic_caleandar_f.svg' alt="verify_icon" />}
+            onClick={() => history.push("/user-home/calendar")} />
+          <BottomNavigationAction label="Profile" value="folder" icon={bottomBoolean === true ?
+            <img width="60%" height="60%" src='ic_profile_o.svg' alt="verify_icon" /> :
+            <img width="60%" height="60%" src='ic_profile_f.svg' alt="verify_icon" />}
+            onClick={() => history.push("/user-home/profile")} />
+          <BottomNavigationAction label="Records" value="fol" icon={bottomBoolean === true ?
+            <img width="60%" height="60%" src='ic_records_o.svg' alt="verify_icon" /> :
+            <img width="60%" height="60%" src='ic_records_f.svg' alt="verify_icon" />} />
+        </BottomNavigation>
       </div>
     );
   }
@@ -114,12 +160,11 @@ MiniDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
-
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
   const { userInfo = {}, selectedLanguage } = preparedFinalObject;
-  const { user = {} } = userInfo;
-  return { user, selectedLanguage};
+  const { user = {}, bottomBoolean = true } = userInfo;
+  return { user, selectedLanguage, bottomBoolean, userInfo };
 };
 
 export default withStyles(styles, { withTheme: true })(
