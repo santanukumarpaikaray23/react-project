@@ -88,8 +88,8 @@ class BookAppointment extends React.Component {
         <Typography align="center" style={{margin:"3px"}}>
           <Card style={{width:"40px",height:"60px",boxShadow:"none",background:"#2FC9B9"}}>
             <Typography style={{marginBottom:"14px"}} color="textSecondary"></Typography>
-            <Typography  color="textSecondary" variant="h5">14</Typography>
-            <Typography  color="textSecondary">FRI</Typography>
+            <Typography  color="textSecondary" style={{color:"white"}} variant="h5">14</Typography>
+            <Typography  color="textSecondary" style={{color:"white"}}>FRI</Typography>
           </Card>
         </Typography>
         <Typography align="center" style={{margin:"3px"}}>
@@ -130,8 +130,8 @@ class BookAppointment extends React.Component {
         </Typography>
         <Typography align="center" style={{margin:"2px 12px 2px 12px"}}>
           <Card style={{width:"40px",height:"45px",boxShadow:"none",background:"#2FC9B9"}}>
-            <Typography  color="textSecondary" variant="h5">11</Typography>
-            <Typography  color="textSecondary">AM</Typography>
+            <Typography  color="textSecondary" variant="h5" style={{color:"white"}}>11</Typography>
+            <Typography  color="textSecondary" style={{color:"white"}}>AM</Typography>
           </Card>
         </Typography>
         <Typography align="center" style={{margin:"2px 12px 2px 12px"}}>
