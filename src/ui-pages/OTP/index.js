@@ -16,7 +16,6 @@ class Otp extends React.Component {
   };
   handlerVerifyOtp = async () => {
     const { setAppData, history, checked, phoneno, otpValue } = this.props;
-    history.push("/user-home")
     let requestBody = {
       number: phoneno,
       user_type: "patient",
@@ -35,8 +34,10 @@ class Otp extends React.Component {
   }
   render() {
     const { history, otpValue } = this.props
+    let count=otpValue.toString().length;
+    console.log(count,"hiii")
     return (
-      <div >
+      <div>
         <img width="100%" height="100%" src='background.png' alt="verify_icon" style={{
           position: "relative",
           clipPath: 'inset(10% 10% 10% 10% round 20%, 20%)'
@@ -65,7 +66,7 @@ class Otp extends React.Component {
               }}
             />
           </Typography>
-          <Typography variant="subtitle2" color="textSecondary" gutterBottom style={{ marginTop: "2%" }}>0/6</Typography>
+            <Typography variant="subtitle2" color="textSecondary" gutterBottom style={{ marginTop: "2%" }}>{count}/6</Typography>
           <Button
             size="large"
             variant="contained"
@@ -77,7 +78,7 @@ class Otp extends React.Component {
             }}
             onClick={() => this.handlerVerifyOtp()}
           >
-            <Typography variant="Button">Login</Typography>
+            <Typography variant="h6">Login</Typography>
           </Button>
         </Grid>
       </div>
@@ -88,7 +89,7 @@ class Otp extends React.Component {
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
   const { login = {}, otp = {} } = preparedFinalObject;
-  const { otpValue } = otp
+  const { otpValue="" } = otp
   const { phoneno } = login
   return { login, phoneno, otpValue, otp }
 };
