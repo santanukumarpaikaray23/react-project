@@ -45,7 +45,7 @@ class Symptoms extends React.Component {
               <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",
               zIndex:"1",background:"#F7F7F7",borderRadius: "50%"}}></img>:""}
               <Avatar style={{ height: "45px", width: "45px",position: "relative"  }} src="ic_eight.svg"></Avatar>
-              <Typography>ABDOMEN</Typography>
+              <Typography variant="subtitle2" style={symptoms.abdomen===true?{color:"#2FC9B9"}:{color:"black"}}>ABDOMEN</Typography>
             </Grid>
             <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.back",!symptoms.back)}>
               {symptoms.back===true?
@@ -53,7 +53,7 @@ class Symptoms extends React.Component {
             background:"white",borderRadius: "50%"}}></img>:""}
 
               <Avatar style={{ height: "45px", width: "45px" }} src="ic_eight.svg" ></Avatar>
-              <Typography>BACK</Typography>
+              <Typography variant="subtitle2" style={symptoms.back===true?{color:"#2FC9B9"}:{color:"black"}}>BACK</Typography>
             </Grid>
             <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.chest",!symptoms.chest)}>
               {symptoms.chest===true?
@@ -61,7 +61,7 @@ class Symptoms extends React.Component {
             background:"white",borderRadius: "50%"}}></img>:""}
 
               <Avatar style={{ height: "45px", width: "45px" }}  src="ic_three.svg" ></Avatar>
-              <Typography>CHEST</Typography>
+              <Typography variant="subtitle2" style={symptoms.chest===true?{color:"#2FC9B9"}:{color:"black"}}>CHEST</Typography>
             </Grid>
             <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.ear",!symptoms.ear)}>
               {symptoms.ear===true?
@@ -69,7 +69,7 @@ class Symptoms extends React.Component {
             background:"white",borderRadius: "50%"}}></img>:""}
 
               <Avatar style={{ height: "45px", width: "45px" }} src="ic_add_square_o.svg"></Avatar>
-              <Typography>EAR</Typography>
+              <Typography variant="subtitle2" style={symptoms.ear===true?{color:"#2FC9B9"}:{color:"black"}}>EAR</Typography>
             </Grid>
             <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.head",!symptoms.head)}>
               {symptoms.head===true?
@@ -77,7 +77,7 @@ class Symptoms extends React.Component {
             background:"white",borderRadius: "50%"}}></img>:""}
 
               <Avatar style={{ height: "45px", width: "45px" }} src="ic_add_square_o.svg"></Avatar>
-              <Typography>HEAD</Typography>
+              <Typography variant="subtitle2" style={symptoms.head===true?{color:"#2FC9B9"}:{color:"black"}}>HEAD</Typography>
             </Grid>
             <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.piles",!symptoms.piles)}>
               {symptoms.piles===true?
@@ -85,14 +85,14 @@ class Symptoms extends React.Component {
             background:"white",borderRadius: "50%"}}></img>:""}
 
               <Avatar style={{ height: "45px", width: "45px" }} src="ic_eleven.svg"></Avatar>
-              <Typography>PILES</Typography>
+              <Typography variant="subtitle2" style={symptoms.piles===true?{color:"#2FC9B9"}:{color:"black"}}>PILES</Typography>
             </Grid>
             <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.tooth",!symptoms.tooth)}>
               {symptoms.tooth===true?
             <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",zIndex:"1",
             background:"white",borderRadius: "50%"}}></img>:""}
               <Avatar style={{ height: "45px", width: "45px" }} src="ic_add_square_o.svg"></Avatar>
-              <Typography>TOOTH</Typography>
+              <Typography variant="subtitle2" style={symptoms.tooth===true?{color:"#2FC9B9"}:{color:"black"}}>TOOTH</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -112,28 +112,28 @@ class Symptoms extends React.Component {
             <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",zIndex:"1",
             background:"white",borderRadius: "50%"}}></img>:""}
               <Avatar src="ic_add_square_o.svg" style={{ height: "45px", width: "45px" }} ></Avatar>
-              <Typography>CHILLS</Typography>
+              <Typography variant="subtitle2" style={symptoms.chills===true?{color:"#2FC9B9"}:{color:"black"}}>CHILLS</Typography>
             </Grid>
             <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.fever",!symptoms.fever)}>
               {symptoms.fever===true?
             <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",zIndex:"1",
             background:"white",borderRadius: "50%"}}></img>:""}
               <Avatar src="ic_add_square_o.svg" style={{ height: "45px", width: "45px" }} ></Avatar>
-              <Typography>FEVER</Typography>
+              <Typography variant="subtitle2" style={symptoms.fever===true?{color:"#2FC9B9"}:{color:"black"}}>FEVER</Typography>
             </Grid>
             <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.lightHeaded",!symptoms.lightHeaded)}>
               {symptoms.lightHeaded===true?
             <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",zIndex:"1",
             background:"white",borderRadius: "50%"}}></img>:""}
               <Avatar src="ic_add_square_o.svg" style={{ height: "45px", width: "45px" }} ></Avatar>
-              <Typography>LIGHT-HEADED</Typography>
+              <Typography variant="subtitle2" style={symptoms.lightHeaded===true?{color:"#2FC9B9"}:{color:"black"}}>LIGHT-HEADED</Typography>
             </Grid>
             <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.feve",!symptoms.feve)}>
               {symptoms.feve===true?
             <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",zIndex:"1",
             background:"white",borderRadius: "50%"}}></img>:""}
               <Avatar src="ic_add_square_o.svg" style={{ height: "45px", width: "45px" }} ></Avatar>
-              <Typography>FEVER</Typography>
+              <Typography variant="subtitle2" style={symptoms.feve===true?{color:"#2FC9B9"}:{color:"black"}}>FEVER</Typography>
             </Grid>
           </Grid>
         </Grid>
