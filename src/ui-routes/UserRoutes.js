@@ -33,16 +33,22 @@ const Symptoms = Loadable({
     import("../ui-pages/UserHome/components/Content/Symptoms"),
   loading: Loading,
 });
+const BookAppointment = Loadable({
+  loader: () =>
+    import("../ui-pages/UserHome/components/Content/BookAppointment"),
+  loading: Loading,
+});
 
 const UserRoutes = () => {
   return (
     <div>
-      <Route exact path="/user-home" component={Landing} />
-      <Route  path="/user-home/user-screen" component={HomeScreen} />
-      <Route  path="/user-home/user-screen/chat" component={ChatScreen} />
-      <Route  path="/user-home/user-screen/calendar" component={Calendar} />
-      <Route  path="/user-home/user-screen/calendar/specialists" component={Specialists} />
-      <Route  path="/user-home/user-screen/calendar/symptoms" component={Symptoms} />
+      <Route exact path="/user-home" component={Landing}/>
+      <Route  path="/user-home/home" component={HomeScreen}/>
+      <Route  path="/user-home/chat" component={ChatScreen}/>
+      <Route  path="/user-home/book-appointment" component={BookAppointment}/>
+      <Route  path="/user-home/calendar" component={Calendar}/>
+      <Route  path="/user-home/home/specialists" component={Specialists}/>
+      <Route  path="/user-home/home/symptoms" component={Symptoms}/>
     </div>
   );
 };

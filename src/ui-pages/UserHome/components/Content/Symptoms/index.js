@@ -13,7 +13,8 @@ class Symptoms extends React.Component {
           direction="row"
         // style={{ height: "5vh" }}
         >
-          <Typography variant="h6" color="textSecondary" style={{ marginTop: "20px" }}>Find your doctor by symptoms</Typography>
+          <Typography variant="h6" color="textSecondary" style={{ marginTop: "20px" }}>
+            Find your doctor by symptoms</Typography>
           {"\n"}
         </Grid>
         <Grid container style={{ padding: "20px" }}>
@@ -26,22 +27,35 @@ class Symptoms extends React.Component {
           <Grid item xs={4}>
             <TextField fullWidth InputProps={{ readOnly: true, style: { fontSize: 0 } }} />
           </Grid>
-          <Grid container align="center" style={{ padding: "10px" }} >
-            <Grid item xs={3}>
-              <Avatar style={{ height: "40px", width: "40px" }}></Avatar>
+          <Grid container align="center"  >
+            <Grid item xs={3} style={{ padding: "10px" }}>
+              <img height ="20px" width="20px" src="order-placed.png" style={{ position: "absolute" }}></img>
+              <Avatar style={{ height: "45px", width: "45px",position: "relative"  }} src="ic_eight.svg"></Avatar>
               <Typography>ABDOMEN</Typography>
             </Grid>
-            <Grid item xs={3}>
-              <Avatar style={{ height: "40px", width: "40px" }} ></Avatar>
+            <Grid item xs={3} style={{ padding: "10px" }}>
+              <Avatar style={{ height: "45px", width: "45px" }} src="ic_eight.svg" ></Avatar>
               <Typography>BACK</Typography>
             </Grid>
-            <Grid item xs={3}>
-              <Avatar style={{ height: "40px", width: "40px" }} ></Avatar>
+            <Grid item xs={3} style={{ padding: "10px" }}>
+              <Avatar style={{ height: "45px", width: "45px" }}  src="ic_three.svg" ></Avatar>
               <Typography>CHEST</Typography>
             </Grid>
-            <Grid item xs={3}>
-              <Avatar style={{ height: "40px", width: "40px" }} ></Avatar>
+            <Grid item xs={3} style={{ padding: "10px" }}>
+              <Avatar style={{ height: "45px", width: "45px" }} src="ic_add_square_o.svg"></Avatar>
               <Typography>EAR</Typography>
+            </Grid>
+            <Grid item xs={3} style={{ padding: "10px" }}>
+              <Avatar style={{ height: "45px", width: "45px" }} src="ic_add_square_o.svg"></Avatar>
+              <Typography>HEAD</Typography>
+            </Grid>
+            <Grid item xs={3} style={{ padding: "10px" }}>
+              <Avatar style={{ height: "45px", width: "45px" }} src="ic_eleven.svg"></Avatar>
+              <Typography>PILES</Typography>
+            </Grid>
+            <Grid item xs={3} style={{ padding: "10px" }}>
+              <Avatar style={{ height: "45px", width: "45px" }} src="ic_add_square_o.svg"></Avatar>
+              <Typography>TOOTH</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -55,21 +69,21 @@ class Symptoms extends React.Component {
           <Grid item xs={4}>
             <TextField fullWidth InputProps={{ readOnly: true, style: { fontSize: 0 } }} />
           </Grid>
-          <Grid container align="center" style={{ padding: "10px" }} >
-            <Grid item xs={3}>
-              <Avatar src="ic_add_square_o.svg" style={{ height: "40px", width: "40px" }} ></Avatar>
+          <Grid container align="center"  >
+            <Grid item xs={3} style={{ padding: "10px" }}>
+              <Avatar src="ic_add_square_o.svg" style={{ height: "45px", width: "45px" }} ></Avatar>
               <Typography>CHILLS</Typography>
             </Grid>
-            <Grid item xs={3}>
-              <Avatar src="ic_add_square_o.svg" style={{ height: "40px", width: "40px" }} ></Avatar>
+            <Grid item xs={3} style={{ padding: "10px" }}>
+              <Avatar src="ic_add_square_o.svg" style={{ height: "45px", width: "45px" }} ></Avatar>
               <Typography>FEVER</Typography>
             </Grid>
-            <Grid item xs={3}>
-              <Avatar src="ic_add_square_o.svg" style={{ height: "40px", width: "40px" }} ></Avatar>
+            <Grid item xs={3} style={{ padding: "10px" }}>
+              <Avatar src="ic_add_square_o.svg" style={{ height: "45px", width: "45px" }} ></Avatar>
               <Typography>LIGHT-HEADED</Typography>
             </Grid>
-            <Grid item xs={3}>
-              <Avatar src="ic_add_square_o.svg" style={{ height: "40px", width: "40px" }} ></Avatar>
+            <Grid item xs={3} style={{ padding: "10px" }}>
+              <Avatar src="ic_add_square_o.svg" style={{ height: "45px", width: "45px" }} ></Avatar>
               <Typography>FEVER</Typography>
             </Grid>
           </Grid>

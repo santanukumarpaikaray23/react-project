@@ -19,7 +19,7 @@ class Specialists extends React.Component {
           <CardContent>
             <Grid style={{ display: "flex" }}>
               <Grid item xs={3}>
-                <Avatar />
+              <img width="110%" height="110%" src='ic_physician_f.svg' alt="verify_icon" />
               </Grid>
               <Grid item md={9}>
                 <Typography variant="h6"> General Physician</Typography>
@@ -34,7 +34,7 @@ class Specialists extends React.Component {
           <CardContent>
             <Grid style={{ display: "flex" }}>
               <Grid item xs={3}>
-                <Avatar />
+              <img width="110%" height="110%" src='ic_pediatrician_f.svg' alt="verify_icon" />
               </Grid>
               <Grid item md={9}>
                 <Typography variant="h6"> Pediatrician </Typography>
@@ -49,7 +49,7 @@ class Specialists extends React.Component {
           <CardContent>
             <Grid style={{ display: "flex" }}>
               <Grid item xs={3}>
-                <Avatar />
+              <img width="110%" height="110%" src='ic_psychiatrist_f.svg' alt="verify_icon" />
               </Grid>
               <Grid item md={9}>
                 <Typography variant="h6">Phychiatrist</Typography>
@@ -64,7 +64,7 @@ class Specialists extends React.Component {
           <CardContent>
             <Grid style={{ display: "flex" }}>
               <Grid item xs={3}>
-                <Avatar />
+              <img width="110%" height="110%" src='ic_gynaecologist_f.svg' alt="verify_icon" />
               </Grid>
               <Grid item md={9}>
                 <Typography variant="h6">Gynaecologist</Typography>
@@ -79,7 +79,7 @@ class Specialists extends React.Component {
           <CardContent>
             <Grid style={{ display: "flex" }}>
               <Grid item xs={3}>
-                <Avatar />
+              <img width="110%" height="110%" src='ic_dermatologist_f.svg' alt="verify_icon" />
               </Grid>
               <Grid item md={9}>
                 <Typography variant="h6">Dermatologist</Typography>
