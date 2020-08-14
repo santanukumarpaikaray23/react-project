@@ -32,7 +32,6 @@ export const httpRequest = async ({
   contentType = "application/json",
   headers={}
 }) => {
-  debugger
   if (hasSpinner) {
     store.dispatch(prepareFinalObject("spinner", true));
   }

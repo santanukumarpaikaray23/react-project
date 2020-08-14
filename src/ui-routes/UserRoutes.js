@@ -38,6 +38,11 @@ const BookAppointment = Loadable({
     import("../ui-pages/UserHome/components/Content/BookAppointment"),
   loading: Loading,
 });
+const ConfirmBooking = Loadable({
+  loader: () =>
+    import("../ui-pages/UserHome/components/Content/ConfirmBooking"),
+  loading: Loading,
+});
 
 const UserRoutes = () => {
   return (
@@ -49,6 +54,7 @@ const UserRoutes = () => {
       <Route  path="/user-home/calendar" component={Calendar}/>
       <Route  path="/user-home/home/specialists" component={Specialists}/>
       <Route  path="/user-home/home/symptoms" component={Symptoms}/>
+      <Route  path="/user-home/confirm-booking" component={ConfirmBooking}/>
     </div>
   );
 };

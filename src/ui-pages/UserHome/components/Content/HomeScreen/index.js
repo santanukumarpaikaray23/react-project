@@ -1,11 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles,Grid,Button,Paper } from "@material-ui/core";
+import { withStyles, Grid, Button, Paper } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import { useHistory } from "react-router";
+import { httpRequest } from "../../../../../ui-utils/api"
+import { connect } from "react-redux";
+import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 
 function TabContainer(props) {
   const history = useHistory();
@@ -20,7 +23,7 @@ function TabContainer(props) {
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
+    background: "#f7f7f7",
   },
 });
 class TabsWrappedLabel extends React.Component {
@@ -41,15 +44,11 @@ class TabsWrappedLabel extends React.Component {
       history.push("/user-home/home/specialists")
     }
   };
-  handleNextButton=()=>{
-    debugger
-    const{history}=this.props;
-    history.push("/user-home/book-appointment")
-  }
+
   render() {
-    const { classes } = this.props;
+    const { classes, symptoms } = this.props;
     const { value } = this.state;
-    const{handleNextButton}=this
+    const { handleNextButton } = this
     return (
       <div className={classes.root}>
         <AppBar position="static" >
@@ -63,39 +62,17 @@ class TabsWrappedLabel extends React.Component {
         </AppBar>
         {value === "one" && <TabContainer>Item One</TabContainer>}
         {value === "two" && <TabContainer>Item Two</TabContainer>}
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center"
-          }}
-        >
-          <Paper typeof="button"
-            style={{
-              width:"70px",
-              height:"30px",
-              position: "fixed",
-              bottom: "62px",
-              // padding: "8px",
-              borderRadius: "40px",
-              background:"#2FC9B9"
-            }} onClick={()=>handleNextButton()}
-          ><Typography style={{display: "flex",marginTop:"7%",
-            justifyContent: "center",
-            color: "aliceblue"}}
-        >NEXT</Typography>
-                  <Button
-                ></Button>
-        </Paper>
-        </div>
       </div>
     );
   }
 }
-
-TabsWrappedLabel.propTypes = {
-  classes: PropTypes.object.isRequired
+const mapStateToProps = ({ screenConfiguration }) => {
+  const { preparedFinalObject = {} } = screenConfiguration;
+  const { bookAppointment = {}, symptoms } = preparedFinalObject;
+  return { bookAppointment, symptoms }
 };
 
-export default withStyles(styles)(TabsWrappedLabel);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(TabsWrappedLabel))

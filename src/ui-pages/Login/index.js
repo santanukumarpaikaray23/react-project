@@ -83,7 +83,6 @@ class Login extends React.Component {
     // history.push("/Otp")
   }
   validatePhoneNumber = (e) => {
-    debugger
     const { setAppData } = this.props;
     let phone = /^\d{10}$/;
     if (e.match(phone)) {
