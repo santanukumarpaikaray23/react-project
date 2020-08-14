@@ -11,7 +11,7 @@ import ArrowBack from "@material-ui/icons/ArrowBack";
 import UserRoutes from "../../../../ui-routes/UserRoutes";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
-import { mapDispatchToProps} from "../../../../ui-utils/commons";
+import { mapDispatchToProps } from "../../../../ui-utils/commons";
 import { withRouter } from "react-router-dom";
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -33,6 +33,10 @@ var headings = [
   {
     id: `/user-home/book-appointment`,
     heading: "BOOK APPOINTMENT"
+  },
+  {
+    id: `/user-home/confirm-booking`,
+    heading: "CONFIRM BOOKING"
   },
   {
     id: "/user-home/chat",
@@ -82,7 +86,7 @@ const styles = (theme) => ({
     alignItems: "center",
     justifyContent: "left",
     flexGrow: 1,
-    fontSize:"16px"
+    fontSize: "16px"
     // marginLeft: "16px",
   },
   iconColor: {
@@ -120,14 +124,21 @@ const theme = createMuiTheme({
 
 class MiniDrawer extends React.Component {
   state = {
-    value: "recents"
+    value: "home"
   };
+  componentDidMount = () => {
+    const { setAppData } = this.props
+    setAppData("userInfo.home", true)
+  }
   handleChange = (event, newValue) => {
-    console.log(newValue, "hiii");
+    const { setAppData, userInfo } = this.props
     this.setState({ value: newValue });
+    setAppData("userInfo", { ...userInfo, home: false, chat: false, calendar: false, profile: false, recents: false })
+    setAppData(`userInfo.${newValue}`, true)
+
   };
   render() {
-    const { classes, history, bottomBoolean, setAppData } = this.props;
+    const { classes, history, bottomBoolean, setAppData, userInfo } = this.props;
     const { value } = this.state;
     const { handleChange } = this
     let endPoint = document.location.hash.split("#")[1];
@@ -136,64 +147,62 @@ class MiniDrawer extends React.Component {
         <CssBaseline />
         {headings && headings.map((item, index) => {
           return (
-          endPoint===item.id?
-        <AppBar
-          elevation={0}
-          // key={index}
-          position="fixed"
-          className={classNames(classes.appBar)}>
-          <ThemeProvider theme={theme}>
-            <Toolbar style={{ display: "flex" }}>
-              <IconButton
-                onClick={(e) => {
-                  history.goBack();
-                }}
-                classes={{ root: classes.iconColor }}>
-                <div style={{ borderRadius: "50%", background: "white", width: "50px", height: "50px" }}>
-                  <img width="90%" height="120%" src='logo-no-title.svg' alt="verify_icon" />
-                </div>
-              </IconButton>
-              <Typography
-                variant="h6"
-                color="inherit"
-                noWrap classes={{ root: classes.webHeader }}
-                ><span>{item.heading}</span>
-              </Typography>
-            </Toolbar>
-          </ThemeProvider>
-        </AppBar>
-         :""
-
-         );
-
-       })}
+            endPoint === item.id ?
+              <AppBar
+                elevation={0}
+                // key={index}
+                position="fixed"
+                className={classNames(classes.appBar)}>
+                <ThemeProvider theme={theme}>
+                  <Toolbar style={{ display: "flex" }}>
+                    <IconButton
+                      onClick={(e) => {
+                        history.goBack();
+                      }}
+                      classes={{ root: classes.iconColor }}>
+                      <div style={{ borderRadius: "50%", background: "white", width: "50px", height: "50px" }}>
+                        <img width="90%" height="120%" src='logo-no-title.svg' alt="verify_icon" />
+                      </div>
+                    </IconButton>
+                    <Typography
+                      variant="h6"
+                      color="inherit"
+                      noWrap classes={{ root: classes.webHeader }}
+                    ><span>{item.heading}</span>
+                    </Typography>
+                  </Toolbar>
+                </ThemeProvider>
+              </AppBar>
+              : ""
+          );
+        })}
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <UserRoutes />
         </main>
         <BottomNavigation value={value} onChange={handleChange} className={classes.bottom}>
-          <BottomNavigationAction label="Home" value="recents" icon={
-            bottomBoolean === true ? 
-            <img width="60%" height="60%" src='ic_home_f.svg' alt="verify_icon" 
-             />
-             :<img width="60%" height="60%" src='ic_home_o.svg' alt="verify_icon"/>}
-            onClick={() => { history.push("/user-home"); setAppData("userInfo.bottomBoolean", !bottomBoolean) }} />
-          <BottomNavigationAction label="Chat" value="favorites" icon={bottomBoolean === true ?
+          <BottomNavigationAction label="Home" value="home" icon={
+            userInfo.home ?
+              <img width="60%" height="60%" src='ic_home_f.svg' alt="verify_icon"
+              />
+              : <img width="60%" height="60%" src='ic_home_o.svg' alt="verify_icon" />}
+            onClick={() => { history.push("/user-home") }} />
+          <BottomNavigationAction label="Chat" value="chat" icon={!userInfo.chat ?
             <img width="60%" height="60%" src='ic_chat_o.svg' alt="verify_icon" /> :
             <img width="60%" height="60%" src='ic_chat_f.svg' alt="verify_icon" />}
             onClick={() => history.push("/user-home/chat")} />
-          <BottomNavigationAction label="Calendar" value="nearby" icon={bottomBoolean === true ?
+          <BottomNavigationAction label="Calendar" value="calendar" icon={!userInfo.calendar ?
             <img width="60%" height="60%" src='ic_caleandar_o.svg' alt="verify_icon" /> :
             <img width="60%" height="60%" src='ic_caleandar_f.svg' alt="verify_icon" />}
             onClick={() => history.push("/user-home/calendar")} />
-          <BottomNavigationAction label="Profile" value="folder" icon={bottomBoolean === true ?
+          <BottomNavigationAction label="Profile" value="profile" icon={!userInfo.profile ?
             <img width="60%" height="60%" src='ic_profile_o.svg' alt="verify_icon" /> :
             <img width="60%" height="60%" src='ic_profile_f.svg' alt="verify_icon" />}
             onClick={() => history.push("/user-home/profile")} />
-          <BottomNavigationAction label="Records" value="fol" icon={bottomBoolean === true ?
+          <BottomNavigationAction label="Records" value="recents" icon={!userInfo.recents ?
             <img width="60%" height="60%" src='ic_records_o.svg' alt="verify_icon" /> :
-            <img width="60%" height="60%" src='ic_records_f.svg' alt="verify_icon" />} 
-            onClick={() => history.push("/user-home/records")}/>
+            <img width="60%" height="60%" src='ic_records_f.svg' alt="verify_icon" />}
+            onClick={() => history.push("/user-home/records")} />
         </BottomNavigation>
       </div>
     );
