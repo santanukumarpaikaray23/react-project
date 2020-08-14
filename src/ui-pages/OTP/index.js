@@ -10,7 +10,6 @@ class Otp extends React.Component {
     otpValue: ""
   };
   handleChanage = (value, otp) => {
-    debugger
     const { setAppData } = this.props
     setAppData(value, otp)
   };
@@ -29,6 +28,17 @@ class Otp extends React.Component {
       requestBody
     })
     if (apiResponse.OtpVerification === true) {
+      history.push("/user-home")
+    }
+  }
+  resendOtp=async()=>{
+    const { setAppData, history, checked, phoneno, otpValue } = this.props;
+    const apiResponse = await httpRequest({
+      endPoint: `/resendOtp/7895328523/patient`,
+      method: "get",
+      instance: "instanceOne",
+    })
+    if (apiResponse===true) {
       history.push("/user-home")
     }
   }
@@ -67,6 +77,7 @@ class Otp extends React.Component {
             />
           </Typography>
             <Typography variant="subtitle2" color="textSecondary" gutterBottom style={{ marginTop: "2%" }}>{count}/6</Typography>
+          <Typography variant="subtitle2" color="textSecondary" gutterBottom onClick={() => this.resendOtp()}>Resend Otp</Typography>
           <Button
             size="large"
             variant="contained"
