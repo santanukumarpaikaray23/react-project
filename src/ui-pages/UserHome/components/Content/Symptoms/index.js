@@ -1,23 +1,71 @@
 import React from "react";
-import { Card, Grid, CardContent, Typography, Avatar, TextField } from "@material-ui/core";
+import { Card, Grid, CardContent, Typography, Avatar, TextField, Paper } from "@material-ui/core";
 import { connect } from "react-redux";
 import { httpRequest } from "../../../../../ui-utils/api";
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 class Symptoms extends React.Component {
-  componentDidMount=()=>{
-    const {setAppData,symptoms}=this.props
-    setAppData("symptoms",{...symptoms,abdomen:false,back:false,chest:false,ear:false,head:false,piles:false,
-      tooth:false,chills:false,fever:false,lightHeaded:false,feve:false})
+  componentDidMount = () => {
+    const { setAppData, symptoms } = this.props
+    this.getSymptoms()
   }
-  checkedHandle=(key,value)=>{
-    const {symptoms,setAppData}=this.props
-    setAppData(key,value)
+  getSymptoms=async()=>{
+    const { setAppData, history } = this.props;
+    let tempVar=[]
+    const apiResponse = await httpRequest({
+      endPoint: `/symptomlist`,
+      method: "get",
+      instance: "instanceOne",
+    })
+    if (apiResponse) {
+      tempVar=apiResponse.map((data)=>{
+        return{
+          ...data,symptomSelected:false
+        }
+      })
+
+      setAppData("symptoms.response",tempVar)
+    }
+  }
+  checkedHandle = (key,value) => {
+    const { symptoms, setAppData } = this.props
+    const {response=[],name=""}=symptoms
+    let {symptomSelected}=response&&response[key]
+    let array=[]
+    setAppData(`symptoms.response[${key}].symptomSelected`,!symptomSelected)
+    setAppData(`symptoms.name[${key}]`,value)
+  }
+  handleNextButton = async() => {
+    const { setAppData, history, checked, phoneno,symptoms } = this.props;
+    const {response=[],name=""}=symptoms
+    let symptomName=name.toString()
+    console.log(symptomName,"ksaksjak")
+    let requestBody={
+      number:phoneno,
+      symptom:symptomName,
+      speciality:"Depression",
+    }
+    const apiResponse = await httpRequest({
+      endPoint: `/bookAppointment`,
+      method: "post",
+      instance: "instanceOne",
+      requestBody
+    })
+    if (apiResponse.doctor) {
+      setAppData("bookAppointment",apiResponse)
+      history.push("/user-home/book-appointment")
+    }
   }
   render() {
-    const { history,symptoms } = this.props
-    const {checkedHandle}=this
+    const { history, symptoms } = this.props
+    const { checkedHandle, handleNextButton } = this
+    let disableNext = false
+    symptoms && Object.keys(symptoms).forEach((symptom) => {
+      if (symptoms[symptom]) {
+        disableNext = true
+      }
+    })
     return (
-      <div style={{ background: "#eeeeee", height: "100vh" }}>
+      <div style={{ background: "#f7f7f7", height: "100vh" }}>
         <Grid
           container
           alignItems="center"
@@ -39,61 +87,21 @@ class Symptoms extends React.Component {
           <Grid item xs={4}>
             <TextField fullWidth InputProps={{ readOnly: true, style: { fontSize: 0 } }} />
           </Grid>
-          <Grid container align="center"  >
-            <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.abdomen",!symptoms.abdomen)}>
-              {symptoms.abdomen===true?
-              <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",
-              zIndex:"1",background:"#F7F7F7",borderRadius: "50%"}}></img>:""}
-              <Avatar style={{ height: "45px", width: "45px",position: "relative"  }} src="ic_eight.svg"></Avatar>
-              <Typography variant="subtitle2" style={symptoms.abdomen===true?{color:"#2FC9B9"}:{color:"black"}}>ABDOMEN</Typography>
-            </Grid>
-            <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.back",!symptoms.back)}>
-              {symptoms.back===true?
-            <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",zIndex:"1",
-            background:"white",borderRadius: "50%"}}></img>:""}
-
-              <Avatar style={{ height: "45px", width: "45px" }} src="ic_eight.svg" ></Avatar>
-              <Typography variant="subtitle2" style={symptoms.back===true?{color:"#2FC9B9"}:{color:"black"}}>BACK</Typography>
-            </Grid>
-            <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.chest",!symptoms.chest)}>
-              {symptoms.chest===true?
-            <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",zIndex:"1",
-            background:"white",borderRadius: "50%"}}></img>:""}
-
-              <Avatar style={{ height: "45px", width: "45px" }}  src="ic_three.svg" ></Avatar>
-              <Typography variant="subtitle2" style={symptoms.chest===true?{color:"#2FC9B9"}:{color:"black"}}>CHEST</Typography>
-            </Grid>
-            <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.ear",!symptoms.ear)}>
-              {symptoms.ear===true?
-            <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",zIndex:"1",
-            background:"white",borderRadius: "50%"}}></img>:""}
-
-              <Avatar style={{ height: "45px", width: "45px" }} src="ic_add_square_o.svg"></Avatar>
-              <Typography variant="subtitle2" style={symptoms.ear===true?{color:"#2FC9B9"}:{color:"black"}}>EAR</Typography>
-            </Grid>
-            <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.head",!symptoms.head)}>
-              {symptoms.head===true?
-            <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",zIndex:"1",
-            background:"white",borderRadius: "50%"}}></img>:""}
-
-              <Avatar style={{ height: "45px", width: "45px" }} src="ic_add_square_o.svg"></Avatar>
-              <Typography variant="subtitle2" style={symptoms.head===true?{color:"#2FC9B9"}:{color:"black"}}>HEAD</Typography>
-            </Grid>
-            <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.piles",!symptoms.piles)}>
-              {symptoms.piles===true?
-            <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",zIndex:"1",
-            background:"white",borderRadius: "50%"}}></img>:""}
-
-              <Avatar style={{ height: "45px", width: "45px" }} src="ic_eleven.svg"></Avatar>
-              <Typography variant="subtitle2" style={symptoms.piles===true?{color:"#2FC9B9"}:{color:"black"}}>PILES</Typography>
-            </Grid>
-            <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.tooth",!symptoms.tooth)}>
-              {symptoms.tooth===true?
-            <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",zIndex:"1",
-            background:"white",borderRadius: "50%"}}></img>:""}
-              <Avatar style={{ height: "45px", width: "45px" }} src="ic_add_square_o.svg"></Avatar>
-              <Typography variant="subtitle2" style={symptoms.tooth===true?{color:"#2FC9B9"}:{color:"black"}}>TOOTH</Typography>
-            </Grid>
+          <Grid container align="center">
+            {symptoms&& symptoms.response && symptoms.response.map((data,index)=>{
+              return(
+              data.category==="My Hurts"?
+              <Grid item xs={3} style={{ padding: "10px" }} onClick={() => checkedHandle(index,data.symptom_name)}>
+              {data.symptomSelected?
+                <img height="20px" width="20px" src="check_circle.svg" style={{
+                  position: "absolute",
+                  zIndex: "1", background: "#F7F7F7", borderRadius: "50%"
+                }}></img> : ""}
+              <Avatar style={{ height: "45px", width: "45px", position: "relative" }} src={`${data.image_url}.svg`}></Avatar>
+              <Typography variant="subtitle2" style={symptoms.abdomen === true ? { color: "#2FC9B9" } : { color: "#696969" }}>{data.symptom_name}</Typography>
+            </Grid>:" "
+              )
+            })}
           </Grid>
         </Grid>
         <Grid container style={{ padding: "20px" }}>
@@ -107,44 +115,118 @@ class Symptoms extends React.Component {
             <TextField fullWidth InputProps={{ readOnly: true, style: { fontSize: 0 } }} />
           </Grid>
           <Grid container align="center"  >
-            <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.chills",!symptoms.chills)}>
-              {symptoms.chills===true?
-            <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",zIndex:"1",
-            background:"white",borderRadius: "50%"}}></img>:""}
-              <Avatar src="ic_add_square_o.svg" style={{ height: "45px", width: "45px" }} ></Avatar>
-              <Typography variant="subtitle2" style={symptoms.chills===true?{color:"#2FC9B9"}:{color:"black"}}>CHILLS</Typography>
-            </Grid>
-            <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.fever",!symptoms.fever)}>
-              {symptoms.fever===true?
-            <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",zIndex:"1",
-            background:"white",borderRadius: "50%"}}></img>:""}
-              <Avatar src="ic_add_square_o.svg" style={{ height: "45px", width: "45px" }} ></Avatar>
-              <Typography variant="subtitle2" style={symptoms.fever===true?{color:"#2FC9B9"}:{color:"black"}}>FEVER</Typography>
-            </Grid>
-            <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.lightHeaded",!symptoms.lightHeaded)}>
-              {symptoms.lightHeaded===true?
-            <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",zIndex:"1",
-            background:"white",borderRadius: "50%"}}></img>:""}
-              <Avatar src="ic_add_square_o.svg" style={{ height: "45px", width: "45px" }} ></Avatar>
-              <Typography variant="subtitle2" style={symptoms.lightHeaded===true?{color:"#2FC9B9"}:{color:"black"}}>LIGHT-HEADED</Typography>
-            </Grid>
-            <Grid item xs={3} style={{ padding: "10px" }} onClick={()=>checkedHandle("symptoms.feve",!symptoms.feve)}>
-              {symptoms.feve===true?
-            <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",zIndex:"1",
-            background:"white",borderRadius: "50%"}}></img>:""}
-              <Avatar src="ic_add_square_o.svg" style={{ height: "45px", width: "45px" }} ></Avatar>
-              <Typography variant="subtitle2" style={symptoms.feve===true?{color:"#2FC9B9"}:{color:"black"}}>FEVER</Typography>
-            </Grid>
+          {symptoms&& symptoms.response && symptoms.response.map((data,index)=>{
+              return(
+              data.category==="I Feel"?
+            <Grid item xs={3} style={{ padding: "10px" }} onClick={() => checkedHandle(index)}>
+              {data.symptomSelected?
+                <img height="20px" width="20px" src="check_circle.svg" style={{
+                  position: "absolute", zIndex: "1",
+                  background: "white", borderRadius: "50%"
+                }}></img> : ""}
+              <Avatar src={`${data.image_url}.svg`} style={{ height: "45px", width: "45px" }} ></Avatar>
+              <Typography variant="subtitle2" style={symptoms.chills === true ? { color: "#2FC9B9" } : { color: "#696969" }}>{data.symptom_name}</Typography>
+            </Grid>:" "
+              )
+            })}
           </Grid>
         </Grid>
+        <Grid container style={{ padding: "20px" }}>
+          <Grid item xs={4}>
+            <TextField fullWidth InputProps={{ readOnly: true, style: { fontSize: 0 } }} />
+          </Grid>
+          <Grid item xs={4}>
+            <Typography align="center" style={{ fontWeight: "bold" }}>I CAN'T</Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <TextField fullWidth InputProps={{ readOnly: true, style: { fontSize: 0 } }} />
+          </Grid>
+          <Grid container align="center"  >
+          {symptoms&& symptoms.response && symptoms.response.map((data,index)=>{
+              return(
+              data.category==="I Can't"?
+            <Grid item xs={3} style={{ padding: "10px" }} onClick={() => checkedHandle(index)}>
+              {data.symptomSelected?
+                <img height="20px" width="20px" src="check_circle.svg" style={{
+                  position: "absolute", zIndex: "1",
+                  background: "white", borderRadius: "50%"
+                }}></img> : ""}
+              <Avatar src={`${data.image_url}.svg`} style={{ height: "45px", width: "45px" }} ></Avatar>
+              <Typography variant="subtitle2" style={symptoms.chills === true ? { color: "#2FC9B9" } : { color: "#696969" }}>{data.symptom_name}</Typography>
+            </Grid>:" "
+              )
+            })}
+          </Grid>
+        </Grid>
+
+        {disableNext ?
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <Paper typeof="button"
+              style={{
+                width: "70px",
+                height: "30px",
+                position: "fixed",
+                bottom: "62px",
+                // padding: "8px",
+                borderRadius: "40px",
+                background: "#2FC9B9"
+              }} onClick={() => handleNextButton()}
+            ><Typography style={{
+              display: "flex", marginTop: "7%",
+              justifyContent: "center",
+              color: "aliceblue"
+            }}
+            >NEXT</Typography>
+              {/* <Button disabled={disableNext ? false : true}
+                ></Button> */}
+            </Paper>
+          </div> :
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <Paper typeof="button"
+              style={{
+                width: "70px",
+                height: "30px",
+                position: "fixed",
+                bottom: "62px",
+                // padding: "8px",
+                borderRadius: "40px",
+                background: "grey"
+              }}
+            ><Typography style={{
+              display: "flex", marginTop: "7%",
+              justifyContent: "center",
+              color: "aliceblue"
+            }}
+            >NEXT</Typography>
+              {/* <Button disabled={disableNext ? false : true}
+               ></Button> */}
+            </Paper>
+          </div>
+        }
       </div>
     );
   }
 }
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { symptoms = {} } = preparedFinalObject;
-  return { symptoms}
+  const { symptoms = {},login = {} } = preparedFinalObject;
+  const { phoneno } = login
+
+  return { symptoms,phoneno,login }
 };
 
 export default connect(

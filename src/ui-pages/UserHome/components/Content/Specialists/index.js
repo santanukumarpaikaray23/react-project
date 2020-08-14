@@ -7,19 +7,44 @@ import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 class Specialists extends React.Component {
   componentDidMount=()=>{
     const {setAppData,specialists}=this.props
-    setAppData("specialists",{...specialists,generalPhysician:false,pediatrician:false,phychiatrist:false,
-      gynaecologist:false,dermatologist:false
-     })
+  this.getSpecialities()
   }
-  checkedHandle=(key,value)=>{
-    const {setAppData}=this.props
-    setAppData(key,value)
+  getSpecialities=async()=>{
+    const { setAppData, history } = this.props;
+    const apiResponse = await httpRequest({
+      endPoint: `/specialityList/1`,
+      method: "get",
+      instance: "instanceOne",
+    })
+    if (apiResponse) {
+      setAppData("specialists.response",apiResponse)
+    }
+  }
+  checkedHandle=async(key,value)=>{
+    const { setAppData, history,phoneno,specialists } = this.props;
+    const {specialistsName}=specialists
+    setAppData("specialists.specialistsName",value)
+    let requestBody={
+      number:phoneno,
+      symptom:"abdomen,back",
+      speciality:"Depression",
+    }
+    const apiResponse = await httpRequest({
+      endPoint: `/bookAppointment`,
+      method: "post",
+      instance: "instanceOne",
+      requestBody
+    })
+    if (apiResponse.doctor) {
+      setAppData("bookAppointment",apiResponse)
+      history.push("/user-home/book-appointment")
+    }
   }
   render() {
     const { history,specialists } = this.props
     const {checkedHandle}=this
     return (
-      <div style={{ background: "#eeeeee", height: "100vh" }}>
+      <div style={{ background: "#f7f7f7", height: "100vh" }}>
         <Grid
           container
           alignItems="center"
@@ -29,17 +54,16 @@ class Specialists extends React.Component {
           <Typography variant="h6" color="textSecondary">Find your doctor by specialists</Typography>
           {"\n"}
         </Grid>
-        <Card style={{ margin: "0px 15px 15px 15px" }} onClick={()=>checkedHandle("specialists.generalPhysician",!specialists.generalPhysician)}>
+        {specialists&&specialists.response&&specialists.response.map((data,index)=>{
+          return(
+        <Card style={{ margin: "0px 15px 15px 15px" }} onClick={()=>checkedHandle(index,data.name)}>
           <CardContent>
-          {specialists.generalPhysician===true?
-              <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",
-              zIndex:"1",background:"#F7F7F7",borderRadius: "50%"}}></img>:""}
             <Grid style={{ display: "flex" }}>
               <Grid item xs={3}>
-              <img width="110%" height="110%" src='ic_physician_f.svg' alt="verify_icon" />
+              <img width="80%" height="100%" src={`${data.url}.svg`} alt="verify_icon" />
               </Grid>
-              <Grid item md={9}>
-                <Typography variant="h6"> General Physician</Typography>
+              <Grid item xs={9}>
+              <Typography variant="h6"> {data.name}</Typography>
                 <Typography color="textSecondary" variant="subtitle2">
                   you can book an appointment and  visit the doctor at hospital
                </Typography>
@@ -47,86 +71,17 @@ class Specialists extends React.Component {
             </Grid>
           </CardContent>
         </Card>
-        <Card style={{ margin: "15px" }} onClick={()=>checkedHandle("specialists.pediatrician",!specialists.pediatrician)}>
-          <CardContent>
-          {specialists.pediatrician===true?
-              <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",
-              zIndex:"1",background:"#F7F7F7",borderRadius: "50%"}}></img>:""}
-            <Grid style={{ display: "flex" }}>
-              <Grid item xs={3}>
-              <img width="110%" height="110%" src='ic_pediatrician_f.svg' alt="verify_icon" />
-              </Grid>
-              <Grid item md={9}>
-                <Typography variant="h6"> Pediatrician </Typography>
-                <Typography color="textSecondary" variant="subtitle2">
-                  you can book an appointment and  visit the doctor at hospital
-                </Typography>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-        <Card style={{ margin: "15px" }} onClick={()=>checkedHandle("specialists.phychiatrist",!specialists.phychiatrist)}>
-          <CardContent>
-          {specialists.phychiatrist===true?
-              <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",
-              zIndex:"1",background:"#F7F7F7",borderRadius: "50%"}}></img>:""}
-            <Grid style={{ display: "flex" }}>
-              <Grid item xs={3}>
-              <img width="110%" height="110%" src='ic_psychiatrist_f.svg' alt="verify_icon" />
-              </Grid>
-              <Grid item md={9}>
-                <Typography variant="h6">Phychiatrist</Typography>
-                <Typography color="textSecondary" variant="subtitle2">
-                  you can book an appointment and  visit the doctor at hospital
-                </Typography>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-        <Card style={{ margin: "15px" }} onClick={()=>checkedHandle("specialists.gynaecologist",!specialists.gynaecologist)}>
-          <CardContent>
-          {specialists.gynaecologist===true?
-              <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",
-              zIndex:"1",background:"#F7F7F7",borderRadius: "50%"}}></img>:""}
-            <Grid style={{ display: "flex" }}>
-              <Grid item xs={3}>
-              <img width="110%" height="110%" src='ic_gynaecologist_f.svg' alt="verify_icon" />
-              </Grid>
-              <Grid item md={9}>
-                <Typography variant="h6">Gynaecologist</Typography>
-                <Typography color="textSecondary" variant="subtitle2">
-                  you can book an appointment and  visit the doctor at hospital
-                </Typography>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-        <Card style={{ margin: "15px" }} onClick={()=>checkedHandle("specialists.dermatologist",!specialists.dermatologist)}>
-          <CardContent>
-          {specialists.dermatologist===true?
-              <img height ="20px" width="20px" src="check_circle.svg" style={{ position: "absolute",
-              zIndex:"1",background:"#F7F7F7",borderRadius: "50%"}}></img>:""}
-            <Grid style={{ display: "flex" }}>
-              <Grid item xs={3}>
-              <img width="110%" height="110%" src='ic_dermatologist_f.svg' alt="verify_icon" />
-              </Grid>
-              <Grid item md={9}>
-                <Typography variant="h6">Dermatologist</Typography>
-                <Typography color="textSecondary" variant="subtitle2">
-                  you can book an appointment and  visit the doctor at hospital
-                </Typography>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
+          )
+        })}
       </div>
     );
   }
 }
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { specialists = {} } = preparedFinalObject;
-  return { specialists}
+  const { specialists,login = {} } = preparedFinalObject;
+  const { phoneno } = login
+  return { specialists,phoneno,login}
 };
 
 export default connect(
