@@ -1,14 +1,28 @@
 import React from "react";
-import { Card, Grid, CardContent, Typography, Avatar, Paper, Button } from "@material-ui/core";
+import { Card, Grid, CardContent, Typography, Avatar, Paper, Button, useRadioGroup } from "@material-ui/core";
 import { httpRequest } from "../../../../../ui-utils/api"
 import { connect } from "react-redux";
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
+import Symptoms from "../Symptoms";
 
+// videoid,hospital,token,chatid/useRadioGroup
 class BookAppointment extends React.Component {
+  componentDidMount=()=>{
+    const {setAppData}=this.props
+    let temp=7;
+    let array=[]
+    let today=new Date().getUTCDate()
+    for(let i=0;i<=today+temp;i++){
+      let obj={
+      date:today+i
+      }
+      array.push(obj)
+    }
+    setAppData("book",array)
+  }
   handleNextButton=async()=>{
-    debugger
     const { setAppData, history, checked, phoneno } = this.props;
-   let requestBody={
+    let requestBody={
       number:phoneno,
       symptom:"Cold,fever",
       speciality:"Depression",
@@ -22,6 +36,7 @@ class BookAppointment extends React.Component {
     })
     if (apiResponse.doctor) {
       setAppData("bookAppointment",apiResponse)
+      history.push("/user-home/confirm-booking")
     }
   }
   handleChange=()=>{
@@ -43,16 +58,16 @@ class BookAppointment extends React.Component {
           <Typography  align="center"  color="textSecondary" style={{margin:"5px 5px 2px 5px",fontSize:"15px",fontWeight:500}}>We recommend you to meet Dr.Michael D Dombroksi at  our Hospital</Typography>
           {"\n"}
         </Grid>
-        <Card >
+        <Card>
           <CardContent>
             <Grid style={{ display: "flex" }}>
               <Grid item xs={3}>
-                <Avatar />
+                <Avatar style={{ height: "60px", width: "60px" }}/>
               </Grid>
-              <Grid item md={9}>
-                <Typography variant="h6" > Michael D.Dombroski</Typography>
+              <Grid item xs={9}>
+                <Typography variant="h6">{bookAppointment.doctor.doctor_name}</Typography>
                 <Typography color="textSecondary" variant="subtitle2">
-                  General Physician 11 years, MBBS, MD, English and Freanch
+                  {bookAppointment.doctor.speciality}
                 </Typography>
               </Grid>
             </Grid>
@@ -175,6 +190,7 @@ class BookAppointment extends React.Component {
         <Typography  align="center" variant="h6" color="textSecondary" style={{fontWeight:500,fontSize:"15px",margin:"3px"}}>Your appointment 
         with Dr.Michael D.Dombroksi has been scheduled on June 14, Friday at 11 AM</Typography>
         </Grid>
+      
         <div
           style={{
             width: "100%",

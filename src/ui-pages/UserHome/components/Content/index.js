@@ -76,10 +76,13 @@ const styles = (theme) => ({
     // padding: "0 8px",
     // ...theme.mixins.toolbar,
     minHeight: "47px",
+
   },
   content: {
     // flexGrow: 1,
     // padding: "8px 8px 8px",
+    // background:"#eeeeee"
+
   },
   webHeader: {
     display: "flex",
