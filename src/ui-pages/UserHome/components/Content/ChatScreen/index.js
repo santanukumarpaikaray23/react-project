@@ -15,7 +15,7 @@ class ChatScreen extends React.Component {
           <Typography variant="h6" color="textSecondary">whome do you want to chat with?</Typography>
           {"\n"}
         </Grid>
-        <Card style={{ margin: "0px 15px 15px 15px" }}>
+        <Card style={{ margin: "0px 15px 15px 15px" }} onClick={()=>history.push("/user-home/chating")}>
           <CardContent>
             <Grid style={{ display: "flex" }}>
               <Grid item xs={3}>
@@ -68,3 +68,4 @@ class ChatScreen extends React.Component {
   }
 }
 export default ChatScreen;
+

@@ -43,6 +43,11 @@ const ConfirmBooking = Loadable({
     import("../ui-pages/UserHome/components/Content/ConfirmBooking"),
   loading: Loading,
 });
+const Chat = Loadable({
+  loader: () =>
+    import("../ui-pages/UserHome/components/Content/Chat"),
+  loading: Loading,
+});
 
 const UserRoutes = () => {
   return (
@@ -50,6 +55,7 @@ const UserRoutes = () => {
       <Route exact path="/user-home" component={Landing}/>
       <Route  path="/user-home/home" component={HomeScreen}/>
       <Route  path="/user-home/chat" component={ChatScreen}/>
+      <Route  path="/user-home/chating" component={Chat}/>
       <Route  path="/user-home/book-appointment" component={BookAppointment}/>
       <Route  path="/user-home/calendar" component={Calendar}/>
       <Route  path="/user-home/home/specialists" component={Specialists}/>
