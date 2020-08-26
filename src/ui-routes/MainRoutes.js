@@ -24,7 +24,7 @@ const MainRoutes = () => {
       <Route exact path="/" component={Login} />
       <Route path="/user-home" component={UserHome} />
       <Route path="/Otp" component={OTP} />
-      <Redirect to="/user-home" />
+      <Redirect to="/" />
     </div>
   )
 }

@@ -14,7 +14,7 @@ class Otp extends React.Component {
     setAppData(value, otp)
   };
   handlerVerifyOtp = async () => {
-    const { setAppData, history, checked, phoneno, otpValue } = this.props;
+    const {history, phoneno, otpValue } = this.props;
     let requestBody = {
       number: phoneno,
       user_type: "patient",
@@ -32,7 +32,7 @@ class Otp extends React.Component {
     }
   }
   resendOtp=async()=>{
-    const { setAppData, history, checked, phoneno, otpValue } = this.props;
+    const { history } = this.props;
     const apiResponse = await httpRequest({
       endPoint: `/resendOtp/7895328523/patient`,
       method: "get",
@@ -43,7 +43,7 @@ class Otp extends React.Component {
     }
   }
   render() {
-    const { history, otpValue } = this.props
+    const {otpValue } = this.props
     let count=otpValue.toString().length;
     console.log(count,"hiii")
     return (

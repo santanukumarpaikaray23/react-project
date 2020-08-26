@@ -9,9 +9,11 @@ import { mapDispatchToProps } from "./ui-utils/commons";
 import MainRoutes from "./ui-routes/MainRoutes";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
-import { httpRequest } from "./ui-utils/api";
 import "./App.css";
-
+// import Amplify from "aws-amplify"
+// import aws_exports from "aws-exports"s
+// import {withAuthenticator} from "aws-amplify-react"
+// Amplify.configure(aws_exports)
 class App extends React.Component {
 
   render() {
@@ -53,4 +55,4 @@ const mapStateToProps = ({ screenConfiguration }) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(withTranslation()(App)));
+)(withRouter(App));

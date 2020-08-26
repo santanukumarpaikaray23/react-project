@@ -78,7 +78,7 @@ class Login extends React.Component {
     });
   };
   loginChange = () => {
-    const { receiveOtp, setAppData, history } = this.props
+    const {setAppData } = this.props
     setAppData("login.receiveOtp", true)
     // history.push("/Otp")
   }
@@ -98,7 +98,7 @@ class Login extends React.Component {
   };
 
   handlerRequestOtp = async () => {
-    const { setAppData, history, checked, phoneno } = this.props;
+    const {history, checked, phoneno } = this.props;
     const apiResponse = await httpRequest({
       endPoint: `/requestOtp/${phoneno}/Patient`,
       method: "get",
@@ -109,7 +109,7 @@ class Login extends React.Component {
     }
   }
   render() {
-    const { history, setAppData, phoneno, mobile, receiveOtp, checked } = this.props
+    const {setAppData, phoneno, mobile, receiveOtp, checked } = this.props
     const { validatePhoneNumber, handlerRequestOtp } = this
     return (
       <div style={{ background: "#F8F8F8" }}>

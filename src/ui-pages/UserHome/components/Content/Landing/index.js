@@ -1,14 +1,11 @@
 import React from "react";
 import { Card, Grid, CardContent, Typography } from "@material-ui/core";
-import VideocamIcon from "@material-ui/icons/Videocam";
-import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
 import MessageIcon from "@material-ui/icons/Message";
-import HomeIcon from '@material-ui/icons/Home';
 import { withRouter } from 'react-router-dom';
 
 class Landing extends React.Component {
   render() {
-    const { history,classes } = this.props
+    const { history } = this.props
     return (
       <div style={{ background: "#eeeeee", height: "100vh" }}>
         <Card>

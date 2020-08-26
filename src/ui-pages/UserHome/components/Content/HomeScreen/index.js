@@ -1,17 +1,15 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { withStyles, Grid, Button, Paper } from "@material-ui/core";
+import { withStyles } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
-import { useHistory } from "react-router";
-import { httpRequest } from "../../../../../ui-utils/api"
+// import { useHistory } from "react-router";
 import { connect } from "react-redux";
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 
 function TabContainer(props) {
-  const history = useHistory();
+  // const history = useHistory();
 
   console.log(props.childern, "iiii")
   return (
@@ -46,9 +44,9 @@ class TabsWrappedLabel extends React.Component {
   };
 
   render() {
-    const { classes, symptoms } = this.props;
+    const { classes } = this.props;
     const { value } = this.state;
-    const { handleNextButton } = this
+    // const { handleNextButton } = this
     return (
       <div className={classes.root}>
         <AppBar position="static" >

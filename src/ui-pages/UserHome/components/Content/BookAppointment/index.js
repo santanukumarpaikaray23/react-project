@@ -1,9 +1,9 @@
 import React from "react";
-import { Card, Grid, CardContent, Typography, Avatar, Paper, Button, useRadioGroup } from "@material-ui/core";
+import { Card, Grid, CardContent, Typography, Avatar, Paper, Button } from "@material-ui/core";
 import { httpRequest } from "../../../../../ui-utils/api"
 import { connect } from "react-redux";
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
-import Symptoms from "../Symptoms";
+// import Symptoms from "../Symptoms";
 
 // videoid,hospital,token,chatid/useRadioGroup
 class BookAppointment extends React.Component {
@@ -21,12 +21,11 @@ class BookAppointment extends React.Component {
     setAppData("book",array)
   }
   handleNextButton=async()=>{
-    const { setAppData, history, checked, phoneno } = this.props;
+    const { setAppData, history, phoneno } = this.props;
     let requestBody={
       number:phoneno,
       symptom:"Cold,fever",
-      speciality:"Depression",
-      appointment_datetime:"2014-07-04T12:08:56"
+      speciality:"Depression"
     }
     const apiResponse = await httpRequest({
       endPoint: `/bookAppointment`,
@@ -34,7 +33,7 @@ class BookAppointment extends React.Component {
       instance: "instanceOne",
       requestBody
     })
-    if (apiResponse.doctor) {
+    if (apiResponse) {
       setAppData("bookAppointment",apiResponse)
       history.push("/user-home/confirm-booking")
     }
@@ -44,7 +43,7 @@ class BookAppointment extends React.Component {
     setAppData("")
   }
   render() {
-    const { history,bookAppointment } = this.props
+    const {bookAppointment } = this.props
     const {handleNextButton,handleChange}=this
     return (
       <div style={{ background: "#f7f7f7", height: "100vh"}}>
@@ -65,9 +64,9 @@ class BookAppointment extends React.Component {
                 <Avatar style={{ height: "60px", width: "60px" }}/>
               </Grid>
               <Grid item xs={9}>
-                <Typography variant="h6">{bookAppointment.doctor.doctor_name}</Typography>
+                <Typography variant="h6">{bookAppointment&&bookAppointment.doctor&&bookAppointment.doctor.doctor_name}</Typography>
                 <Typography color="textSecondary" variant="subtitle2">
-                  {bookAppointment.doctor.speciality}
+                  {bookAppointment&&bookAppointment.doctor&&bookAppointment.doctor.speciality}
                 </Typography>
               </Grid>
             </Grid>

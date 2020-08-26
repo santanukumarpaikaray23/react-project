@@ -35,7 +35,9 @@
     "redux-thunk": "^2.3.0",
     "twilio": "^3.6.7",
     "twilio-chat": "^1.1.1",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "aws-amplify": "^1.1.11",
+    "aws-amplify-react": "^2.1.5"
   },
   "scripts": {
     "start": "react-scripts start",
