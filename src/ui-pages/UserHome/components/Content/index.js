@@ -1,13 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import { withStyles, ThemeProvider, createMuiTheme, Avatar } from "@material-ui/core";
+import { withStyles, ThemeProvider, createMuiTheme } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import ArrowBack from "@material-ui/icons/ArrowBack";
 import UserRoutes from "../../../../ui-routes/UserRoutes";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
@@ -141,7 +140,7 @@ class MiniDrawer extends React.Component {
 
   };
   render() {
-    const { classes, history, bottomBoolean, setAppData, userInfo } = this.props;
+    const { classes, history, userInfo } = this.props;
     const { value } = this.state;
     const { handleChange } = this
     let endPoint = document.location.hash.split("#")[1];
@@ -153,7 +152,7 @@ class MiniDrawer extends React.Component {
             endPoint === item.id ?
               <AppBar
                 elevation={0}
-                // key={index}
+                key={index}
                 position="fixed"
                 className={classNames(classes.appBar)}>
                 <ThemeProvider theme={theme}>

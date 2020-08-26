@@ -1,14 +1,11 @@
 import React from "react";
 import { Card, Grid, CardContent, Typography } from "@material-ui/core";
-import VideocamIcon from "@material-ui/icons/Videocam";
-import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
 import MessageIcon from "@material-ui/icons/Message";
-import HomeIcon from '@material-ui/icons/Home';
 import { withRouter } from 'react-router-dom';
 
 class Landing extends React.Component {
   render() {
-    const { history,classes } = this.props
+    const { history } = this.props
     return (
       <div style={{ background: "#eeeeee", height: "100vh" }}>
         <Card>
@@ -16,7 +13,7 @@ class Landing extends React.Component {
             container
             style={{ background: "#343434", color: "white", padding: "10px", marginTop: "10px" }}>
             <Typography>You don't have any upcomming appointment</Typography>
-            <MessageIcon style={{ marginLeft: "4%", marginTop: "1%" }} />
+            <MessageIcon style={{ marginLeft: "4%", marginTop: "1%" }} onClick={()=>history.push("/user-home/video-call")}/>
           </Grid>
         </Card>
         <Grid

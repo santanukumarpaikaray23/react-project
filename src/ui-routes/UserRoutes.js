@@ -2,7 +2,6 @@ import React from "react";
 import { Route } from "react-router";
 import Loadable from "react-loadable";
 import Loading from "../ui-molecules/Loading";
-
 const Landing = Loadable({
   loader: () =>
     import("../ui-pages/UserHome/components/Content/Landing"),
@@ -48,6 +47,11 @@ const Chat = Loadable({
     import("../ui-pages/UserHome/components/Content/Chat"),
   loading: Loading,
 });
+const VideoCall = Loadable({
+  loader: () =>
+    import("../ui-pages/UserHome/components/Content/VideoCall/Video"),
+  loading: Loading,
+});
 
 const UserRoutes = () => {
   return (
@@ -61,6 +65,7 @@ const UserRoutes = () => {
       <Route  path="/user-home/home/specialists" component={Specialists}/>
       <Route  path="/user-home/home/symptoms" component={Symptoms}/>
       <Route  path="/user-home/confirm-booking" component={ConfirmBooking}/>
+      <Route  path="/user-home/video-call" component={VideoCall}/>
     </div>
   );
 };

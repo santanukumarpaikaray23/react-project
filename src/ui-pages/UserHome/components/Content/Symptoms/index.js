@@ -1,15 +1,14 @@
 import React from "react";
-import { Card, Grid, CardContent, Typography, Avatar, TextField, Paper } from "@material-ui/core";
+import {Grid, Typography, Avatar, TextField, Paper } from "@material-ui/core";
 import { connect } from "react-redux";
 import { httpRequest } from "../../../../../ui-utils/api";
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 class Symptoms extends React.Component {
   componentDidMount = () => {
-    const { setAppData, symptoms } = this.props
     this.getSymptoms()
   }
   getSymptoms=async()=>{
-    const { setAppData, history } = this.props;
+    const { setAppData } = this.props;
     let tempVar=[]
     const apiResponse = await httpRequest({
       endPoint: `/symptomlist`,
@@ -28,15 +27,14 @@ class Symptoms extends React.Component {
   }
   checkedHandle = (key,value) => {
     const { symptoms, setAppData } = this.props
-    const {response=[],name=""}=symptoms
+    const {response=[]}=symptoms
     let {symptomSelected}=response&&response[key]
-    let array=[]
     setAppData(`symptoms.response[${key}].symptomSelected`,!symptomSelected)
     setAppData(`symptoms.name[${key}]`,value)
   }
   handleNextButton = async() => {
-    const { setAppData, history, checked, phoneno,symptoms } = this.props;
-    const {response=[],name=""}=symptoms
+    const { setAppData, history, phoneno,symptoms } = this.props;
+    const {name=""}=symptoms
     let symptomName=name.toString()
     console.log(symptomName,"ksaksjak")
     let requestBody={
@@ -56,7 +54,7 @@ class Symptoms extends React.Component {
     }
   }
   render() {
-    const { history, symptoms } = this.props
+    const {symptoms } = this.props
     const { checkedHandle, handleNextButton } = this
     let disableNext = false
     symptoms && Object.keys(symptoms).forEach((symptom) => {
@@ -91,9 +89,9 @@ class Symptoms extends React.Component {
             {symptoms&& symptoms.response && symptoms.response.map((data,index)=>{
               return(
               data.category==="My Hurts"?
-              <Grid item xs={3} style={{ padding: "10px" }} onClick={() => checkedHandle(index,data.symptom_name)}>
+              <Grid item xs={3} key={index} style={{ padding: "10px" }} onClick={() => checkedHandle(index,data.symptom_name)}>
               {data.symptomSelected?
-                <img height="20px" width="20px" src="check_circle.svg" style={{
+                <img height="20px" width="20px" src="check_circle.svg" alt="check_circle" style={{
                   position: "absolute",
                   zIndex: "1", background: "#F7F7F7", borderRadius: "50%"
                 }}></img> : ""}
@@ -118,9 +116,9 @@ class Symptoms extends React.Component {
           {symptoms&& symptoms.response && symptoms.response.map((data,index)=>{
               return(
               data.category==="I Feel"?
-            <Grid item xs={3} style={{ padding: "10px" }} onClick={() => checkedHandle(index)}>
+            <Grid item xs={3} key={index} style={{ padding: "10px" }} onClick={() => checkedHandle(index)}>
               {data.symptomSelected?
-                <img height="20px" width="20px" src="check_circle.svg" style={{
+                <img height="20px" width="20px" src="check_circle.svg" alt="check_circle" style={{
                   position: "absolute", zIndex: "1",
                   background: "white", borderRadius: "50%"
                 }}></img> : ""}
@@ -145,9 +143,9 @@ class Symptoms extends React.Component {
           {symptoms&& symptoms.response && symptoms.response.map((data,index)=>{
               return(
               data.category==="I Can't"?
-            <Grid item xs={3} style={{ padding: "10px" }} onClick={() => checkedHandle(index)}>
+            <Grid item xs={3}  key={index}style={{ padding: "10px" }} onClick={() => checkedHandle(index)}>
               {data.symptomSelected?
-                <img height="20px" width="20px" src="check_circle.svg" style={{
+                <img height="20px" width="20px" src="check_circle.svg" alt="check_circle"style={{
                   position: "absolute", zIndex: "1",
                   background: "white", borderRadius: "50%"
                 }}></img> : ""}

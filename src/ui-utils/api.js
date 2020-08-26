@@ -3,15 +3,14 @@ import { addQueryArg } from "./commons";
 import { prepareFinalObject } from "../ui-redux/screen-configuration/actions";
 import store from "../ui-redux/store";
 
-const getToken = () => {
-  const userInfo = JSON.parse(localStorage.getItem("user-info")) || {};
-  return userInfo.access_token;
-};
+// const getToken = () => {
+//   const userInfo = JSON.parse(localStorage.getItem("user-info")) || {};
+//   return userInfo.access_token;
+// };
 
 let axiosInstances = {
   instanceOne: axios.create({
     baseURL: process.env.NODE_ENV !== 'production'?window.location.origin:"http://ec2-13-127-71-22.ap-south-1.compute.amazonaws.com",
-    //  baseURL:"http://ec2-13-127-71-22.ap-south-1.compute.amazonaws.com:8080",
 
     headers: {
       "Content-Type": "application/json"

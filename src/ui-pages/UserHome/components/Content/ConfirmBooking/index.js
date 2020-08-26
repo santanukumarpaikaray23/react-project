@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, Grid, CardContent, Typography, Avatar,Button } from "@material-ui/core";
-import { httpRequest } from "../../../../../ui-utils/api"
 import { connect } from "react-redux";
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 
@@ -11,8 +10,6 @@ class ConfirmBooking extends React.Component {
     setAppData("")
   }
   render() {
-    const { history,bookAppointment } = this.props
-    const {handleChange}=this
     return (
       <div style={{ background: "#f7f7f7", height: "100vh"}}>
         <div style={{margin: "0px 15px 15px 15px"}}>

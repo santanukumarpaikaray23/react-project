@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import MessageForm from '../MessageFrom'
 import MessageList from '../MessageList'
 import TwilioChat from 'twilio-chat'
+// import Twilio from 'twilio'
 import { httpRequest } from "../../../../../ui-utils/api"
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
-import $ from 'jquery'
+// import $ from 'jquery'
 import { connect } from "react-redux";
 
 // import axios from "axios"
@@ -23,7 +24,7 @@ class Chat extends Component {
   componentDidMount = () => {
     this.getToken()
       .then(this.createChatClient)
-      .then(this.getChannel)
+      .then(this.joinGeneralChannel)
       .then(this.configureChannelEvents)
       .catch((error) => {
         this.addMessage({ body: `Error: ${error.message}` })
@@ -32,7 +33,7 @@ class Chat extends Component {
 
   getToken = async() => {
     debugger
-    const { setAppData, history, checked, phoneno } = this.props;
+    const { setAppData } = this.props;
     // return new Promise((resolve, reject) => {
 
     const apiResponse = await httpRequest({
@@ -55,6 +56,19 @@ return apiResponse
     // })
   }
 
+  // connectMessagingClient=(token)=> {
+  //   debugger
+  //   // Initialize the Chat messaging client
+  //   Twilio.Chat.Client.create(token).then(function(client) {
+  //     tc.messagingClient = client;
+  //     updateConnectedUI();
+  //     tc.loadChannelList(tc.joinGeneralChannel);
+  //     tc.messagingClient.on('channelAdded', $.throttle(tc.loadChannelList));
+  //     tc.messagingClient.on('channelRemoved', $.throttle(tc.loadChannelList));
+  //     tc.messagingClient.on('tokenExpired', refreshToken);
+  //   });
+  // }
+
   createChatClient = (token) => {
     debugger
     return new Promise((resolve, reject) => {
@@ -66,7 +80,6 @@ return apiResponse
 
   getChannel=async(chatClient)=>{
     debugger
-    const { setAppData, history, checked, phoneno } = this.props;
     let requestBody={
       appointmentId: 59,
   doctorId: 47,
@@ -79,18 +92,15 @@ return apiResponse
       requestBody
     })
     let channel=apiResponse
-    channel.url.join.
-      this.addMessage({ body: `Joined general channel as ${this.state.username}` })
+    channel.url.join.this.addMessage({ body: `Joined general channel as ${this.state.username}` })
       window.addEventListener('beforeunload', () => channel.leave())
-    
-
   }
 
   joinGeneralChannel = (chatClient) => {
     debugger
     return new Promise((resolve, reject) => {
-      chatClient.getSubscribedChannels().then(() => {
-        console.log("kkkkkkkk")
+      chatClient.getSubscribedChannels().then((res) => {
+        console.log("kkkk",res)
         chatClient.getChannelByUniqueName('general').then((channel) => {
           console.log(channel,"channel")
           this.addMessage({ body: 'Joining general channel...' })

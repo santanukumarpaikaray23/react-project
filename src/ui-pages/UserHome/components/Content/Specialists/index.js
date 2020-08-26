@@ -1,16 +1,15 @@
 import React from "react";
-import { Card, Grid, CardContent, Typography, Avatar } from "@material-ui/core";
+import { Card, Grid, CardContent, Typography } from "@material-ui/core";
 import { connect } from "react-redux";
 import { httpRequest } from "../../../../../ui-utils/api";
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 
 class Specialists extends React.Component {
   componentDidMount=()=>{
-    const {setAppData,specialists}=this.props
   this.getSpecialities()
   }
   getSpecialities=async()=>{
-    const { setAppData, history } = this.props;
+    const { setAppData } = this.props;
     const apiResponse = await httpRequest({
       endPoint: `/specialityList/1`,
       method: "get",
@@ -21,8 +20,7 @@ class Specialists extends React.Component {
     }
   }
   checkedHandle=async(key,value)=>{
-    const { setAppData, history,phoneno,specialists } = this.props;
-    const {specialistsName}=specialists
+    const { setAppData, history,phoneno } = this.props;
     setAppData("specialists.specialistsName",value)
     let requestBody={
       number:phoneno,
@@ -41,7 +39,7 @@ class Specialists extends React.Component {
     }
   }
   render() {
-    const { history,specialists } = this.props
+    const {specialists } = this.props
     const {checkedHandle}=this
     return (
       <div style={{ background: "#f7f7f7", height: "100vh" }}>
@@ -56,7 +54,7 @@ class Specialists extends React.Component {
         </Grid>
         {specialists&&specialists.response&&specialists.response.map((data,index)=>{
           return(
-        <Card style={{ margin: "0px 15px 15px 15px" }} onClick={()=>checkedHandle(index,data.name)}>
+        <Card style={{ margin: "0px 15px 15px 15px" }} key={index} onClick={()=>checkedHandle(index,data.name)}>
           <CardContent>
             <Grid style={{ display: "flex" }}>
               <Grid item xs={3}>
