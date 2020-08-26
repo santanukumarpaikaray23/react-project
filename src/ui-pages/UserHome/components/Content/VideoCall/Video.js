@@ -1,91 +1,85 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import Room from './Room';
 import Video from 'twilio-video';
+import { httpRequest } from "../../../../../ui-utils/api"
+import { connect } from "react-redux";
+import { mapDispatchToProps } from "../../../../../ui-utils/commons";
+
+class VideoChat extends Component {
+
+    componentDidMount = async () => {
+        const { setAppData } = this.props
+        setAppData("spinner", true)
+        const apiResponse = await httpRequest({
+            endPoint: `/connectVedio/51`,
+            method: "get",
+            instance: "instanceOne",
+        })
+        let doctorToken = apiResponse ? apiResponse.doctorAccessToken : "Api Error"
+        console.log("doctorAccessToken", doctorToken);
+        setAppData("VideoChat", apiResponse)
+        const { doctorAccessToken, patientAccessToken, ChannelId } = apiResponse;
+        setAppData("token", `${patientAccessToken}`);
+        setAppData("roomName", `${ChannelId}`);
+        setAppData("doctorAccessToken",doctorAccessToken);
+        setAppData("spinner", false)
+    }
+
+    handleLogout = () => {
+        const { token, roomName } = this.props;
+        Video.connect(`${token}`, { name: roomName }).then((room) => {
+
+            room.localParticipant.audioTracks.forEach((publication) => {
+                publication.track.disable();
+            });
+
+            room.localParticipant.videoTracks.forEach((publication) => {
+                publication.track.disable();
+            });
+
+            room.localParticipant.videoTracks.forEach((publication) => {
+                publication.track.stop();
+                publication.unpublish();
+            });
+        });
+    }
 
 
-class VideoChat extends Component{
+    muteAudio = () => {
+        const {token, roomName } = this.props;
+        Video.connect(`${token}`, { name: roomName }).then((room) => {
+            room.localParticipant.audioTracks.forEach((publication) => {
+                publication.track.disable();
+            });
+            room.localParticipant.videoTracks.forEach((publication) => {
+                publication.track.enable();
+            });
+        });
+    }
+    render() {
+        const { handleLogout, muteAudio } = this;
+        const { setAppData, apiResponse = {} } = this.props;
+        const { doctorAccessToken, token, roomName } = this.props;
 
 
-    render(){
-        
-const handleLogout=()=>{
-    Video.connect(token, { name: roomName }).then((room) => {
-  
-      room.localParticipant.audioTracks.forEach((publication) => {
-        publication.track.disable();
-      });
-  
-      room.localParticipant.videoTracks.forEach((publication) => {
-        publication.track.disable();
-      });
-  
-      room.localParticipant.videoTracks.forEach((publication) => {
-        publication.track.stop();
-        publication.unpublish();
-      });
-    });
-  }
 
-  
-const muteAudio=()=>{
-    Video.connect(token, { name: roomName }).then((room) => {
-      room.localParticipant.audioTracks.forEach((publication) => {
-        publication.track.disable();
-      });
-      room.localParticipant.videoTracks.forEach((publication) => {
-        publication.track.enable();
-      });
-    });
-  }
-  
-
-        return(
+        return (
             <Room roomName={roomName}
-   token={token}
-   handleLogout={handleLogout} 
-   muteAudio={muteAudio}/>
+                token={token}
+                handleLogout={handleLogout}
+                muteAudio={muteAudio} />
         )
     }
 }
 
-// const VideoChat = () => {
-// const roomName="7888683799-8447594602";
-// const token="eyJjdHkiOiJ0d2lsaW8tZnBhO3Y9MSIsInR5cCI6IkpXVCIsImFsZyI6IkhTMjU2In0.eyJpc3MiOiJTS2U1ZmIzM2Q5N2ZkZmY1YTg5ZjUwMDFiMWRlMTE4ODZmIiwiZXhwIjoxNTk4NDM5MjkwLCJncmFudHMiOnsiaWRlbnRpdHkiOiJQYXRpZW50IiwidmlkZW8iOnsicm9vbSI6Ijc4ODg2ODM3OTktODQ0NzU5NDYwMiJ9fSwianRpIjoiU0tlNWZiMzNkOTdmZGZmNWE4OWY1MDAxYjFkZTExODg2Zi0xNTk4NDM1NzEyIiwic3ViIjoiQUNlYWJkYzQxY2U0ZGI3ZmIxOThhYmQ1ZmE0YzhjZDY3MyJ9.DyFXWJeHb3FEuDQEz2I6JWiP6q-o7XFW-LDgFjZ_oZA"
-
-// const handleLogout=()=>{
-//   Video.connect(token, { name: roomName }).then((room) => {
-
-//     room.localParticipant.audioTracks.forEach((publication) => {
-//       publication.track.disable();
-//     });
-
-//     room.localParticipant.videoTracks.forEach((publication) => {
-//       publication.track.disable();
-//     });
-
-//     room.localParticipant.videoTracks.forEach((publication) => {
-//       publication.track.stop();
-//       publication.unpublish();
-//     });
-//   });
-// }
-
-
-// const muteAudio=()=>{
-//   Video.connect(token, { name: roomName }).then((room) => {
-//     room.localParticipant.audioTracks.forEach((publication) => {
-//       publication.track.disable();
-//     });
-//     room.localParticipant.videoTracks.forEach((publication) => {
-//       publication.track.enable();
-//     });
-//   });
-// }
-//   let render;
-//   return render =  <Room roomName={roomName}
-//    token={token}
-//    handleLogout={handleLogout} 
-//    muteAudio={muteAudio}/>;
-// };
-
-export default VideoChat;
+const mapStateToProps = ({ screenConfiguration }) => {
+    const { preparedFinalObject = {} } = screenConfiguration;
+    const { apiResponse={}, token, roomName,doctorAccessToken} = preparedFinalObject;
+   
+    return { apiResponse,doctorAccessToken,token, roomName}
+  };
+  
+  export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(VideoChat);
