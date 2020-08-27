@@ -11,7 +11,7 @@ class Specialists extends React.Component {
   getSpecialities=async()=>{
     const { setAppData } = this.props;
     const apiResponse = await httpRequest({
-      endPoint: `/specialityList/1`,
+      endPoint: `/specialityList/3d705de4-19e8-4846-9378-c1c15f03e0e1`,
       method: "get",
       instance: "instanceOne",
     })
@@ -26,6 +26,8 @@ class Specialists extends React.Component {
       number:phoneno,
       symptom:"abdomen,back",
       speciality:"Depression",
+      appointment_datetime:"2020-07-25T12:08:56",
+    slot:2
     }
     const apiResponse = await httpRequest({
       endPoint: `/bookAppointment`,
@@ -33,7 +35,7 @@ class Specialists extends React.Component {
       instance: "instanceOne",
       requestBody
     })
-    if (apiResponse.doctor) {
+    if (apiResponse) {
       setAppData("bookAppointment",apiResponse)
       history.push("/user-home/book-appointment")
     }

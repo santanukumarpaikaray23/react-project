@@ -36,6 +36,7 @@
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "sendbird": "^3.0.132",
     "twilio": "^3.6.7",
     "twilio-chat": "^1.1.1",
     "twilio-video": "^2.7.2"

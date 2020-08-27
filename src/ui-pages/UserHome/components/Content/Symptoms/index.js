@@ -8,6 +8,7 @@ class Symptoms extends React.Component {
     this.getSymptoms()
   }
   getSymptoms=async()=>{
+    debugger
     const { setAppData } = this.props;
     let tempVar=[]
     const apiResponse = await httpRequest({
@@ -33,6 +34,7 @@ class Symptoms extends React.Component {
     setAppData(`symptoms.name[${key}]`,value)
   }
   handleNextButton = async() => {
+    debugger
     const { setAppData, history, phoneno,symptoms } = this.props;
     const {name=""}=symptoms
     let symptomName=name.toString()
@@ -41,6 +43,8 @@ class Symptoms extends React.Component {
       number:phoneno,
       symptom:symptomName,
       speciality:"Depression",
+      appointment_datetime:"2020-07-25T12:08:56",
+    slot:2
     }
     const apiResponse = await httpRequest({
       endPoint: `/bookAppointment`,
@@ -48,7 +52,7 @@ class Symptoms extends React.Component {
       instance: "instanceOne",
       requestBody
     })
-    if (apiResponse.doctor) {
+    if (apiResponse) {
       setAppData("bookAppointment",apiResponse)
       history.push("/user-home/book-appointment")
     }

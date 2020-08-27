@@ -7,6 +7,7 @@ import { httpRequest } from "../../../../../ui-utils/api"
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 // import $ from 'jquery'
 import { connect } from "react-redux";
+import SendBird from "sendbird"
 
 // import axios from "axios"
 // import './App.css'
@@ -71,11 +72,17 @@ return apiResponse
 
   createChatClient = (token) => {
     debugger
-    return new Promise((resolve, reject) => {
-      resolve(new TwilioChat(token))
-      let aa= new TwilioChat(token)
-      console.log(aa,"aa")
-    })
+    // return new Promise((resolve, reject) => {
+    //   resolve(new TwilioChat(token))
+    //   let aa= new TwilioChat(token)
+    //   console.log(aa,"aa")
+    // })
+    var sb = new SendBird({appId:"SKe5fb33d97fdff5a89f5001b1de11886f"});
+    sb.connect("eyJjdHkiOiJ0d2lsaW8tZnBhO3Y9MSIsInR5cCI6IkpXVCIsImFsZyI6IkhTMjU2In0.eyJpc3MiOiJTS2U1ZmIzM2Q5N2ZkZmY1YTg5ZjUwMDFiMWRlMTE4ODZmIiwiZXhwIjoxNTk4NDYzNjE2LCJncmFudHMiOnsiaWRlbnRpdHkiOiI5MTYzNDEzMjkzIiwiY2hhdCI6e319LCJqdGkiOiJTS2U1ZmIzM2Q5N2ZkZmY1YTg5ZjUwMDFiMWRlMTE4ODZmLTE1OTg0NjAwMzIiLCJzdWIiOiJBQ2VhYmRjNDFjZTRkYjdmYjE5OGFiZDVmYTRjOGNkNjczIn0.iUNJKRnojK9wrDVCViO2xCMSR-MP9yFAEeQhuexQhW8", function(user, error) {
+      if (error) {
+          return;
+      }
+  });
   }
 
   getChannel=async(chatClient)=>{
@@ -96,6 +103,7 @@ return apiResponse
       window.addEventListener('beforeunload', () => channel.leave())
   }
 
+  
   joinGeneralChannel = (chatClient) => {
     debugger
     return new Promise((resolve, reject) => {

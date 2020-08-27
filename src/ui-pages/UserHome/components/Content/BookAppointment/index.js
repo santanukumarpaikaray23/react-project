@@ -7,18 +7,40 @@ import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 
 // videoid,hospital,token,chatid/useRadioGroup
 class BookAppointment extends React.Component {
-  componentDidMount=()=>{
-    const {setAppData}=this.props
-    let temp=7;
-    let array=[]
-    let today=new Date().getUTCDate()
-    for(let i=0;i<=today+temp;i++){
-      let obj={
-      date:today+i
-      }
-      array.push(obj)
+  componentDidMount=async()=>{
+    debugger
+    const { setAppData } = this.props;
+    let tempVar=[]
+    let dates=[{date:"27"},{date:"28"},{date:"29"},{date:"30"},{date:"31"},{date:"1"},{date:"2"}]
+    setAppData("bookAppointment.dates",dates)
+    const apiResponse = await httpRequest({
+      endPoint: `/bookingSlots/30f3eaf9-6bb0-469f-bdcf-251cdf7744ca`,
+      method: "get",
+      instance: "instanceOne",
+    })
+    if (apiResponse) {
+      let uniqueArray=[]
+      let jsonObject = {};
+          var uniqueSet = {};
+          jsonObject = apiResponse.map(JSON.stringify);
+          uniqueSet = new Set(jsonObject);
+          uniqueArray = Array.from(uniqueSet).map(JSON.parse);
+          // uniqueArray.map((data)=>{
+          //  let date= data.booking_date.getDate()
+          //   dates.push(date)
+          // })
+      setAppData("symptoms.response",tempVar)
     }
-    setAppData("book",array)
+    // let temp=7;
+    // let array=[]
+    // let today=new Date().getUTCDate()
+    // for(let i=0;i<=today+temp;i++){
+    //   let obj={
+    //   date:today+i
+    //   }
+    //   array.push(obj)
+    // }
+    // setAppData("book",array)
   }
   handleNextButton=async()=>{
     const { setAppData, history, phoneno } = this.props;
@@ -43,7 +65,7 @@ class BookAppointment extends React.Component {
     setAppData("")
   }
   render() {
-    const {bookAppointment } = this.props
+    const {bookAppointment,dates } = this.props
     const {handleNextButton,handleChange}=this
     return (
       <div style={{ background: "#f7f7f7", height: "100vh"}}>
@@ -64,9 +86,11 @@ class BookAppointment extends React.Component {
                 <Avatar style={{ height: "60px", width: "60px" }}/>
               </Grid>
               <Grid item xs={9}>
-                <Typography variant="h6">{bookAppointment&&bookAppointment.doctor&&bookAppointment.doctor.doctor_name}</Typography>
-                <Typography color="textSecondary" variant="subtitle2">
-                  {bookAppointment&&bookAppointment.doctor&&bookAppointment.doctor.speciality}
+                <Typography variant="h6">Rahul
+                  {/* {bookAppointment&&bookAppointment.doctor&&bookAppointment.doctor.doctor_name} */}
+                  </Typography>
+                <Typography color="textSecondary" variant="subtitle2">Depression
+                  {/* {bookAppointment&&bookAppointment.doctor&&bookAppointment.doctor.speciality} */}
                 </Typography>
               </Grid>
             </Grid>
@@ -78,13 +102,18 @@ class BookAppointment extends React.Component {
         </Grid>
         <Typography align="center" color="textSecondary" variant="subtitle2" style={{margin:"5px 0px 5px 0px"}}>Select your date</Typography>
         <Grid container>
-        <Typography align="center" style={{margin:"3px"}}>
-          <Card style={{width:"40px",height:"60px"}} onClick={()=>handleChange("bookAppointment.")}>
-            <Typography style={{fontSize:"10px"}} color="textSecondary">TODAY</Typography>
-            <Typography  color="textSecondary" variant="h5">11</Typography>
-            <Typography  color="textSecondary">TUE</Typography>
-          </Card>
-        </Typography>
+          {/* {dates.map((data)=>{
+            return( */}
+              <Typography align="center" style={{margin:"3px"}}>
+              <Card style={{width:"40px",height:"60px"}} onClick={()=>handleChange("bookAppointment.")}>
+                <Typography style={{fontSize:"10px"}} color="textSecondary">TODAY</Typography>
+                <Typography  color="textSecondary" variant="h5">11</Typography>
+                <Typography  color="textSecondary">TUE</Typography>
+              </Card>
+            </Typography>
+          {/* //   )
+          // })} */}
+        
         <Typography align="center" style={{margin:"3px"}}>
           <Card style={{width:"40px",height:"60px",boxShadow:"none",background:"#f7f7f7"}}>
             <Typography style={{marginBottom:"14px"}} color="textSecondary"></Typography>
@@ -224,7 +253,8 @@ class BookAppointment extends React.Component {
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
   const { bookAppointment = {} } = preparedFinalObject;
-  return { bookAppointment}
+  const {dates}=bookAppointment
+  return { bookAppointment,dates}
 };
 
 export default connect(
