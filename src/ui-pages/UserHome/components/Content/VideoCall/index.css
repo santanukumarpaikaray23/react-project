@@ -1,0 +1,34 @@
+.participant {
+   /* background: rgb(53 177 164);  */
+     padding: 2px; 
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .remote-participants {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    /* padding: 0 2em 2em; */
+   
+  }
+  button{
+      margin-left: 89%;
+  }
+  video {
+    width: 100%;
+    max-width: 600px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 6px;
+  }
+  .main{
+    background: rgb(222 243 240);
+  }
+  .room {
+    position: relative;
+    padding-bottom: 3px;
+
+  }
+  header{
+    justify-content: space-between;    
+  }
