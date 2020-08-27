@@ -8,10 +8,11 @@ import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 // videoid,hospital,token,chatid/useRadioGroup
 class BookAppointment extends React.Component {
   componentDidMount=async()=>{
-    debugger
     const { setAppData } = this.props;
     let tempVar=[]
-    let dates=[{date:"27"},{date:"28"},{date:"29"},{date:"30"},{date:"31"},{date:"1"},{date:"2"}]
+    let dates=[]
+    let days=[{number:1,day:"Mon"},{number:2,day:"Tue"},{number:3,day:"Wed"},{number:4,day:"Thru"},{number:5,day:"Fri"},
+    {number:6,day:"Sat"},{number:7,day:"Sun"}]
     setAppData("bookAppointment.dates",dates)
     const apiResponse = await httpRequest({
       endPoint: `/bookingSlots/30f3eaf9-6bb0-469f-bdcf-251cdf7744ca`,
@@ -20,34 +21,37 @@ class BookAppointment extends React.Component {
     })
     if (apiResponse) {
       let uniqueArray=[]
-      let jsonObject = {};
+      apiResponse.map((data)=>{
+           let datee= data.booking_date
+           let da=new Date(datee).getDate()
+           let daa=new Date(datee).getDay()
+           days.forEach((dataa)=>{
+           if(dataa.number===daa){
+            let dat={date:da,day:dataa.day,actualDate:data.booking_date}
+            dates.push(dat)
+           }
+           })
+          })
+          let jsonObject = {};
           var uniqueSet = {};
-          jsonObject = apiResponse.map(JSON.stringify);
+          jsonObject = dates.map(JSON.stringify);
           uniqueSet = new Set(jsonObject);
           uniqueArray = Array.from(uniqueSet).map(JSON.parse);
-          // uniqueArray.map((data)=>{
-          //  let date= data.booking_date.getDate()
-          //   dates.push(date)
-          // })
-      setAppData("symptoms.response",tempVar)
+          console.log(uniqueArray,"hhh")
+          setAppData("bookAppointment.dates",uniqueArray)
+          setAppData("bookAppointment.response",apiResponse)
+
     }
-    // let temp=7;
-    // let array=[]
-    // let today=new Date().getUTCDate()
-    // for(let i=0;i<=today+temp;i++){
-    //   let obj={
-    //   date:today+i
-    //   }
-    //   array.push(obj)
-    // }
-    // setAppData("book",array)
   }
   handleNextButton=async()=>{
-    const { setAppData, history, phoneno } = this.props;
+    debugger
+    const { setAppData, history, phoneno,appointment_datetime,slot } = this.props;
     let requestBody={
       number:phoneno,
       symptom:"Cold,fever",
-      speciality:"Depression"
+      speciality:"Depression",
+      appointment_datetime:appointment_datetime,
+      slot:slot
     }
     const apiResponse = await httpRequest({
       endPoint: `/bookAppointment`,
@@ -56,7 +60,7 @@ class BookAppointment extends React.Component {
       requestBody
     })
     if (apiResponse) {
-      setAppData("bookAppointment",apiResponse)
+      setAppData("bookAppointment.bookAppointmentResponse",apiResponse)
       history.push("/user-home/confirm-booking")
     }
   }
@@ -65,7 +69,7 @@ class BookAppointment extends React.Component {
     setAppData("")
   }
   render() {
-    const {bookAppointment,dates } = this.props
+    const {bookAppointment,dates,setAppData,actualDate,appointment_datetime,response } = this.props
     const {handleNextButton,handleChange}=this
     return (
       <div style={{ background: "#f7f7f7", height: "100vh"}}>
@@ -102,118 +106,38 @@ class BookAppointment extends React.Component {
         </Grid>
         <Typography align="center" color="textSecondary" variant="subtitle2" style={{margin:"5px 0px 5px 0px"}}>Select your date</Typography>
         <Grid container>
-          {/* {dates.map((data)=>{
-            return( */}
+          {dates&&dates.map((data)=>{
+            return(
               <Typography align="center" style={{margin:"3px"}}>
-              <Card style={{width:"40px",height:"60px"}} onClick={()=>handleChange("bookAppointment.")}>
-                <Typography style={{fontSize:"10px"}} color="textSecondary">TODAY</Typography>
-                <Typography  color="textSecondary" variant="h5">11</Typography>
-                <Typography  color="textSecondary">TUE</Typography>
+              <Card style={{width:"40px",height:"60px"}} onClick={()=>setAppData("bookAppointment.appointment_datetime",data.actualDate)}>
+                {data===new Date().getDate()?
+                <Typography style={{fontSize:"10px"}} color="textSecondary">TODAY</Typography>:""}
+            <Typography  color="textSecondary" variant="h5">{data.date}</Typography>
+            <Typography  color="textSecondary">{data.day}</Typography>
               </Card>
             </Typography>
-          {/* //   )
-          // })} */}
-        
-        <Typography align="center" style={{margin:"3px"}}>
-          <Card style={{width:"40px",height:"60px",boxShadow:"none",background:"#f7f7f7"}}>
-            <Typography style={{marginBottom:"14px"}} color="textSecondary"></Typography>
-            <Typography  color="textSecondary" variant="h5">12</Typography>
-            <Typography  color="textSecondary">WED</Typography>
-          </Card>
-        </Typography>
-        <Typography align="center" style={{margin:"3px"}}>
-          <Card style={{width:"40px",height:"60px",boxShadow:"none",background:"#f7f7f7"}}>
-            <Typography style={{marginBottom:"14px"}} color="textSecondary"></Typography>
-            <Typography  color="textSecondary" variant="h5">13</Typography>
-            <Typography  color="textSecondary">THRU</Typography>
-          </Card>
-        </Typography>
-        <Typography align="center" style={{margin:"3px"}}>
-          <Card style={{width:"40px",height:"60px",boxShadow:"none",background:"#2FC9B9"}}>
-            <Typography style={{marginBottom:"14px"}} color="textSecondary"></Typography>
-            <Typography  color="textSecondary" style={{color:"white"}} variant="h5">14</Typography>
-            <Typography  color="textSecondary" style={{color:"white"}}>FRI</Typography>
-          </Card>
-        </Typography>
-        <Typography align="center" style={{margin:"3px"}}>
-          <Card style={{width:"40px",height:"60px",boxShadow:"none",background:"#f7f7f7"}}>
-            <Typography style={{marginBottom:"14px"}} color="textSecondary"></Typography>
-            <Typography  color="textSecondary" variant="h5">15</Typography>
-            <Typography  color="textSecondary">SAT</Typography>
-          </Card>
-        </Typography>
-        <Typography align="center" style={{margin:"3px"}}>
-          <Card style={{width:"40px",height:"60px",boxShadow:"none",background:"#f7f7f7"}}>
-            <Typography style={{marginBottom:"14px"}} color="textSecondary"></Typography>
-            <Typography  color="textSecondary" variant="h5">16</Typography>
-            <Typography  color="textSecondary">SUN</Typography>
-          </Card>
-        </Typography>
-        <Typography align="center" style={{margin:"3px"}}>
-          <Card style={{width:"40px",height:"60px",boxShadow:"none",background:"#f7f7f7"}}>
-            <Typography style={{marginBottom:"14px"}} color="textSecondary"></Typography>
-            <Typography  color="textSecondary" variant="h5">17</Typography>
-            <Typography  color="textSecondary">MON</Typography>
-          </Card>
-        </Typography>
+          )
+          })}
         </Grid>
+        {appointment_datetime?
+        <div>
         <Typography align="center" color="textSecondary" variant="subtitle2" style={{margin:"5px 0px 5px 0px"}}>Select your time</Typography>
         <Grid container>
+        {response&&response.map((data)=>{
+        let da=new Date(data.booking_date).getDate()
+        return(
+          appointment_datetime===data.booking_date?
         <Typography align="center" style={{margin:"2px 12px 2px 12px"}}>
-          <Card style={{width:"40px",height:"45px",boxShadow:"none",background:"#f7f7f7"}}>
-            <Typography  color="textSecondary" variant="h5">09</Typography>
-            <Typography  color="textSecondary">AM</Typography>
+          <Card style={{width:"40px",height:"45px",boxShadow:"none",background:"#f7f7f7"}} onClick={()=>setAppData("bookAppointment.slot",data.slot)}>
+            <Typography  color="textSecondary" variant="h5">{data.slot}</Typography>
+            {data.slot===9||data.slot===10||data.slot===11?
+            <Typography  color="textSecondary">AM</Typography>:<Typography  color="textSecondary">PM</Typography>}
           </Card>
-        </Typography>
-        <Typography align="center" style={{margin:"2px 12px 2px 12px"}}>
-          <Card style={{width:"40px",height:"45px",boxShadow:"none",background:"#f7f7f7"}}>
-            <Typography  color="textSecondary" variant="h5">10</Typography>
-            <Typography  color="textSecondary">AM</Typography>
-          </Card>
-        </Typography>
-        <Typography align="center" style={{margin:"2px 12px 2px 12px"}}>
-          <Card style={{width:"40px",height:"45px",boxShadow:"none",background:"#2FC9B9"}}>
-            <Typography  color="textSecondary" variant="h5" style={{color:"white"}}>11</Typography>
-            <Typography  color="textSecondary" style={{color:"white"}}>AM</Typography>
-          </Card>
-        </Typography>
-        <Typography align="center" style={{margin:"2px 12px 2px 12px"}}>
-          <Card style={{width:"40px",height:"45px",boxShadow:"none",background:"#f7f7f7"}}>
-            <Typography  color="textSecondary" variant="h5">12</Typography>
-            <Typography  color="textSecondary">AM</Typography>
-          </Card>
-        </Typography>
-        <Typography align="center" style={{margin:"2px 12px 2px 12px"}}>
-          <Card style={{width:"40px",height:"45px",boxShadow:"none",background:"#f7f7f7"}}>
-            <Typography  color="textSecondary" variant="h5">01</Typography>
-            <Typography  color="textSecondary">PM</Typography>
-          </Card>
-        </Typography>
-        <Typography align="center" style={{margin:"2px 12px 2px 12px"}}>
-          <Card style={{width:"40px",height:"45px",boxShadow:"none",background:"#f7f7f7"}}>
-            <Typography  color="textSecondary" variant="h5">02</Typography>
-            <Typography  color="textSecondary">PM</Typography>
-          </Card>
-        </Typography>
-        <Typography align="center" style={{margin:"2px 12px 2px 12px"}}>
-          <Card style={{width:"40px",height:"45px",boxShadow:"none",background:"#f7f7f7"}}>
-            <Typography  color="textSecondary" variant="h5">03</Typography>
-            <Typography  color="textSecondary">PM</Typography>
-          </Card>
-        </Typography>
-        <Typography align="center" style={{margin:"2px 12px 2px 12px"}}>
-          <Card style={{width:"40px",height:"45px",boxShadow:"none",background:"#f7f7f7"}}>
-            <Typography  color="textSecondary" variant="h5">04</Typography>
-            <Typography  color="textSecondary">PM</Typography>
-          </Card>
-        </Typography>
-        <Typography align="center" style={{margin:"2px 12px 2px 12px"}}>
-          <Card style={{width:"40px",height:"45px",boxShadow:"none",background:"#f7f7f7"}}>
-            <Typography  color="textSecondary" variant="h5">05</Typography>
-            <Typography  color="textSecondary">PM</Typography>
-          </Card>
-        </Typography>
+        </Typography>:""
+         )
+        })}
         </Grid>
+        </div>:""}
         <Grid container>
         <Typography  align="center" variant="h6" color="textSecondary" style={{fontWeight:500,fontSize:"15px",margin:"3px"}}>Your appointment 
         with Dr.Michael D.Dombroksi has been scheduled on June 14, Friday at 11 AM</Typography>
@@ -252,9 +176,11 @@ class BookAppointment extends React.Component {
 }
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { bookAppointment = {} } = preparedFinalObject;
-  const {dates}=bookAppointment
-  return { bookAppointment,dates}
+  const { bookAppointment = {},login={} } = preparedFinalObject;
+  const {dates,appointment_datetime=0,response,actualDate,slot}=bookAppointment
+  const { phoneno } = login
+
+  return { bookAppointment,dates,appointment_datetime,response,actualDate,slot,phoneno,login}
 };
 
 export default connect(

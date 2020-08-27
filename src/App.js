@@ -55,4 +55,6 @@ const mapStateToProps = ({ screenConfiguration }) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
+// )(withRouter(withAuthenticator(App,true)));
 )(withRouter(App));
+

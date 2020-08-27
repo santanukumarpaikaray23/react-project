@@ -53,6 +53,11 @@ var headings = [
     id: "/user-home/records",
     heading: "RECORDS",
   },
+  {
+    id: "/user-home/video-call",
+    heading: "VIDEO CALL",
+  },
+  
 ];
 const styles = (theme) => ({
   root: {

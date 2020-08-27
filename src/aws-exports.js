@@ -1,8 +1,10 @@
 // const awsConfig = {
 //     identityPoolId: '1:165dca54-cccf-4e5c-87e0-cf4142dbc137',
-//     region: '<Region>',
+//     region: 'ap-south-1',
 //     userPoolId: 'ap-south-1_CwSAxb32b',
-//     userPoolWebClientId: 'm4fg7m15hdgc7hhohfjo19ohd'
+//     userPoolWebClientId: 'm4fg7m15hdgc7hhohfjo19ohd',
+//     // authenticationFlowType: 'CUSTOM_AUTH' 
+//     authenticationFlowType: 'USER_SRP_AUTH' | 'USER_PASSWORD_AUTH' | 'CUSTOM_AUTH',
 //   }
   
 //   export default awsConfig;
@@ -13,7 +15,9 @@ export default Amplify.configure({
       Auth: {
         userPoolId: 'ap-south-1_CwSAxb32b', 
         userPoolWebClientId: 'm4fg7m15hdgc7hhohfjo19ohd',
-        authenticationFlowType: 'CUSTOM_AUTH' 
+        // authenticationFlowType: 'CUSTOM_AUTH' ,
+    authenticationFlowType: 'USER_SRP_AUTH' | 'USER_PASSWORD_AUTH' | 'CUSTOM_AUTH',
+        
       },
     })
 
