@@ -7,14 +7,15 @@ import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 
 class VideoChat extends Component {
 
-    componentDidMount = async () => {
+     componentDidMount = async () => {
         const { setAppData } = this.props
         setAppData("spinner", true)
         const apiResponse = await httpRequest({
-            endPoint: `/connectVedio/51`,
+            endPoint: `/connectVedio/e629552a-e8ca-4526-96e5-ae0d47e30b83`,
             method: "get",
             instance: "instanceOne",
         })
+        if(apiResponse && apiResponse.ChannelId){
         let doctorToken = apiResponse ? apiResponse.doctorAccessToken : "Api Error"
         console.log("doctorAccessToken", doctorToken);
         setAppData("VideoChat", apiResponse)
@@ -23,6 +24,14 @@ class VideoChat extends Component {
         setAppData("roomName", `${ChannelId}`);
         setAppData("doctorAccessToken",doctorAccessToken);
         setAppData("spinner", false)
+        }else{
+            let snackbar={
+                open: true,
+                message:"Error",
+                variant:"error"
+            }
+            setAppData("snackbar",snackbar)
+        }
     }
 
     handleLogout = () => {

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Video from 'twilio-video';
+import VideocamOffOutlinedIcon from '@material-ui/icons/VideocamOffOutlined';
 import Participant from './Participant';
+import './index.css';
 
 const Room = ({ token, roomName, handleLogout, muteAudio }) => {
     const [room, setRoom] = useState(null);
@@ -43,13 +45,18 @@ const Room = ({ token, roomName, handleLogout, muteAudio }) => {
         };
     }, [roomName, token]);
 
-    const remoteParticipants = participants.map(participant => (
+    let remoteParticipants = participants.map(participant => (
         <Participant key={participant.sid} participant={participant} />
     ));
 
+    remoteParticipants = remoteParticipants.length > 1 ? remoteParticipants.pop() : remoteParticipants
+
+
+
     return (<span>
-        <button onClick={handleLogout}>Log out</button>
-        <div className="room">
+       
+        <span className="room">
+        <button onClick={handleLogout}><VideocamOffOutlinedIcon color="red"/></button>
             <div className="local-participant">
                 {room ? (
                     <Participant
@@ -60,8 +67,8 @@ const Room = ({ token, roomName, handleLogout, muteAudio }) => {
                         ''
                     )}
             </div>
-            <div className="remote-participants">{remoteParticipants}</div>
-        </div>
+            <span className="remote-participants">{remoteParticipants}</span>
+        </span>
 
     </span>
     );
