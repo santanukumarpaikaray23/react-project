@@ -61,6 +61,14 @@ class BookAppointment extends React.Component {
       requestBody
     })
     if (apiResponse.doctor) {
+      setAppData("spinner", true)
+      let snackbar={
+          open: true,
+          message:"Your Appointment is successfully booked",
+          variant:"error"
+      }
+      setAppData("snackbar",snackbar)
+      setAppData("spinner", false)
       setAppData("bookAppointment.bookAppointmentResponse",apiResponse)
       history.push("/user-home/confirm-booking")
     }
@@ -72,6 +80,7 @@ class BookAppointment extends React.Component {
           variant:"error"
       }
       setAppData("snackbar",snackbar)
+      setAppData("spinner", false)
     }
   }
   handleChange=()=>{

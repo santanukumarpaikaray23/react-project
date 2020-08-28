@@ -25,7 +25,7 @@ class Specialists extends React.Component {
     let requestBody={
       number:phoneno?phoneno:7895328523,
       // symptom:"Depression",
-      speciality:specialistsName
+      speciality:value
     }
     const apiResponse = await httpRequest({
       endPoint: `/bookAppointment`,
@@ -46,6 +46,7 @@ class Specialists extends React.Component {
           variant:"error"
       }
       setAppData("snackbar",snackbar)
+      setAppData("spinner", false)
     }
   }
   render() {

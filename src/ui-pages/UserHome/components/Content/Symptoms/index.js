@@ -44,7 +44,7 @@ class Symptoms extends React.Component {
                 variant:"error"
             }
             setAppData("snackbar",snackbar)
-        
+            setAppData("spinner", false)
     // const {name=""}=symptoms
     // let symptomName=name.toString()
     // console.log(symptomName,"ksaksjak")

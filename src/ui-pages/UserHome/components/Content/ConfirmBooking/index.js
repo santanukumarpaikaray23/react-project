@@ -10,6 +10,7 @@ class ConfirmBooking extends React.Component {
     setAppData("")
   }
   render() {
+    const {history}=this.props
     return (
       <div style={{ background: "#f7f7f7", height: "100vh"}}>
         <div style={{margin: "0px 15px 15px 15px"}}>
@@ -51,7 +52,7 @@ class ConfirmBooking extends React.Component {
                 marginLeft:"10%"
               }}
               >
-              <Typography align="center" variant="h6">CONFIRM TIME {'&'} PAY</Typography>
+              <Typography align="center" variant="h6" onClick={()=>history.push("/user-home")}>CONFIRM TIME {'&'} PAY</Typography>
             </Button>
      
         </div>
