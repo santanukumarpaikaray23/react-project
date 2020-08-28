@@ -78,7 +78,7 @@ class Login extends React.Component {
     });
   };
   loginChange = () => {
-    const {setAppData } = this.props
+    const { setAppData } = this.props
     setAppData("login.receiveOtp", true)
     // history.push("/Otp")
   }
@@ -98,7 +98,7 @@ class Login extends React.Component {
   };
 
   handlerRequestOtp = async () => {
-    const {history, checked, phoneno } = this.props;
+    const { history, checked, phoneno } = this.props;
     const apiResponse = await httpRequest({
       endPoint: `/requestOtp/${phoneno}/Patient`,
       method: "get",
@@ -109,14 +109,14 @@ class Login extends React.Component {
     }
   }
   render() {
-    const {setAppData, phoneno, mobile, receiveOtp, checked } = this.props
+    const { setAppData, phoneno, mobile, receiveOtp, checked } = this.props
     const { validatePhoneNumber, handlerRequestOtp } = this
     return (
       <div style={{ background: "#F8F8F8" }}>
         <img width="100%" height="100%" src='background.png' alt="verify_icon" style={{ position: "relative" }} />
         <img width="30%" height="20%" src='logo.svg' alt="verify_icon" style={{ left: 125, top: 8, position: "absolute" }} />
         <Grid style={{ padding: "0px 50px 0px 50px", height: "68.5vh" }}>
-          <Typography variant="subtitle2" color="textSecondary" >Mobile Number</Typography>
+          {/* <Typography variant="subtitle2" color="textSecondary" >Mobile Number</Typography> */}
           <Card style={{ boxShadow: "none" }}>
             <ThemeProvider theme={theme}>
               <TextField
@@ -128,7 +128,7 @@ class Login extends React.Component {
             </ThemeProvider >
           </Card>
           {mobile ? (
-          <Typography variant="caption" color="textSecondary" >Assistive Text</Typography>
+            <Typography variant="caption" color="textSecondary" >Assistive Text</Typography>
           ) : (
               ""
             )}

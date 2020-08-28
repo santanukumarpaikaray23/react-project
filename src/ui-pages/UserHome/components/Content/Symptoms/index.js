@@ -1,5 +1,5 @@
 import React from "react";
-import {Grid, Typography, Avatar, TextField, Paper } from "@material-ui/core";
+import { Grid, Typography, Avatar, TextField, Paper } from "@material-ui/core";
 import { connect } from "react-redux";
 import { httpRequest } from "../../../../../ui-utils/api";
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
@@ -7,44 +7,41 @@ class Symptoms extends React.Component {
   componentDidMount = () => {
     this.getSymptoms()
   }
-  getSymptoms=async()=>{
-    debugger
+  getSymptoms = async () => {
     const { setAppData } = this.props;
-    let tempVar=[]
+    let tempVar = []
     const apiResponse = await httpRequest({
       endPoint: `/symptomlist`,
       method: "get",
       instance: "instanceOne",
     })
     if (apiResponse) {
-      tempVar=apiResponse.map((data)=>{
-        return{
-          ...data,symptomSelected:false
+      tempVar = apiResponse.map((data) => {
+        return {
+          ...data, symptomSelected: false
         }
       })
-
-      setAppData("symptoms.response",tempVar)
+      setAppData("symptoms.response", tempVar)
     }
   }
-  checkedHandle = (key,value) => {
+  checkedHandle = (key, value) => {
     const { symptoms, setAppData } = this.props
-    const {response=[]}=symptoms
-    let {symptomSelected}=response&&response[key]
-    setAppData(`symptoms.response[${key}].symptomSelected`,!symptomSelected)
-    setAppData(`symptoms.name[${key}]`,value)
+    const { response = [] } = symptoms
+    let { symptomSelected } = response && response[key]
+    setAppData(`symptoms.response[${key}].symptomSelected`, !symptomSelected)
+    setAppData(`symptoms.name[${key}]`, value)
   }
-  handleNextButton = async() => {
+  handleNextButton = async () => {
     debugger
-    const { setAppData, history, phoneno,symptoms } = this.props;
+    const { setAppData, history, phoneno, symptoms } = this.props;
     setAppData("spinner", true)
-      
-            let snackbar={
-                open: true,
-                message:"Please select Specialities",
-                variant:"error"
-            }
-            setAppData("snackbar",snackbar)
-            setAppData("spinner", false)
+    let snackbar = {
+      open: true,
+      message: "Please select Specialities",
+      variant: "error"
+    }
+    setAppData("snackbar", snackbar)
+    setAppData("spinner", false)
     // const {name=""}=symptoms
     // let symptomName=name.toString()
     // console.log(symptomName,"ksaksjak")
@@ -67,7 +64,7 @@ class Symptoms extends React.Component {
     // }
   }
   render() {
-    const {symptoms } = this.props
+    const { symptoms } = this.props
     const { checkedHandle, handleNextButton } = this
     let disableNext = false
     symptoms && Object.keys(symptoms).forEach((symptom) => {
@@ -99,18 +96,18 @@ class Symptoms extends React.Component {
             <TextField fullWidth InputProps={{ readOnly: true, style: { fontSize: 0 } }} />
           </Grid>
           <Grid container align="center">
-            {symptoms&& symptoms.response && symptoms.response.map((data,index)=>{
-              return(
-              data.category==="My Hurts"?
-              <Grid item xs={3} key={index} style={{ padding: "10px" }} onClick={() => checkedHandle(index,data.symptom_name)}>
-              {data.symptomSelected?
-                <img height="20px" width="20px" src="check_circle.svg" alt="check_circle" style={{
-                  position: "absolute",
-                  zIndex: "1", background: "#F7F7F7", borderRadius: "50%"
-                }}></img> : ""}
-              <Avatar style={{ height: "45px", width: "45px", position: "relative" }} src={`${data.image_url}.svg`}></Avatar>
-              <Typography variant="subtitle2" style={symptoms.abdomen === true ? { color: "#2FC9B9" } : { color: "#696969" }}>{data.symptom_name}</Typography>
-            </Grid>:" "
+            {symptoms && symptoms.response && symptoms.response.map((data, index) => {
+              return (
+                data.category === "My Hurts" ?
+                  <Grid item xs={3} key={index} style={{ padding: "10px" }} onClick={() => checkedHandle(index, data.symptom_name)}>
+                    {data.symptomSelected ?
+                      <img height="20px" width="20px" src="check_circle.svg" alt="check_circle" style={{
+                        position: "absolute",
+                        zIndex: "1", background: "#F7F7F7", borderRadius: "50%"
+                      }}></img> : ""}
+                    <Avatar style={{ height: "45px", width: "45px", position: "relative" }} src={`${data.image_url}.svg`}></Avatar>
+                    <Typography variant="subtitle2" style={symptoms.abdomen === true ? { color: "#2FC9B9" } : { color: "#696969" }}>{data.symptom_name}</Typography>
+                  </Grid> : " "
               )
             })}
           </Grid>
@@ -126,18 +123,18 @@ class Symptoms extends React.Component {
             <TextField fullWidth InputProps={{ readOnly: true, style: { fontSize: 0 } }} />
           </Grid>
           <Grid container align="center"  >
-          {symptoms&& symptoms.response && symptoms.response.map((data,index)=>{
-              return(
-              data.category==="I Feel"?
-            <Grid item xs={3} key={index} style={{ padding: "10px" }} onClick={() => checkedHandle(index)}>
-              {data.symptomSelected?
-                <img height="20px" width="20px" src="check_circle.svg" alt="check_circle" style={{
-                  position: "absolute", zIndex: "1",
-                  background: "white", borderRadius: "50%"
-                }}></img> : ""}
-              <Avatar src={`${data.image_url}.svg`} style={{ height: "45px", width: "45px" }} ></Avatar>
-              <Typography variant="subtitle2" style={symptoms.chills === true ? { color: "#2FC9B9" } : { color: "#696969" }}>{data.symptom_name}</Typography>
-            </Grid>:" "
+            {symptoms && symptoms.response && symptoms.response.map((data, index) => {
+              return (
+                data.category === "I Feel" ?
+                  <Grid item xs={3} key={index} style={{ padding: "10px" }} onClick={() => checkedHandle(index)}>
+                    {data.symptomSelected ?
+                      <img height="20px" width="20px" src="check_circle.svg" alt="check_circle" style={{
+                        position: "absolute", zIndex: "1",
+                        background: "white", borderRadius: "50%"
+                      }}></img> : ""}
+                    <Avatar src={`${data.image_url}.svg`} style={{ height: "45px", width: "45px" }} ></Avatar>
+                    <Typography variant="subtitle2" style={symptoms.chills === true ? { color: "#2FC9B9" } : { color: "#696969" }}>{data.symptom_name}</Typography>
+                  </Grid> : " "
               )
             })}
           </Grid>
@@ -153,23 +150,22 @@ class Symptoms extends React.Component {
             <TextField fullWidth InputProps={{ readOnly: true, style: { fontSize: 0 } }} />
           </Grid>
           <Grid container align="center"  >
-          {symptoms&& symptoms.response && symptoms.response.map((data,index)=>{
-              return(
-              data.category==="I Can't"?
-            <Grid item xs={3}  key={index}style={{ padding: "10px" }} onClick={() => checkedHandle(index)}>
-              {data.symptomSelected?
-                <img height="20px" width="20px" src="check_circle.svg" alt="check_circle"style={{
-                  position: "absolute", zIndex: "1",
-                  background: "white", borderRadius: "50%"
-                }}></img> : ""}
-              <Avatar src={`${data.image_url}.svg`} style={{ height: "45px", width: "45px" }} ></Avatar>
-              <Typography variant="subtitle2" style={symptoms.chills === true ? { color: "#2FC9B9" } : { color: "#696969" }}>{data.symptom_name}</Typography>
-            </Grid>:" "
+            {symptoms && symptoms.response && symptoms.response.map((data, index) => {
+              return (
+                data.category === "I Can't" ?
+                  <Grid item xs={3} key={index} style={{ padding: "10px" }} onClick={() => checkedHandle(index)}>
+                    {data.symptomSelected ?
+                      <img height="20px" width="20px" src="check_circle.svg" alt="check_circle" style={{
+                        position: "absolute", zIndex: "1",
+                        background: "white", borderRadius: "50%"
+                      }}></img> : ""}
+                    <Avatar src={`${data.image_url}.svg`} style={{ height: "45px", width: "45px" }} ></Avatar>
+                    <Typography variant="subtitle2" style={symptoms.chills === true ? { color: "#2FC9B9" } : { color: "#696969" }}>{data.symptom_name}</Typography>
+                  </Grid> : " "
               )
             })}
           </Grid>
         </Grid>
-
         {disableNext ?
           <div
             style={{
@@ -234,10 +230,10 @@ class Symptoms extends React.Component {
 }
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { symptoms = {},login = {} } = preparedFinalObject;
+  const { symptoms = {}, login = {} } = preparedFinalObject;
   const { phoneno } = login
 
-  return { symptoms,phoneno,login }
+  return { symptoms, phoneno, login }
 };
 
 export default connect(

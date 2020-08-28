@@ -12,7 +12,7 @@ import { withTranslation } from "react-i18next";
 import "./App.css";
 import Amplify from "aws-amplify"
 import aws_exports from "../src/aws-exports"
-import {withAuthenticator} from "aws-amplify-react"
+import { withAuthenticator } from "aws-amplify-react"
 Amplify.configure(aws_exports)
 class App extends React.Component {
 
@@ -55,6 +55,6 @@ const mapStateToProps = ({ screenConfiguration }) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-// )(withRouter(withAuthenticator(App,true)));
+  // )(withRouter(withAuthenticator(App,true)));
 )(withRouter(App));
 

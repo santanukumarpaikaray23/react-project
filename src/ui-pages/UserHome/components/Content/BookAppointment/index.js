@@ -41,7 +41,6 @@ class BookAppointment extends React.Component {
           console.log(uniqueArray,"hhh")
           setAppData("bookAppointment.dates",uniqueArray)
           setAppData("bookAppointment.response",apiResponse)
-
     }
   }
   handleNextButton=async()=>{

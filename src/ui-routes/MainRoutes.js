@@ -1,5 +1,5 @@
 import React from "react";
-import { Route,Redirect} from "react-router";
+import { Route,Redirect,HashRouter} from "react-router";
 import Loadable from "react-loadable";
 import Loading from "../ui-molecules/Loading";
 
