@@ -8,14 +8,15 @@ import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 // videoid,hospital,token,chatid/useRadioGroup
 class BookAppointment extends React.Component {
   componentDidMount=async()=>{
-    const { setAppData } = this.props;
+    debugger
+    const { setAppData,doctorId } = this.props;
     let tempVar=[]
     let dates=[]
     let days=[{number:1,day:"Mon"},{number:2,day:"Tue"},{number:3,day:"Wed"},{number:4,day:"Thru"},{number:5,day:"Fri"},
     {number:6,day:"Sat"},{number:7,day:"Sun"}]
     setAppData("bookAppointment.dates",dates)
     const apiResponse = await httpRequest({
-      endPoint: `/bookingSlots/30f3eaf9-6bb0-469f-bdcf-251cdf7744ca`,
+      endPoint: `/bookingSlots/${doctorId}`,
       method: "get",
       instance: "instanceOne",
     })
@@ -45,11 +46,11 @@ class BookAppointment extends React.Component {
   }
   handleNextButton=async()=>{
     debugger
-    const { setAppData, history, phoneno,appointment_datetime,slot } = this.props;
+    const { setAppData, history, phoneno,appointment_datetime,slot,specialistsName,day } = this.props;
     let requestBody={
-      number:phoneno,
-      symptom:"Cold,fever",
-      speciality:"Depression",
+      number:phoneno?phoneno:7895328523,
+      // symptom:"Cold,fever",
+      speciality:specialistsName,
       appointment_datetime:appointment_datetime,
       slot:slot
     }
@@ -59,9 +60,18 @@ class BookAppointment extends React.Component {
       instance: "instanceOne",
       requestBody
     })
-    if (apiResponse) {
+    if (apiResponse.doctor) {
       setAppData("bookAppointment.bookAppointmentResponse",apiResponse)
       history.push("/user-home/confirm-booking")
+    }
+    else{
+      setAppData("spinner", true)
+      let snackbar={
+          open: true,
+          message:apiResponse.message,
+          variant:"error"
+      }
+      setAppData("snackbar",snackbar)
     }
   }
   handleChange=()=>{
@@ -69,7 +79,7 @@ class BookAppointment extends React.Component {
     setAppData("")
   }
   render() {
-    const {bookAppointment,dates,setAppData,actualDate,appointment_datetime,response } = this.props
+    const {bookAppointment,dates,setAppData,actualDate,appointment_datetime,response,slot,day,selectedDateIndex,selectedSlotIndex } = this.props
     const {handleNextButton,handleChange}=this
     return (
       <div style={{ background: "#f7f7f7", height: "100vh"}}>
@@ -80,7 +90,7 @@ class BookAppointment extends React.Component {
           justify="center"
           direction="row"
           style={{ height: "13vh", marginTop: "3.5%" }}>
-          <Typography  align="center"  color="textSecondary" style={{margin:"5px 5px 2px 5px",fontSize:"15px",fontWeight:500}}>We recommend you to meet Dr.Michael D Dombroksi at  our Hospital</Typography>
+          <Typography  align="center"  color="textSecondary" style={{margin:"5px 5px 2px 5px",fontSize:"15px",fontWeight:500}}>We recommend you to meet {bookAppointment&&bookAppointment.doctor&&bookAppointment.doctor.doctor_name} at  our Hospital</Typography>
           {"\n"}
         </Grid>
         <Card>
@@ -90,11 +100,11 @@ class BookAppointment extends React.Component {
                 <Avatar style={{ height: "60px", width: "60px" }}/>
               </Grid>
               <Grid item xs={9}>
-                <Typography variant="h6">Rahul
-                  {/* {bookAppointment&&bookAppointment.doctor&&bookAppointment.doctor.doctor_name} */}
+                <Typography variant="h6">
+                  {bookAppointment&&bookAppointment.doctor&&bookAppointment.doctor.doctor_name}
                   </Typography>
-                <Typography color="textSecondary" variant="subtitle2">Depression
-                  {/* {bookAppointment&&bookAppointment.doctor&&bookAppointment.doctor.speciality} */}
+                <Typography color="textSecondary" variant="subtitle2">
+                  {bookAppointment&&bookAppointment.doctor&&bookAppointment.doctor.speciality}
                 </Typography>
               </Grid>
             </Grid>
@@ -106,10 +116,12 @@ class BookAppointment extends React.Component {
         </Grid>
         <Typography align="center" color="textSecondary" variant="subtitle2" style={{margin:"5px 0px 5px 0px"}}>Select your date</Typography>
         <Grid container>
-          {dates&&dates.map((data)=>{
+          {dates&&dates.map((data,index)=>{
             return(
               <Typography align="center" style={{margin:"3px"}}>
-              <Card style={{width:"40px",height:"60px"}} onClick={()=>setAppData("bookAppointment.appointment_datetime",data.actualDate)}>
+              <Card style={selectedDateIndex===index?{width:"40px",height:"60px",background:"#2FC9B9"}:{width:"40px",height:"60px"}} onClick={()=>{setAppData("bookAppointment.appointment_datetime",data.actualDate)
+            setAppData("bookAppointment.day",data.day)
+            setAppData("bookAppointment.selectedDateIndex",index)}}>
                 {data===new Date().getDate()?
                 <Typography style={{fontSize:"10px"}} color="textSecondary">TODAY</Typography>:""}
             <Typography  color="textSecondary" variant="h5">{data.date}</Typography>
@@ -123,12 +135,14 @@ class BookAppointment extends React.Component {
         <div>
         <Typography align="center" color="textSecondary" variant="subtitle2" style={{margin:"5px 0px 5px 0px"}}>Select your time</Typography>
         <Grid container>
-        {response&&response.map((data)=>{
+        {response&&response.map((data,index)=>{
         let da=new Date(data.booking_date).getDate()
         return(
           appointment_datetime===data.booking_date?
         <Typography align="center" style={{margin:"2px 12px 2px 12px"}}>
-          <Card style={{width:"40px",height:"45px",boxShadow:"none",background:"#f7f7f7"}} onClick={()=>setAppData("bookAppointment.slot",data.slot)}>
+          <Card style={selectedSlotIndex===index?{width:"40px",height:"45px",boxShadow:"none",background:"#2FC9B9"}:
+        {width:"40px",height:"45px",boxShadow:"none",background:"#f7f7f7"}} onClick={()=>{setAppData("bookAppointment.slot",data.slot)
+        setAppData("bookAppointment.selectedSlotIndex",index)}}>
             <Typography  color="textSecondary" variant="h5">{data.slot}</Typography>
             {data.slot===9||data.slot===10||data.slot===11?
             <Typography  color="textSecondary">AM</Typography>:<Typography  color="textSecondary">PM</Typography>}
@@ -137,12 +151,14 @@ class BookAppointment extends React.Component {
          )
         })}
         </Grid>
-        </div>:""}
+        {slot?
         <Grid container>
         <Typography  align="center" variant="h6" color="textSecondary" style={{fontWeight:500,fontSize:"15px",margin:"3px"}}>Your appointment 
-        with Dr.Michael D.Dombroksi has been scheduled on June 14, Friday at 11 AM</Typography>
-        </Grid>
-      
+        with {bookAppointment&&bookAppointment.doctor&&bookAppointment.doctor.doctor_name} has been 
+        scheduled on August {new Date(appointment_datetime).getDate()}, {day} at {slot}{slot===9||slot===10||slot===11?
+            "AM" :"PM"}</Typography>
+        </Grid>:""}
+        </div>:""}
         <div
           style={{
             width: "100%",
@@ -176,11 +192,13 @@ class BookAppointment extends React.Component {
 }
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { bookAppointment = {},login={} } = preparedFinalObject;
-  const {dates,appointment_datetime=0,response,actualDate,slot}=bookAppointment
+  const { bookAppointment = {},login={},specialists={} } = preparedFinalObject;
+  const {dates,appointment_datetime=0,response,actualDate,slot,day,selectedDateIndex=-1,selectedSlotIndex=-1}=bookAppointment
   const { phoneno } = login
+  const {specialistsName,doctorId}=specialists
 
-  return { bookAppointment,dates,appointment_datetime,response,actualDate,slot,phoneno,login}
+  return { bookAppointment,dates,appointment_datetime,response,actualDate,slot,phoneno,login,
+    specialistsName,specialists,doctorId,day,selectedDateIndex,selectedSlotIndex}
 };
 
 export default connect(

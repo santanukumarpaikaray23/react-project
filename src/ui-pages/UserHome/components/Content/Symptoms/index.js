@@ -36,26 +36,35 @@ class Symptoms extends React.Component {
   handleNextButton = async() => {
     debugger
     const { setAppData, history, phoneno,symptoms } = this.props;
-    const {name=""}=symptoms
-    let symptomName=name.toString()
-    console.log(symptomName,"ksaksjak")
-    let requestBody={
-      number:phoneno,
-      symptom:symptomName,
-      speciality:"Depression",
-      appointment_datetime:"2020-07-25T12:08:56",
-    slot:2
-    }
-    const apiResponse = await httpRequest({
-      endPoint: `/bookAppointment`,
-      method: "post",
-      instance: "instanceOne",
-      requestBody
-    })
-    if (apiResponse) {
-      setAppData("bookAppointment",apiResponse)
-      history.push("/user-home/book-appointment")
-    }
+    setAppData("spinner", true)
+      
+            let snackbar={
+                open: true,
+                message:"Please select Specialities",
+                variant:"error"
+            }
+            setAppData("snackbar",snackbar)
+        
+    // const {name=""}=symptoms
+    // let symptomName=name.toString()
+    // console.log(symptomName,"ksaksjak")
+    // let requestBody={
+    //   number:phoneno,
+    //   symptom:symptomName,
+    //   speciality:"Depression",
+    //   appointment_datetime:"2020-07-25T12:08:56",
+    // slot:2
+    // }
+    // const apiResponse = await httpRequest({
+    //   endPoint: `/bookAppointment`,
+    //   method: "post",
+    //   instance: "instanceOne",
+    //   requestBody
+    // })
+    // if (apiResponse) {
+    //   setAppData("bookAppointment",apiResponse)
+    //   history.push("/user-home/book-appointment")
+    // }
   }
   render() {
     const {symptoms } = this.props

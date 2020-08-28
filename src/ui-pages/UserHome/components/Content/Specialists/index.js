@@ -20,14 +20,12 @@ class Specialists extends React.Component {
     }
   }
   checkedHandle=async(key,value)=>{
-    const { setAppData, history,phoneno } = this.props;
+    const { setAppData, history,phoneno,snackbar,specialistsName } = this.props;
     setAppData("specialists.specialistsName",value)
     let requestBody={
-      number:phoneno,
-      symptom:"abdomen,back",
-      speciality:"Depression",
-      appointment_datetime:"2020-07-25T12:08:56",
-    slot:2
+      number:phoneno?phoneno:7895328523,
+      // symptom:"Depression",
+      speciality:specialistsName
     }
     const apiResponse = await httpRequest({
       endPoint: `/bookAppointment`,
@@ -35,9 +33,19 @@ class Specialists extends React.Component {
       instance: "instanceOne",
       requestBody
     })
-    if (apiResponse) {
+    if (apiResponse.doctor) {
       setAppData("bookAppointment",apiResponse)
+    setAppData("specialists.doctorId",apiResponse.doctor.doctor_id)
       history.push("/user-home/book-appointment")
+    }
+    else{
+      setAppData("spinner", true)
+      let snackbar={
+          open: true,
+          message:apiResponse.message,
+          variant:"error"
+      }
+      setAppData("snackbar",snackbar)
     }
   }
   render() {
@@ -79,9 +87,11 @@ class Specialists extends React.Component {
 }
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { specialists,login = {} } = preparedFinalObject;
+  const { specialists={},login = {} } = preparedFinalObject;
   const { phoneno } = login
-  return { specialists,phoneno,login}
+  const {specialistsName,doctorId}=specialists
+
+  return { specialists,phoneno,login,specialists,specialistsName}
 };
 
 export default connect(

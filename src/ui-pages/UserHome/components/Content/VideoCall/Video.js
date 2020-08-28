@@ -11,7 +11,7 @@ class VideoChat extends Component {
         const { setAppData } = this.props
         setAppData("spinner", true)
         const apiResponse = await httpRequest({
-            endPoint: `/connectVedio/a4a0bef2-1215-4619-ae16-940acc0140d0`,
+            endPoint: `/connectVedio/1633b5dc-eba9-4c24-9e6f-49b51f0d576f`,
             method: "get",
             instance: "instanceOne",
         })
