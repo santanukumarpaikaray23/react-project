@@ -116,7 +116,7 @@ class Login extends React.Component {
         <img width="100%" height="100%" src='background.png' alt="verify_icon" style={{ position: "relative" }} />
         <img width="30%" height="20%" src='logo.svg' alt="verify_icon" style={{ left: 125, top: 8, position: "absolute" }} />
         <Grid style={{ padding: "0px 50px 0px 50px", height: "68.5vh" }}>
-          {/* <Typography variant="subtitle2" color="textSecondary" >Mobile Number</Typography> */}
+          <Typography variant="subtitle2" color="textSecondary" >Mobile Number</Typography>
           <Card style={{ boxShadow: "none" }}>
             <ThemeProvider theme={theme}>
               <TextField
