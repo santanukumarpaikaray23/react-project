@@ -30,17 +30,16 @@ class TabsWrappedLabel extends React.Component {
   };
 componentDidMount=()=>{
   const {history}=this.props
-  history.push("/user-home/user-screen/calendar/symptoms")
-
+  history.push("/user-home/calendar/today-appointments")
 }
   handleChange = (event, value) => {
       const {history}=this.props
     this.setState({ value });
     if(value==="one"){
-    history.push("/user-home/user-screen/calendar/symptoms")
+    history.push("/user-home/calendar/today-appointments")
     }
     else{
-      history.push("/user-home/user-screen/calendar/specialists")
+      history.push("/user-home/calendar/future-appointments")
     }
   };
 
@@ -50,13 +49,13 @@ componentDidMount=()=>{
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" >
           <Tabs variant="fullWidth" value={value} onChange={this.handleChange}>
-            <Tab
+            <Tab style={{fontSize:"11px"}}
               value="one"
-              label="SYMPTOMS"
+              label="TODAY'S APPOINTMENT"
             />
-            <Tab value="two" label="SPECIALISTS" />
+            <Tab value="two" style={{fontSize:"11px"}}label="ALL FUTURE APPOINTMENT" />
           </Tabs>
         </AppBar>
         {value === "one" && <TabContainer>Item One</TabContainer>}

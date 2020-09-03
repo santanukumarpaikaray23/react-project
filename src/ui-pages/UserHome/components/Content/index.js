@@ -57,6 +57,18 @@ var headings = [
     id: "/user-home/video-call",
     heading: "VIDEO CALL",
   },
+  {
+    id: "/user-home/generate-token",
+    heading: "CALENDAR",
+  },
+  {
+    id: "/user-home/calendar/today-appointments",
+    heading: "LOBBY",
+  },
+  {
+    id: "/user-home/calendar/future-appointments",
+    heading: "LOBBY",
+  },
   
 ];
 const styles = (theme) => ({

@@ -38,7 +38,7 @@ class Chat extends Component {
     // return new Promise((resolve, reject) => {
 
     const apiResponse = await httpRequest({
-      endPoint: `/getChatToken/52`,
+      endPoint: `/getChatToken/1633b5dc-eba9-4c24-9e6f-49b51f0d576f`,
       method: "get",
       instance: "instanceOne",
     })
@@ -57,6 +57,12 @@ return apiResponse
     // })
   }
 
+  createChatClient = (token) => {
+    debugger
+    return new Promise((resolve, reject) => {
+      resolve(new TwilioChat(token))
+    })
+  }
   // connectMessagingClient=(token)=> {
   //   debugger
   //   // Initialize the Chat messaging client
@@ -70,38 +76,38 @@ return apiResponse
   //   });
   // }
 
-  createChatClient = (token) => {
-    debugger
-    // return new Promise((resolve, reject) => {
-    //   resolve(new TwilioChat(token))
-    //   let aa= new TwilioChat(token)
-    //   console.log(aa,"aa")
-    // })
-    var sb = new SendBird({appId:"SKe5fb33d97fdff5a89f5001b1de11886f"});
-    sb.connect("eyJjdHkiOiJ0d2lsaW8tZnBhO3Y9MSIsInR5cCI6IkpXVCIsImFsZyI6IkhTMjU2In0.eyJpc3MiOiJTS2U1ZmIzM2Q5N2ZkZmY1YTg5ZjUwMDFiMWRlMTE4ODZmIiwiZXhwIjoxNTk4NDYzNjE2LCJncmFudHMiOnsiaWRlbnRpdHkiOiI5MTYzNDEzMjkzIiwiY2hhdCI6e319LCJqdGkiOiJTS2U1ZmIzM2Q5N2ZkZmY1YTg5ZjUwMDFiMWRlMTE4ODZmLTE1OTg0NjAwMzIiLCJzdWIiOiJBQ2VhYmRjNDFjZTRkYjdmYjE5OGFiZDVmYTRjOGNkNjczIn0.iUNJKRnojK9wrDVCViO2xCMSR-MP9yFAEeQhuexQhW8", function(user, error) {
-      if (error) {
-          return;
-      }
-  });
-  }
+  // createChatClient = (token) => {
+  //   debugger
+  //   // return new Promise((resolve, reject) => {
+  //   //   resolve(new TwilioChat(token))
+  //   //   let aa= new TwilioChat(token)
+  //   //   console.log(aa,"aa")
+  //   // })
+  //   var sb = new SendBird({appId:"SKe5fb33d97fdff5a89f5001b1de11886f"});
+  //   sb.connect("eyJjdHkiOiJ0d2lsaW8tZnBhO3Y9MSIsInR5cCI6IkpXVCIsImFsZyI6IkhTMjU2In0.eyJpc3MiOiJTS2U1ZmIzM2Q5N2ZkZmY1YTg5ZjUwMDFiMWRlMTE4ODZmIiwiZXhwIjoxNTk4NDYzNjE2LCJncmFudHMiOnsiaWRlbnRpdHkiOiI5MTYzNDEzMjkzIiwiY2hhdCI6e319LCJqdGkiOiJTS2U1ZmIzM2Q5N2ZkZmY1YTg5ZjUwMDFiMWRlMTE4ODZmLTE1OTg0NjAwMzIiLCJzdWIiOiJBQ2VhYmRjNDFjZTRkYjdmYjE5OGFiZDVmYTRjOGNkNjczIn0.iUNJKRnojK9wrDVCViO2xCMSR-MP9yFAEeQhuexQhW8", function(user, error) {
+  //     if (error) {
+  //         return;
+  //     }
+  // });
+  // }
 
-  getChannel=async(chatClient)=>{
-    debugger
-    let requestBody={
-      appointmentId: 59,
-  doctorId: 47,
-  patientId: 57
-}
-    const apiResponse = await httpRequest({
-      endPoint: `/createChannel`,
-      method: "post",
-      instance: "instanceOne",
-      requestBody
-    })
-    let channel=apiResponse
-    channel.url.join.this.addMessage({ body: `Joined general channel as ${this.state.username}` })
-      window.addEventListener('beforeunload', () => channel.leave())
-  }
+//   getChannel=async(chatClient)=>{
+//     debugger
+//     let requestBody={
+//       appointmentId: 59,
+//   doctorId: 47,
+//   patientId: 57
+// }
+//     const apiResponse = await httpRequest({
+//       endPoint: `/createChannel`,
+//       method: "post",
+//       instance: "instanceOne",
+//       requestBody
+//     })
+//     let channel=apiResponse
+//     channel.url.join.this.addMessage({ body: `Joined general channel as ${this.state.username}` })
+//       window.addEventListener('beforeunload', () => channel.leave())
+//   }
 
   
   joinGeneralChannel = (chatClient) => {

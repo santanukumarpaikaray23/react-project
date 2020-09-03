@@ -90,7 +90,7 @@ class Login extends React.Component {
     } else {
       setAppData("login.mobile", true);
     }
-    setAppData("login.phoneno", parseInt(e, 10));
+    setAppData("login.phoneno", e);
     const { phoneno } = this.props;
     if (isNaN(phoneno)) {
       setAppData("login.phoneno", 0);

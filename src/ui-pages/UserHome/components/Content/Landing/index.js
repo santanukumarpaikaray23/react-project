@@ -12,7 +12,7 @@ class Landing extends React.Component {
           <Grid
             container
             style={{ background: "#343434", color: "white", padding: "10px", marginTop: "10px" }}>
-            <Typography>You don't have any upcomming appointment</Typography>
+            <Typography onClick={()=>history.push("/user-home/generate-token")}>You don't have any upcomming appointment</Typography>
             <MessageIcon style={{ marginLeft: "4%", marginTop: "1%" }} onClick={()=>history.push("/user-home/video-call")}/>
           </Grid>
         </Card>

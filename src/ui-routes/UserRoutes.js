@@ -52,6 +52,21 @@ const VideoCall = Loadable({
     import("../ui-pages/UserHome/components/Content/VideoCall/Video"),
   loading: Loading,
 });
+const GenerateToken = Loadable({
+  loader: () =>
+    import("../ui-pages/UserHome/components/Content/GenerateToken"),
+  loading: Loading,
+});
+const TodayAppointments = Loadable({
+  loader: () =>
+    import("../ui-pages/UserHome/components/Content/TodayAppointments"),
+  loading: Loading,
+});
+const FutureAppointments = Loadable({
+  loader: () =>
+    import("../ui-pages/UserHome/components/Content/FutureAppointments"),
+  loading: Loading,
+});
 
 const UserRoutes = () => {
   return (
@@ -62,10 +77,13 @@ const UserRoutes = () => {
       <Route  path="/user-home/chating" component={Chat}/>
       <Route  path="/user-home/book-appointment" component={BookAppointment}/>
       <Route  path="/user-home/calendar" component={Calendar}/>
+      <Route  path="/user-home/calendar/today-appointments" component={TodayAppointments}/>
+      <Route  path="/user-home/calendar/future-appointments" component={FutureAppointments}/>
       <Route  path="/user-home/home/specialists" component={Specialists}/>
       <Route  path="/user-home/home/symptoms" component={Symptoms}/>
       <Route  path="/user-home/confirm-booking" component={ConfirmBooking}/>
       <Route  path="/user-home/video-call" component={VideoCall}/>
+      <Route  path="/user-home/generate-token" component={GenerateToken}/>
     </div>
   );
 };
