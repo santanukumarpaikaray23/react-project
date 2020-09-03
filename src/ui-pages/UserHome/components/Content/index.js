@@ -69,6 +69,14 @@ var headings = [
     id: "/user-home/calendar/future-appointments",
     heading: "LOBBY",
   },
+  {
+    id: "/user-home/payment-gateway",
+    heading: "PAYMENT",
+  },
+  {
+    id: "/user-home/payment-successful",
+    heading: "PAYMENT",
+  },
   
 ];
 const styles = (theme) => ({

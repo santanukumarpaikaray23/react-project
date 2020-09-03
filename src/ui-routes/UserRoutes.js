@@ -67,6 +67,16 @@ const FutureAppointments = Loadable({
     import("../ui-pages/UserHome/components/Content/FutureAppointments"),
   loading: Loading,
 });
+const PaymentGateway = Loadable({
+  loader: () =>
+    import("../ui-pages/UserHome/components/Content/PaymentGateway"),
+  loading: Loading,
+});
+const PaymentSuccessful = Loadable({
+  loader: () =>
+    import("../ui-pages/UserHome/components/Content/PaymentSuccessful"),
+  loading: Loading,
+});
 
 const UserRoutes = () => {
   return (
@@ -84,6 +94,8 @@ const UserRoutes = () => {
       <Route  path="/user-home/confirm-booking" component={ConfirmBooking}/>
       <Route  path="/user-home/video-call" component={VideoCall}/>
       <Route  path="/user-home/generate-token" component={GenerateToken}/>
+      <Route  path="/user-home/payment-gateway" component={PaymentGateway}/>
+      <Route  path="/user-home/payment-successful" component={PaymentSuccessful}/>
     </div>
   );
 };
