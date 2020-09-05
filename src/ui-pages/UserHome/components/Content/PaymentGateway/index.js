@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Grid, CardContent, Typography, Avatar, Button } from "@material-ui/core";
+import {Grid, Typography, Button } from "@material-ui/core";
 import { connect } from "react-redux";
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 

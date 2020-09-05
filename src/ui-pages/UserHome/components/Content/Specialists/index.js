@@ -20,7 +20,7 @@ class Specialists extends React.Component {
     }
   }
   checkedHandle = async (key, value) => {
-    const { setAppData, history, phoneno, snackbar, specialistsName } = this.props;
+    const { setAppData, history, phoneno } = this.props;
     setAppData("specialists.specialistsName", value)
     let requestBody = {
       number: phoneno ? phoneno : 7895328523,
@@ -90,9 +90,9 @@ const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
   const { specialists = {}, login = {} } = preparedFinalObject;
   const { phoneno } = login
-  const { specialistsName, doctorId } = specialists
+  const { specialistsName } = specialists
 
-  return { specialists, phoneno, login, specialists, specialistsName }
+  return { specialists, phoneno, login, specialistsName }
 };
 
 export default connect(

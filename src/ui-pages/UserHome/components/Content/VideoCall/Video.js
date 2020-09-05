@@ -67,8 +67,7 @@ class VideoChat extends Component {
     }
     render() {
         const { handleLogout, muteAudio } = this;
-        const { setAppData, apiResponse = {} } = this.props;
-        const { doctorAccessToken, token, roomName } = this.props;
+        const { token, roomName } = this.props;
 
 
 

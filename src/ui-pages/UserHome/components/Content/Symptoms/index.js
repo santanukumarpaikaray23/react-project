@@ -33,7 +33,7 @@ class Symptoms extends React.Component {
   }
   handleNextButton = async () => {
     debugger
-    const { setAppData, history, phoneno, symptoms } = this.props;
+    const { setAppData } = this.props;
     setAppData("spinner", true)
     let snackbar = {
       open: true,

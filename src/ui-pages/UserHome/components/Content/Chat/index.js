@@ -7,7 +7,7 @@ import { httpRequest } from "../../../../../ui-utils/api"
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 // import $ from 'jquery'
 import { connect } from "react-redux";
-import SendBird from "sendbird"
+// import SendBird from "sendbird"
 
 // import axios from "axios"
 // import './App.css'
