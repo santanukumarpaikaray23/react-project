@@ -85,15 +85,10 @@ class Login extends React.Component {
   validatePhoneNumber = (e) => {
     const { setAppData } = this.props;
     let phone = /^\d{10}$/;
-    if (e.match(phone)) {
-      setAppData("login.mobile", false);
-    } else {
-      setAppData("login.mobile", true);
-    }
-    setAppData("login.phoneno", e);
+    setAppData("login.phoneno", parseInt(e, 10));
     const { phoneno } = this.props;
     if (isNaN(phoneno)) {
-      setAppData("login.phoneno", 0);
+      setAppData("login.phoneno","");
     }
   };
 
