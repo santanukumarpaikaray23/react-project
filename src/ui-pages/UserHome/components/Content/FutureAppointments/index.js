@@ -5,7 +5,7 @@ import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 
 class FutureAppointments extends React.Component {
   render() {
-    const { history, appointments } = this.props
+    const { history, appointments,setAppData } = this.props
     return (
       <div style={{ background: "#f7f7f7", height: "100vh" }}>
         <div style={{ margin: "0px 15px 15px 15px" }}>
@@ -23,12 +23,13 @@ class FutureAppointments extends React.Component {
                     fontSize: "15px", fontWeight: 500
                   }}>Your next appontment is on September
                 {data.date},{data.day}
-                    {""} at {new Date(data.appointment_datetime).getTime()} AM with {data.doctor_name}</Typography>
+                    {""} at {data.slot_time} AM with {data.doctor_name}</Typography>
                   {"\n"}
                 </Grid>
                 <Card>
                   <CardContent>
-                    <Grid style={{ display: "flex" }} onClick={() => history.push("/user-home/generate-token")}>
+                    <Grid style={{ display: "flex" }} onClick={() =>{setAppData("generateToken.appointment",data);
+                      history.push("/user-home/generate-token")}}>
                       <Grid item xs={3}>
                         <Avatar />
                       </Grid>

@@ -15,7 +15,8 @@ class BookAppointment extends React.Component {
     { number: 6, day: "Sat" }, { number: 7, day: "Sun" }]
     setAppData("bookAppointment.dates", dates)
     const apiResponse = await httpRequest({
-      endPoint: `/bookingSlots/${doctorId}`,
+      // endPoint: `/bookingSlots/${doctorId}`,
+      endPoint:`/bookingSlots/cb399ef5-d581-4649-bcb5-449cdfdf73f6`,
       method: "get",
       instance: "instanceOne",
     })
@@ -47,8 +48,8 @@ class BookAppointment extends React.Component {
     const { setAppData, history, phoneno, appointment_datetime, slot, specialistsName } = this.props;
     let requestBody = {
       number: phoneno ? phoneno : 7895328523,
-      // symptom:"Cold,fever",
-      speciality: specialistsName,
+      // speciality: specialistsName,
+      speciality: "Phychiatrist",
       appointment_datetime: appointment_datetime,
       slot: slot
     }

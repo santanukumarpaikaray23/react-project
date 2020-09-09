@@ -11,7 +11,7 @@ class Specialists extends React.Component {
   getSpecialities = async () => {
     const { setAppData } = this.props;
     const apiResponse = await httpRequest({
-      endPoint: `/specialityList/3d705de4-19e8-4846-9378-c1c15f03e0e1`,
+      endPoint: `/specialityList/995661f4-8727-4b0f-add8-7b4a00ddeb4a`,
       method: "get",
       instance: "instanceOne",
     })
@@ -50,7 +50,7 @@ class Specialists extends React.Component {
     }
   }
   render() {
-    const { specialists } = this.props
+    const { specialists,history } = this.props
     const { checkedHandle } = this
     return (
       <div style={{ background: "#f7f7f7", height: "100vh" }}>
@@ -65,7 +65,12 @@ class Specialists extends React.Component {
         </Grid>
         {specialists && specialists.response && specialists.response.map((data, index) => {
           return (
-            <Card style={{ margin: "0px 15px 15px 15px" }} key={index} onClick={() => checkedHandle(index, data.name)}>
+            <Card style={{ margin: "0px 15px 15px 15px" }} key={index} 
+            // onClick={() => checkedHandle(index, data.name)}
+      
+      onClick={()=>
+        history.push("/user-home/book-appointment")}
+            >
               <CardContent>
                 <Grid style={{ display: "flex" }}>
                   <Grid item xs={3}>
