@@ -11,6 +11,7 @@ class Landing extends React.Component {
     debugger
     const { setAppData } = this.props;
     let tempVar = []
+    let tempVar1 = []
     let days = [{ number: 1, day: "Mon" }, { number: 2, day: "Tue" }, { number: 3, day: "Wed" }, { number: 4, day: "Thru" }, { number: 5, day: "Fri" },
     { number: 6, day: "Sat" }, { number: 7, day: "Sun" }]
     let dat = {}
@@ -24,7 +25,7 @@ class Landing extends React.Component {
         let datee = data.appointment_datetime
         let da = new Date(datee).getDate()
         let daa = new Date(datee).getDay()
-        if (data.appointment_datetime === new Date().getDate()) {
+        if (data.date_status === true) {
           days.forEach((dataa) => {
             if (dataa.number === daa) {
               dat = { ...data, date: da, day: dataa.day, actualDate: data.booking_date }
@@ -33,14 +34,14 @@ class Landing extends React.Component {
           })
           setAppData("landing.todayAppointment", tempVar)
         }
-        if (data.appointment_datetime !== new Date().getDate()) {
+        if (data.date_status !== true) {
           days.forEach((dataa) => {
             if (dataa.number === daa) {
               dat = { ...data, date: da, day: dataa.day, actualDate: data.booking_date }
-              tempVar.push(dat)
+              tempVar1.push(dat)
             }
           })
-          setAppData("futureAppointments.appointments", tempVar)
+          setAppData("futureAppointments.appointments", tempVar1)
         }
       })
     }
