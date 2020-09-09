@@ -32,9 +32,9 @@ class GenerateToken extends React.Component {
                         <Avatar />
                       </Grid>
                       <Grid item md={9}>
-                        <Typography variant="h6">Michael D.Dombroski</Typography>
+                <Typography variant="h6">{data.doctor_name}</Typography>
                         <Typography color="textSecondary" variant="subtitle2">
-                          General Physician 11 years, MBBS, MD, English and Freanch
+                          {data.Doctor_speciality}
                 </Typography>
                       </Grid>
                     </Grid>
