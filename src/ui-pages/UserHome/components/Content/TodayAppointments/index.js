@@ -5,11 +5,12 @@ import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 
 class TodayAppointments extends React.Component {
   render() {
-    const { history, appointments } = this.props
+    debugger
+    const { history, todayAppointment,setAppData } = this.props
     return (
       <div style={{ background: "#f7f7f7", height: "100vh" }}>
         <div style={{ margin: "0px 15px 15px 15px" }}>
-          {appointments.map((data) => {
+          {todayAppointment.map((data) => {
             return (
               <div>
                 <Grid
@@ -21,14 +22,15 @@ class TodayAppointments extends React.Component {
                   <Typography align="center" color="textSecondary" style={{
                     margin: "5px 5px 2px 5px",
                     fontSize: "15px", fontWeight: 500
-                  }}>Your next appontment is on September
+                  }}>Your next appontment is on September {""}
                 {data.date},{data.day}
-                    {""} at {new Date(data.appointment_datetime).getTime()} AM with {data.doctor_name}</Typography>
+                    {""} at {data.slot_time} AM with {data.doctor_name}</Typography>
                   {"\n"}
                 </Grid>
                 <Card>
                   <CardContent>
-                    <Grid style={{ display: "flex" }} onClick={() => history.push("/user-home/generate-token")}>
+                    <Grid style={{ display: "flex" }} onClick={() =>{setAppData("generateToken.appointment",data);
+                     history.push("/user-home/generate-token")}}>
                       <Grid item xs={3}>
                         <Avatar />
                       </Grid>
@@ -51,10 +53,10 @@ class TodayAppointments extends React.Component {
 }
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { todayAppointments = {} } = preparedFinalObject;
-  const { appointments = [] } = todayAppointments
+  const { landing = {} } = preparedFinalObject;
+  const { todayAppointment = [] } = landing
 
-  return { appointments, todayAppointments }
+  return { todayAppointment,landing }
 };
 
 export default connect(

@@ -56,7 +56,7 @@ class PaymentSuccessful extends React.Component {
               marginLeft: "10%"
             }}
           >
-            <Typography align="center" variant="h6" onClick={() => history.push("/user-home")}>Generate Token {'&'} PAY</Typography>
+            <Typography align="center" variant="h6" onClick={() => history.push("/user-home")}>Generate Token</Typography>
           </Button>
         </div>
       </div>

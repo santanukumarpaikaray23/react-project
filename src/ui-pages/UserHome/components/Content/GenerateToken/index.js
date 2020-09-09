@@ -5,12 +5,12 @@ import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 
 class GenerateToken extends React.Component {
   render() {
-    const { history, todayAppointment } = this.props
+    const { history, todayAppointment,appointment } = this.props
     return (
       <div style={{ background: "#f7f7f7", height: "100vh" }}>
         <div style={{ margin: "0px 15px 15px 15px" }}>
-          {todayAppointment.map((data) => {
-            return (
+          {/* {todayAppointment.map((data) => {
+            return ( */}
               <div>
                 <Grid
                   container
@@ -21,8 +21,10 @@ class GenerateToken extends React.Component {
                   <Typography align="center" color="textSecondary" style={{
                     margin: "5px 5px 2px 5px",
                     fontSize: "15px", fontWeight: 500
-                  }}>Your Appontment is today, September {data.date},{data.day}
-                    {""} at {new Date(data.appointment_datetime).getTime()} AM with {data.doctor_name}</Typography>
+                  }}>
+                    {/* Your Appontment is today, September {data.date},{data.day}
+                    {""} at {new Date(data.appointment_datetime).getTime()} AM with {data.doctor_name} */}
+                    </Typography>
                   {"\n"}
                 </Grid>
                 <Card >
@@ -32,9 +34,11 @@ class GenerateToken extends React.Component {
                         <Avatar />
                       </Grid>
                       <Grid item md={9}>
-                        <Typography variant="h6">Michael D.Dombroski</Typography>
+                <Typography variant="h6">
+                  {appointment.doctor_name}
+                  </Typography>
                         <Typography color="textSecondary" variant="subtitle2">
-                          General Physician 11 years, MBBS, MD, English and Freanch
+                          {appointment.Doctor_speciality}
                 </Typography>
                       </Grid>
                     </Grid>
@@ -60,8 +64,8 @@ class GenerateToken extends React.Component {
                   <Typography align="center" variant="h6" onClick={() => history.push("")}>Generate Token</Typography>
                 </Button>
               </div>
-            )
-          })}
+            {/* )
+          })} */}
         </div>
       </div>
     );
@@ -71,8 +75,10 @@ const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
   const { generateToken = {}, landing = {} } = preparedFinalObject;
   const { todayAppointment } = landing
+  const { appointment } = generateToken
 
-  return { landing, todayAppointment,generateToken }
+
+  return { landing, todayAppointment,generateToken,appointment }
 };
 
 export default connect(
