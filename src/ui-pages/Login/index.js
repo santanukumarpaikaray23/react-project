@@ -82,17 +82,30 @@ class Login extends React.Component {
     setAppData("login.receiveOtp", true)
     // history.push("/Otp")
   }
+  // validatePhoneNumber = (e) => {
+  //   const { setAppData } = this.props;
+  //   let phone = /^\d{10}$/;
+  //   setAppData("login.phoneno", parseInt(e, 10));
+  //   const { phoneno } = this.props;
+  //   if (isNaN(phoneno)) {
+  //     setAppData("login.phoneno","");
+  //   }
+  // };
+
   validatePhoneNumber = (e) => {
-    const { setAppData } = this.props;
-    let phone = /^\d{10}$/;
-    setAppData("login.phoneno", parseInt(e, 10));
-    const { phoneno } = this.props;
-    if (isNaN(phoneno)) {
-      setAppData("login.phoneno","");
+    debugger
+    const { setAppData,login={} } = this.props;
+    const {phoneno}=login;
+    let phone = /^\d+$/;
+    if (phoneno&&phoneno.length===1) {
+      setAppData("login.phoneno", "");
+    }
+    if(e.target.value.match(phone)){
+    setAppData("login.phoneno",e.target.value);
     }
   };
-
   handlerRequestOtp = async () => {
+    debugger
     const { history, checked, phoneno } = this.props;
     const apiResponse = await httpRequest({
       endPoint: `/requestOtp/${phoneno}/Patient`,
@@ -104,7 +117,7 @@ class Login extends React.Component {
     }
   }
   render() {
-    const { setAppData, phoneno, mobile, receiveOtp, checked } = this.props
+    const { setAppData, phoneno, mobile, receiveOtp, checked,history } = this.props
     const { validatePhoneNumber, handlerRequestOtp } = this
     return (
       <div style={{ background: "#F8F8F8" }}>
@@ -114,11 +127,12 @@ class Login extends React.Component {
           <Typography variant="subtitle2" color="textSecondary" >Mobile Number</Typography>
           <Card style={{ boxShadow: "none" }}>
             <ThemeProvider theme={theme}>
-              <TextField
-                fullWidth
-                value={phoneno}
+              <TextField pattern = "[0-9] {3} - [0-9] {2} - [0-9] {3}"
+               required={true}
+               fullWidth
+              value={phoneno}
                 // style={{ borderBottom: "1px solid #2FC9B9"}}
-                onChange={(e) => validatePhoneNumber(e.target.value)}>
+                onChange={(e) => validatePhoneNumber(e)}>
               </TextField>
             </ThemeProvider >
           </Card>
@@ -162,7 +176,9 @@ class Login extends React.Component {
                 width: "257px",
                 color: "white"
               }}
-              onClick={() => this.loginChange()}>
+              onClick={() => this.loginChange()}
+              // onClick={() => history.push("/user-home/video-call")}
+              >
               <Typography variant="h6">Login</Typography>
             </Button>}
           <br />
