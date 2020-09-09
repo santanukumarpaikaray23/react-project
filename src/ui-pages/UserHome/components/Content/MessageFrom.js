@@ -13,8 +13,10 @@ class MessageForm extends Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault()
+    if(this.input.value != ''){
     this.props.onMessageSend(this.input.value)
     this.input.value = ""
+    }
   }
 
   render() {

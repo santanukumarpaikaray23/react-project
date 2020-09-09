@@ -8,7 +8,21 @@
   pointer-events: none;
 }
 
+.content {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 80vh;
+  margin-top: "3.5%"
+}
 
+.content .upper {
+  justify-content: normal;
+}
+
+.bottom{
+  margin-bottom: -30px;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

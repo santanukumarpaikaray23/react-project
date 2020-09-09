@@ -10,7 +10,7 @@ import store from "../ui-redux/store";
 
 let axiosInstances = {
   instanceOne: axios.create({
-    baseURL: process.env.NODE_ENV !== 'production'?window.location.origin:"http://ec2-13-127-71-22.ap-south-1.compute.amazonaws.com",
+    baseURL: process.env.NODE_ENV !== 'production'?window.location.origin:"http://ec2-15-207-175-213.ap-south-1.compute.amazonaws.com",
 
     headers: {
       "Content-Type": "application/json"
