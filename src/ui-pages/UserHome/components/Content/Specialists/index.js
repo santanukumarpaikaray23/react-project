@@ -24,7 +24,6 @@ class Specialists extends React.Component {
     setAppData("specialists.specialistsName", value)
     let requestBody = {
       number: phoneno ? phoneno : 7895328523,
-      // symptom:"Depression",
       speciality: value
     }
     const apiResponse = await httpRequest({
@@ -66,10 +65,7 @@ class Specialists extends React.Component {
         {specialists && specialists.response && specialists.response.map((data, index) => {
           return (
             <Card style={{ margin: "0px 15px 15px 15px" }} key={index} 
-            // onClick={() => checkedHandle(index, data.name)}
-      
-      onClick={()=>
-        history.push("/user-home/book-appointment")}
+            onClick={() => checkedHandle(index, data.name)}
             >
               <CardContent>
                 <Grid style={{ display: "flex" }}>

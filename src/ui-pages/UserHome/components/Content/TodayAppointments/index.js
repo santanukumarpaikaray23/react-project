@@ -6,11 +6,11 @@ import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 class TodayAppointments extends React.Component {
   render() {
     debugger
-    const { history, todayAppointment,setAppData } = this.props
+    const { history, appointments,setAppData } = this.props
     return (
       <div style={{ background: "#f7f7f7", height: "100vh" }}>
         <div style={{ margin: "0px 15px 15px 15px" }}>
-          {todayAppointment.map((data) => {
+          {appointments.map((data) => {
             return (
               <div>
                 <Grid
@@ -23,7 +23,7 @@ class TodayAppointments extends React.Component {
                     margin: "5px 5px 2px 5px",
                     fontSize: "15px", fontWeight: 500
                   }}>Your next appontment is on September {""}
-                {data.date},{data.day}
+                    {data.date},{data.day}
                     {""} at {data.slot_time} AM with {data.doctor_name}</Typography>
                   {"\n"}
                 </Grid>
@@ -53,10 +53,9 @@ class TodayAppointments extends React.Component {
 }
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { landing = {} } = preparedFinalObject;
-  const { todayAppointment = [] } = landing
-
-  return { todayAppointment,landing }
+  const { todayAppointments = {} } = preparedFinalObject;
+  const { appointments = [] } = todayAppointments
+  return { appointments,todayAppointments }
 };
 
 export default connect(

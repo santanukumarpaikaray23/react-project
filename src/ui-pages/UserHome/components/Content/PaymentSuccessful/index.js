@@ -45,7 +45,7 @@ class PaymentSuccessful extends React.Component {
             <Typography variant="h6" align="center"  
             style={{ fontSize: "15px", fontWeight: 1200 }}>We thank you for Payment of Rs.200/</Typography>
           </Grid>
-          <Button
+          {/* <Button
             size="large"
             variant="contained"
             style={{
@@ -57,7 +57,7 @@ class PaymentSuccessful extends React.Component {
             }}
           >
             <Typography align="center" variant="h6" onClick={() => history.push("/user-home")}>Generate Token</Typography>
-          </Button>
+          </Button> */}
         </div>
       </div>
     );
