@@ -4,12 +4,14 @@ import MessageIcon from "@material-ui/icons/Message";
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 import { httpRequest } from "../../../../../ui-utils/api"
 import { connect } from "react-redux";
+import { SampleContext } from "twilio/lib/rest/autopilot/v1/assistant/task/sample";
+import isEmpty from "lodash"
 
 
 class Landing extends React.Component {
   componentDidMount = async () => {
     debugger
-    const { setAppData } = this.props;
+    const { setAppData, morningSlots, afternoonSlots } = this.props;
     let tempVar = []
     let tempVar1 = []
     let days = [{ number: 1, day: "Mon" }, { number: 2, day: "Tue" }, { number: 3, day: "Wed" }, { number: 4, day: "Thru" }, { number: 5, day: "Fri" },
@@ -25,16 +27,17 @@ class Landing extends React.Component {
         let datee = data.appointment_datetime
         let da = new Date(datee).getDate()
         let daa = new Date(datee).getDay()
-        if (data.date_status === true) {
+        if (data.date_status !== true) {
+          // this.checkLatestAppointemnt(data.slot_time)
           days.forEach((dataa) => {
             if (dataa.number === daa) {
               dat = { ...data, date: da, day: dataa.day, actualDate: data.booking_date }
               tempVar.push(dat)
             }
           })
-          setAppData("landing.todayAppointment", tempVar)
+          setAppData("todayAppointments.appointments", tempVar)
         }
-        if (data.date_status !== true) {
+        if (data.date_status === true) {
           days.forEach((dataa) => {
             if (dataa.number === daa) {
               dat = { ...data, date: da, day: dataa.day, actualDate: data.booking_date }
@@ -43,15 +46,46 @@ class Landing extends React.Component {
           })
           setAppData("futureAppointments.appointments", tempVar1)
         }
+        // if(isEmpty(morningSlots)){
+        //   let a=Math.min(afternoonSlots)
+        //   setAppData("landing.latestAppointment",a)
+        // }
+        // if(isEmpty(afternoonSlots)){
+        //   let a=Math.min(morningSlots)
+        //   setAppData("landing.latestAppointment",a)
+        // }
+        // if(!isEmpty(morningSlots)&&(!isEmpty(afternoonSlots))){
+        //  let a=Math.min(morningSlots)
+        //  setAppData("landing.latestAppointment",a)
+        // }
       })
     }
+    this.checkLatestAppointemnt()
   }
-
+  checkLatestAppointemnt = () => {
+    debugger
+    const { setAppData, appointments } = this.props
+    appointments && appointments.forEach((data) => {
+      let a = []
+      let b = []
+      if (data.slot !== null) {
+        if ((data.slot === "9:00") || (data.slot === "9:30") || (data.slot === "10:00") || (data.slot === "10:30") || (data.slot === "11:00") ||
+          (data.slot === "11:30") || (data.slot === "12:00") || (data.slot === "12:30")) {
+          a.push(data)
+          setAppData("landing.morningSlots", a)
+        }
+        else {
+          b.push(data)
+          setAppData("landing.afternoonSlots", b)
+        }
+      }
+    })
+  }
   render() {
-    const { history, todayAppointment } = this.props
+    const { history, todayAppointment, latestAppointment, appointments, setAppData } = this.props
     return (
       <div style={{ background: "#eeeeee", height: "100vh" }}>
-        {todayAppointment ?
+        {latestAppointment ?
           <Card>
             <Grid
               container
@@ -92,7 +126,6 @@ class Landing extends React.Component {
             <Grid style={{ display: "flex" }}>
               <Grid item xs={4}>
                 <img width="90%" height="100%" src='ic_clinic_o.svg' alt="verify_icon" />
-
               </Grid>
               <Grid item md={8}>
                 <Typography variant="h6"> Clinic Appointment</Typography>
@@ -109,7 +142,6 @@ class Landing extends React.Component {
             <Grid style={{ display: "flex" }}>
               <Grid item xs={4}>
                 <img width="90%" height="100%" src='ic_home_clinic_f.svg' alt="verify_icon" />
-
               </Grid>
               <Grid item md={8}>
                 <Typography variant="h6"> Doctor at Home</Typography>
@@ -127,10 +159,11 @@ class Landing extends React.Component {
 // export default withRouter(Landing) ;
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { login = {}, landing = {} } = preparedFinalObject;
-  const { todayAppointment } = landing
+  const { login = {}, landing = {}, todayAppointments = {} } = preparedFinalObject;
+  const { todayAppointment, morningSlots, afternoonSlots, latestAppointment } = landing
   const { phoneno } = login
-  return { phoneno, landing, todayAppointment }
+  const { appointments } = todayAppointments
+  return { phoneno, landing, todayAppointment, morningSlots, afternoonSlots, latestAppointment, appointments, todayAppointments }
 };
 
 export default connect(
