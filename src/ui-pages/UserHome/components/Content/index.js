@@ -42,6 +42,10 @@ var headings = [
     heading: "CHAT",
   },
   {
+    id: "/user-home/chating",
+    heading: "Chat Screen",
+  },
+  {
     id: "/user-home/calendar",
     heading: "CALENDAR",
   },
