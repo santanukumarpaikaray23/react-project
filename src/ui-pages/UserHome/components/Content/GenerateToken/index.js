@@ -5,7 +5,7 @@ import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 
 class GenerateToken extends React.Component {
   render() {
-    const { history, todayAppointment,appointment } = this.props
+    const { history,appointment } = this.props
     return (
       <div style={{ background: "#f7f7f7", height: "100vh" }}>
         <div style={{ margin: "0px 15px 15px 15px" }}>
@@ -22,8 +22,8 @@ class GenerateToken extends React.Component {
                     margin: "5px 5px 2px 5px",
                     fontSize: "15px", fontWeight: 500
                   }}>
-                    {/* Your Appontment is today, September {data.date},{data.day}
-                    {""} at {new Date(data.appointment_datetime).getTime()} AM with {data.doctor_name} */}
+                    Your Appontment is today, September {appointment.date} {appointment.day}
+                    {""} at {appointment.slot_time} AM with {appointment.doctor_name}
                     </Typography>
                   {"\n"}
                 </Grid>
@@ -76,8 +76,6 @@ const mapStateToProps = ({ screenConfiguration }) => {
   const { generateToken = {}, landing = {} } = preparedFinalObject;
   const { todayAppointment } = landing
   const { appointment } = generateToken
-
-
   return { landing, todayAppointment,generateToken,appointment }
 };
 

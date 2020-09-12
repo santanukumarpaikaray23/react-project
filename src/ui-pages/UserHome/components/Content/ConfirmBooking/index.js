@@ -9,7 +9,7 @@ class ConfirmBooking extends React.Component {
     setAppData("")
   }
   render() {
-    const { history } = this.props
+    const { history,bookAppointmentResponse } = this.props
     return (
       <div style={{ background: "#f7f7f7", height: "100vh" }}>
         <div style={{ margin: "0px 15px 15px 15px" }}>
@@ -19,7 +19,10 @@ class ConfirmBooking extends React.Component {
             justify="center"
             direction="row"
             style={{ height: "13vh", marginTop: "3.5%" }}>
-            <Typography align="center" color="textSecondary" style={{ margin: "5px 5px 2px 5px", fontSize: "15px", fontWeight: 500 }}>We recommend you to meet Dr.Michael D Dombroksi at  our Hospital</Typography>
+            <Typography align="center" color="textSecondary" style={{ margin: "5px 5px 2px 5px",
+             fontSize: "15px", fontWeight: 500 }}>We recommend you to meet 
+             {bookAppointmentResponse.appointment.doctor_name} at 
+              our Hospital</Typography>
             {"\n"}
           </Grid>
           <Card >
@@ -29,9 +32,9 @@ class ConfirmBooking extends React.Component {
                   <Avatar />
                 </Grid>
                 <Grid item md={9}>
-                  <Typography variant="h6">Michael D.Dombroski</Typography>
+                  <Typography variant="h6">{bookAppointmentResponse.appointment.doctor_name}</Typography>
                   <Typography color="textSecondary" variant="subtitle2">
-                    General Physician 11 years, MBBS, MD, English and Freanch
+                  {bookAppointmentResponse.appointment.doctor_speciality}
                 </Typography>
                 </Grid>
               </Grid>
@@ -60,8 +63,9 @@ class ConfirmBooking extends React.Component {
 }
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { confirmBooking = {} } = preparedFinalObject;
-  return { confirmBooking }
+  const { confirmBooking = {},bookAppointment={} } = preparedFinalObject;
+  const {bookAppointmentResponse}=bookAppointment
+  return { confirmBooking, bookAppointmentResponse,bookAppointment}
 };
 
 export default connect(

@@ -10,7 +10,6 @@ import isEmpty from "lodash"
 
 class Landing extends React.Component {
   componentDidMount = async () => {
-    debugger
     const { setAppData, morningSlots, afternoonSlots } = this.props;
     let tempVar = []
     let tempVar1 = []
@@ -27,8 +26,7 @@ class Landing extends React.Component {
         let datee = data.appointment_datetime
         let da = new Date(datee).getDate()
         let daa = new Date(datee).getDay()
-        if (data.date_status !== true) {
-          // this.checkLatestAppointemnt(data.slot_time)
+        if (data.date_status === true) {
           days.forEach((dataa) => {
             if (dataa.number === daa) {
               dat = { ...data, date: da, day: dataa.day, actualDate: data.booking_date }
@@ -37,7 +35,7 @@ class Landing extends React.Component {
           })
           setAppData("todayAppointments.appointments", tempVar)
         }
-        if (data.date_status === true) {
+        if (data.date_status !== true) {
           days.forEach((dataa) => {
             if (dataa.number === daa) {
               dat = { ...data, date: da, day: dataa.day, actualDate: data.booking_date }
@@ -46,31 +44,18 @@ class Landing extends React.Component {
           })
           setAppData("futureAppointments.appointments", tempVar1)
         }
-        // if(isEmpty(morningSlots)){
-        //   let a=Math.min(afternoonSlots)
-        //   setAppData("landing.latestAppointment",a)
-        // }
-        // if(isEmpty(afternoonSlots)){
-        //   let a=Math.min(morningSlots)
-        //   setAppData("landing.latestAppointment",a)
-        // }
-        // if(!isEmpty(morningSlots)&&(!isEmpty(afternoonSlots))){
-        //  let a=Math.min(morningSlots)
-        //  setAppData("landing.latestAppointment",a)
-        // }
       })
     }
     this.checkLatestAppointemnt()
   }
   checkLatestAppointemnt = () => {
-    debugger
-    const { setAppData, appointments } = this.props
+    const { setAppData, appointments,morningSlots,afternoonSlots} = this.props
+    let a = []
+    let b = []
     appointments && appointments.forEach((data) => {
-      let a = []
-      let b = []
-      if (data.slot !== null) {
-        if ((data.slot === "9:00") || (data.slot === "9:30") || (data.slot === "10:00") || (data.slot === "10:30") || (data.slot === "11:00") ||
-          (data.slot === "11:30") || (data.slot === "12:00") || (data.slot === "12:30")) {
+      if (data.slot_time !== null) {
+        if ((data.slot_time === "9:00") || (data.slot_time === "9:30") || (data.slot_time === "10:00") || (data.slot_time === "10:30") || (data.slot_time === "11:00") ||
+          (data.slot_time === "11:30") || (data.slot_time === "12:00") || (data.slot_time === "12:30")) {
           a.push(data)
           setAppData("landing.morningSlots", a)
         }
@@ -80,7 +65,43 @@ class Landing extends React.Component {
         }
       }
     })
+     this.checkMin()
   }
+  checkMin=()=>{
+    const { setAppData,morningSlots,afternoonSlots} = this.props
+    let arr=[]
+    let temp
+    let temp1
+      if((morningSlots!==null)&&(afternoonSlots===null)){
+        afternoonSlots&&afternoonSlots.map((data)=>{
+        temp=parseInt(data.slot_time)
+        arr.push(temp)
+    })
+    setAppData("landing.latestAppointment",Math.min(...arr))
+      }
+      if((afternoonSlots!==null)&&(morningSlots===null)){
+        morningSlots&&morningSlots.map((data)=>{
+        temp=parseInt(data.slot_time)
+        arr.push(temp)
+        })
+    setAppData("landing.latestAppointment",Math.min(...arr))
+      }
+      if(morningSlots!==null&&(afternoonSlots!==null)){
+        morningSlots&& morningSlots.map((data)=>{
+        temp=parseInt(data.slot_time)
+        arr.push(temp)
+        })
+       temp1=Math.min(...arr)
+       morningSlots&&morningSlots.forEach((item)=>{
+         if(item.slot_time.charAt(0)===temp1.toString()){
+        setAppData("landing.latestAppointment",item)
+        setAppData("generateToken.appointment",item)
+
+         }
+       })
+      }
+
+     }
   render() {
     const { history, todayAppointment, latestAppointment, appointments, setAppData } = this.props
     return (
@@ -90,8 +111,14 @@ class Landing extends React.Component {
             <Grid
               container
               style={{ background: "#343434", color: "white", padding: "10px", marginTop: "10px" }}>
-              <Typography onClick={() => history.push("/user-home/generate-token")}>You don't have any upcomming appointment</Typography>
-              <MessageIcon style={{ marginLeft: "4%", marginTop: "1%" }} onClick={() => history.push("/user-home/video-call")} />
+                <Grid item xs={11}>
+              <Typography onClick={() => history.push("/user-home/generate-token")}>
+                You are having upcomming appointment on {latestAppointment.date} {latestAppointment.day}
+               {""} {latestAppointment.slot_time} with doctor {latestAppointment.doctor_name}</Typography>
+               </Grid>
+               <Grid item xs={1}>
+              <MessageIcon style={{ marginTop: "1%" }} onClick={() => history.push("/user-home/video-call")} />
+              </Grid>
             </Grid>
           </Card> : ""}
         <Grid

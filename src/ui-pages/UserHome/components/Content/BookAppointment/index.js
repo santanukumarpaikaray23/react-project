@@ -8,7 +8,6 @@ import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 // videoid,hospital,token,chatid/useRadioGroup
 class BookAppointment extends React.Component {
   componentDidMount = async () => {
-    debugger
     const { setAppData, doctorId } = this.props;
     let dates = []
     let days = [{ number: 1, day: "Mon" }, { number: 2, day: "Tue" }, { number: 3, day: "Wed" }, { number: 4, day: "Thru" }, { number: 5, day: "Fri" },
@@ -43,7 +42,6 @@ class BookAppointment extends React.Component {
     }
   }
   handleNextButton = async () => {
-    debugger
     const { setAppData, history, phoneno, appointment_datetime, slot, specialistsName } = this.props;
     let requestBody = {
       number: phoneno ? phoneno : 7895328523,
