@@ -44,7 +44,8 @@ class BookAppointment extends React.Component {
   handleNextButton = async () => {
     const { setAppData, history, phoneno, appointment_datetime, slot, specialistsName } = this.props;
     let requestBody = {
-      number: phoneno ? phoneno : 7895328523,
+      //number: phoneno ? phoneno : 7895328523,
+      number: phoneno,
       speciality: specialistsName,
       appointment_datetime: appointment_datetime,
       slot: slot

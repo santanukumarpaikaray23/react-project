@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 
 class GenerateToken extends React.Component {
+  ;
   render() {
-    const { history,appointment } = this.props
+    const { history,appointment,setAppData } = this.props
     return (
       <div style={{ background: "#f7f7f7", height: "100vh" }}>
         <div style={{ margin: "0px 15px 15px 15px" }}>
@@ -61,7 +62,8 @@ class GenerateToken extends React.Component {
                     marginLeft: "10%"
                   }}
                 >
-                  <Typography align="center" variant="h6" onClick={() => history.push("")}>Generate Token</Typography>
+                  <Typography align="center" variant="h6" onClick={()=>{//setAppData("doctorvidcall",appointment);
+                             history.push("/user-home/video-call")}}>Generate Token</Typography>
                 </Button>
               </div>
             {/* )

@@ -2,7 +2,7 @@
   "name": "yellowbuds",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://ec2-15-207-175-213.ap-south-1.compute.amazonaws.com:8080",
+  "proxy": "https://dev.dewhive.biz/backend/",
   "license": "Dewhive",
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",

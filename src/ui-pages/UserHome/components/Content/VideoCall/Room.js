@@ -66,6 +66,8 @@ const Room = ({ token, roomName, handleLogout, muteAudio }) => {
                 ) : (
                         ''
                     )}
+                     <br></br>
+                    <button onClick={muteAudio}>Mute</button>
             </div>
             <span className="remote-participants">{remoteParticipants}</span>
         </span>

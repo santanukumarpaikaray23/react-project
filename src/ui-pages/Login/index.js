@@ -93,7 +93,9 @@ class Login extends React.Component {
   // };
 
   validatePhoneNumber = (e) => {
-    debugger
+    
+    // const { setAppData,login={} } = this.props;
+    // setAppData("login.phoneno",'9008337558');//7022463389
     const { setAppData,login={} } = this.props;
     const {phoneno}=login;
     let phone = /^\d+$/;
@@ -105,7 +107,7 @@ class Login extends React.Component {
     }
   };
   handlerRequestOtp = async () => {
-    debugger
+    
     const { history, checked, phoneno } = this.props;
     const apiResponse = await httpRequest({
       endPoint: `/requestOtp/${phoneno}/Patient`,
@@ -149,7 +151,7 @@ class Login extends React.Component {
                 checked={checked}
                 onChange={(e) => setAppData("login.checked", !checked)}
                 name="ViewSwitch" />
-              <Typography variant="subtitle2" color="textSecondary" style={{ marginLeft: "3%", marginTop: "4%" }}>Agree for</Typography>
+              <Typography variant="subtitle2" color="textSecondary" style={{ marginLeft: "3%", marginTop: "4%" }}>Agree</Typography>
               <Typography variant="subtitle2" color="primary" style={{ marginLeft: "1%", marginTop: "4%" }}>Terms and Conditions</Typography>
             </Grid> : ""}
           <br />

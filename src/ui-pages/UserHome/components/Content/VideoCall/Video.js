@@ -8,10 +8,12 @@ import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 class VideoChat extends Component {
 
      componentDidMount = async () => {
-        const { setAppData } = this.props
+         
+        const { setAppData, appointment } = this.props
+        console.log(appointment);
         setAppData("spinner", true)
         const apiResponse = await httpRequest({
-            endPoint: `/connectVedio/0505e50d-2f89-4013-ac5a-deedc622b3ba`,
+            endPoint: `/connectVedio/${appointment.appointment_id}`,
             method: "get",
             instance: "instanceOne",
         })
@@ -55,14 +57,26 @@ class VideoChat extends Component {
 
 
     muteAudio = () => {
+        
         const {token, roomName } = this.props;
         Video.connect(`${token}`, { name: roomName }).then((room) => {
-            room.localParticipant.audioTracks.forEach((publication) => {
-                publication.track.disable();
-            });
-            room.localParticipant.videoTracks.forEach((publication) => {
-                publication.track.enable();
-            });
+            // room.localParticipant.audioTracks.forEach((publication) => {
+            //     publication.track.disable();
+            // });
+            // room.localParticipant.videoTracks.forEach((publication) => {
+            //     publication.track.enable();
+            // });
+           
+           
+            // room.localParticipant.audioTracks.forEach(function (audioTrack) {
+            //     console.log("audioTrack-- "+audioTrack);
+            //     audioTrack.disable();
+            //   });
+              room.localParticipant.audioTracks.forEach(function(track) {
+                console.log("audioTrack-- "+track);
+                track.track.disable();
+              })
+              //microphone = false;
         });
     }
     render() {
@@ -82,9 +96,9 @@ class VideoChat extends Component {
 
 const mapStateToProps = ({ screenConfiguration }) => {
     const { preparedFinalObject = {} } = screenConfiguration;
-    const { apiResponse={}, token, roomName,doctorAccessToken} = preparedFinalObject;
-   
-    return { apiResponse,doctorAccessToken,token, roomName}
+    const { apiResponse={}, token, roomName,doctorAccessToken, generateToken={}} = preparedFinalObject;
+    const { appointment } = generateToken
+    return { apiResponse,doctorAccessToken,token, roomName, appointment,generateToken}
   };
   
   export default connect(

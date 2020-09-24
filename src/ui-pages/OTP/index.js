@@ -31,10 +31,10 @@ class Otp extends React.Component {
       history.push("/user-home")
     }
   }
-  resendOtp=async()=>{
+  resendOtp=async(phoneno)=>{
     const { history } = this.props;
     const apiResponse = await httpRequest({
-      endPoint: `/resendOtp/7895328523/patient`,
+      endPoint: `/resendOtp/${phoneno}/patient`,
       method: "get",
       instance: "instanceOne",
     })
@@ -43,7 +43,7 @@ class Otp extends React.Component {
     }
   }
   render() {
-    const {otpValue } = this.props
+    const {otpValue,phoneno } = this.props
     let count=otpValue.toString().length;
     console.log(count,"hiii")
     return (
@@ -77,7 +77,7 @@ class Otp extends React.Component {
             />
           </Typography>
             <Typography variant="subtitle2" color="textSecondary" gutterBottom style={{ marginTop: "2%" }}>{count}/6</Typography>
-          <Typography variant="subtitle2" color="textSecondary" gutterBottom onClick={() => this.resendOtp()}>Resend Otp</Typography>
+          <Typography variant="subtitle2" color="textSecondary" gutterBottom onClick={() => this.resendOtp(phoneno)}>Resend Otp</Typography>
           <Button
             size="large"
             variant="contained"

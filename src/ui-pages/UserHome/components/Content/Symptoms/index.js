@@ -32,7 +32,7 @@ class Symptoms extends React.Component {
     setAppData(`symptoms.name[${key}]`, value)
   }
   handleNextButton = async () => {
-    debugger
+    
     const { setAppData } = this.props;
     setAppData("spinner", true)
     let snackbar = {

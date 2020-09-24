@@ -5,10 +5,6 @@ import TwilioChat from 'twilio-chat'
 import { httpRequest } from "../../../../../ui-utils/api"
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 import { connect } from "react-redux";
-// import SendBird from "sendbird"
-
-// import axios from "axios"
-// import './App.css'
 
 class Chat extends Component {
   constructor(props) {
@@ -21,6 +17,7 @@ class Chat extends Component {
   }
 
   componentDidMount = () => {
+    
     this.getToken()
       .then(this.createChatClient)
       .then(this.joinGeneralChannel)
@@ -30,26 +27,30 @@ class Chat extends Component {
       })
   }
   getToken = async() => {
-    const { setAppData } = this.props;
+    const { setAppData,appointment } = this.props;
+    console.log(appointment);
     const chatRes = await httpRequest({
-      endPoint: `/updateChatToken/52f28b13-4477-40f2-a566-d596eb529fb0`,
+      endPoint: `/connectChat/${appointment.appointment_id}`,
       method: "get",
       instance: "instanceOne",
     })
-    setAppData("token",chatRes.patientAccessToken)
+    setAppData("chatdet",chatRes)
     return chatRes;
   }
 
   createChatClient = (res) => {
     return new Promise((resolve, reject) => {
-      resolve(new TwilioChat(res.patientAccessToken))
+      resolve(new TwilioChat(res.patient_chat_access_token))
     })
   }
 
   joinGeneralChannel = (chatClient) => {
+    
+    const {chatdet} = this.props
+    console.log(chatdet.ChannelId);
     return new Promise((resolve, reject) => {
       chatClient.getSubscribedChannels().then(() => {
-        chatClient.getChannelByUniqueName('CH327a32f165c14b5d9f6e03f1f7ddfd63').then((channel) => {
+        chatClient.getChannelByUniqueName(chatdet.ChannelId).then((channel) => {
           this.setState({ channel })
 
           channel.join().then(() => {
@@ -115,8 +116,9 @@ class Chat extends Component {
 
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { Chat = {} } = preparedFinalObject;
-  return { Chat } 
+  const { chatdet ,chatToken ={} } = preparedFinalObject;
+  const { appointment } = chatToken;
+  return { chatdet, chatToken, appointment } 
 };
 
 export default connect(
