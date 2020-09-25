@@ -59,9 +59,9 @@ class ChatScreen extends React.Component {
                           <Avatar />
                         </Grid>
                         <Grid item md={9}>
-                          <Typography variant="h6" >{dData.appointment_id}</Typography>
+                          <Typography variant="h6" >{dData.doctor_name}</Typography>
                           <Typography color="textSecondary" variant="subtitle2">
-                            {dData.Doctor_speciality}
+                            {dData.doctor_speciality}
                           </Typography>
                         </Grid>
                       </Grid>

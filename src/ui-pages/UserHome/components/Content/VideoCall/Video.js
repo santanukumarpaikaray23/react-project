@@ -89,7 +89,8 @@ class VideoChat extends Component {
             <Room roomName={roomName}
                 token={token}
                 handleLogout={handleLogout}
-                muteAudio={muteAudio} />
+                //muteAudio={muteAudio} 
+                />
         )
     }
 }

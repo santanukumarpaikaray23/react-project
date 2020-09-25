@@ -11,7 +11,7 @@ class Specialists extends React.Component {
   getSpecialities = async () => {
     const { setAppData } = this.props;
     const apiResponse = await httpRequest({
-      endPoint: `/specialityList/995661f4-8727-4b0f-add8-7b4a00ddeb4a`,
+      endPoint: `/specialityList/27328f4d-ec67-4db7-a7b5-5aa5f05f6c14`,
       method: "get",
       instance: "instanceOne",
     })

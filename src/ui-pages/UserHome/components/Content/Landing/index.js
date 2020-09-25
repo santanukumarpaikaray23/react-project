@@ -49,7 +49,7 @@ class Landing extends React.Component {
   }
 
   checkLatestAppointemnt = (tempVar) => {
-    ;
+    
     const { setAppData, todayAppointment,morningSlots,afternoonSlots} = this.props
     let a = []
     let b = []
@@ -89,6 +89,9 @@ class Landing extends React.Component {
         console.log(data.slot_time);
         setAppData("landing.latestAppointment",data)
       }else if(data.slot_time === "2:30"){
+        console.log(data.slot_time);
+        setAppData("landing.latestAppointment",data)
+      }else if(data.slot_time === "3:00"){
         console.log(data.slot_time);
         setAppData("landing.latestAppointment",data)
       }else if(data.slot_time === "3:30"){
