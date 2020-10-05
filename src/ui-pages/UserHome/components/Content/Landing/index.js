@@ -134,7 +134,7 @@ class Landing extends React.Component {
     const { history, setAppData, landing } = this.props
     //console.log(landing.latestAppointment);
     let latestAppointment = landing.latestAppointment;
-debugger
+
 //     let time;
 // if(latestAppointment !== undefined && latestAppointment != ''){
 //     let mnts = new Date(latestAppointment.appointment_datetime).getMinutes();

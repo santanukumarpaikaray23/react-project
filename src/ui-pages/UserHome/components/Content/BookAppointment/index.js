@@ -22,7 +22,7 @@ class BookAppointment extends React.Component {
       instance: "instanceOne",
     })
     if (apiResponse) {
-      debugger
+      
       let uniqueArray = []
       apiResponse.forEach((data) => {
         let datee = data.booking_date

@@ -9,7 +9,7 @@ class ConfirmBooking extends React.Component {
     setAppData("")
   }
   render() {
-    debugger
+    
     const { history,bookAppointmentResponse } = this.props
     return (
       <div style={{ background: "#f7f7f7", height: "100vh" }}>

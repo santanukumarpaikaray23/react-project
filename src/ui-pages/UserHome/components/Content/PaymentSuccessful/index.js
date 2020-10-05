@@ -9,7 +9,7 @@ class PaymentSuccessful extends React.Component {
     setAppData("")
   }
   render() {
-    debugger
+    
     const { history,bookAppointmentResponse,bookAppointment } = this.props;
     let mnts = new Date(bookAppointmentResponse.appointment_datetime).getMinutes();
     let hrs = new Date(bookAppointmentResponse.appointment_datetime).getHours();

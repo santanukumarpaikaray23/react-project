@@ -74,7 +74,7 @@ class Chat extends Component {
   }
 
   addMessage = (message) => {
-    debugger
+    
     const { appointment } = this.props;
     const messageData = { ...message, me: message.author === appointment.patient_id }
     this.setState({

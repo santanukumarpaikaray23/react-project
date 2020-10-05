@@ -32,7 +32,7 @@ class ChatScreen extends React.Component {
   }
 
   render() {
-    debugger
+    
     const { history, todayAppointment, setAppData, docterRes } = this.props
     console.log(docterRes.doctorList);
     return (
