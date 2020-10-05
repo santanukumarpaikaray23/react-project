@@ -9,7 +9,16 @@ class PaymentSuccessful extends React.Component {
     setAppData("")
   }
   render() {
-    const { history,bookAppointmentResponse,bookAppointment } = this.props
+    debugger
+    const { history,bookAppointmentResponse,bookAppointment } = this.props;
+    let mnts = new Date(bookAppointmentResponse.appointment_datetime).getMinutes();
+    let hrs = new Date(bookAppointmentResponse.appointment_datetime).getHours();
+    let time;
+    if(hrs>12){
+      time = hrs-12+":"+mnts+" PM"
+    }else{
+      time = hrs+":"+mnts+" AM"
+    }
     return (
       <div style={{ background: "#f7f7f7", height: "100vh" }}>
         <div style={{ margin: "0px 15px 15px 15px" }}>
@@ -20,9 +29,9 @@ class PaymentSuccessful extends React.Component {
             direction="row"
             style={{ height: "13vh", marginTop: "3.5%" }}>
             <Typography align="center" color="textSecondary" style={{ margin: "5px 5px 2px 5px", 
-            fontSize: "15px", fontWeight: 500 }}>You have selected Monday, {new Date(bookAppointmentResponse.appointment.appointment_datetime).getDate()}  
-            at {new Date(bookAppointmentResponse.appointment.appointment_datetime).getTime()} PM for Video Call
-            consulting with {bookAppointmentResponse.appointment.doctor_name}</Typography>
+            fontSize: "15px", fontWeight: 500 }}>You have selected Monday, {new Date(bookAppointmentResponse.appointment_datetime).getDate()}  
+            at {time} for Video Call
+            consulting with {bookAppointmentResponse.doctor_name}</Typography>
             {"\n"}
           </Grid>
           <Card >
@@ -32,9 +41,9 @@ class PaymentSuccessful extends React.Component {
                   <Avatar />
                 </Grid>
                 <Grid item md={9}>
-                  <Typography variant="h6">{bookAppointmentResponse.appointment.doctor_name}</Typography>
+                  <Typography variant="h6">{bookAppointmentResponse.doctor_name}</Typography>
                   <Typography color="textSecondary" variant="subtitle2">
-                  {bookAppointmentResponse.appointment.doctor_speciality}
+                  {bookAppointmentResponse.doctor_speciality}
                 </Typography>
                 </Grid>
               </Grid>

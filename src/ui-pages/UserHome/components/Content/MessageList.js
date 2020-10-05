@@ -17,6 +17,7 @@ class MessageList extends Component {
   }
 
   render() {
+    //debugger
     return (
       <div className="MessageList" ref={(node) => (this.node = node)}>
         {this.props.messages.map((message, i) => (

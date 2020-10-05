@@ -6,6 +6,9 @@ import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 // import Symptoms from "../Symptoms";
 
 // videoid,hospital,token,chatid/useRadioGroup
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
 class BookAppointment extends React.Component {
   componentDidMount = async () => {
     const { setAppData, doctorId } = this.props;
@@ -19,6 +22,7 @@ class BookAppointment extends React.Component {
       instance: "instanceOne",
     })
     if (apiResponse) {
+      debugger
       let uniqueArray = []
       apiResponse.forEach((data) => {
         let datee = data.booking_date
@@ -42,7 +46,7 @@ class BookAppointment extends React.Component {
     }
   }
   handleNextButton = async () => {
-    const { setAppData, history, phoneno, appointment_datetime, slot, specialistsName } = this.props;
+    const { setAppData, history, phoneno, appointment_datetime, slot, specialistsName, bookAppointment } = this.props;
     let requestBody = {
       //number: phoneno ? phoneno : 7895328523,
       number: phoneno,
@@ -56,7 +60,9 @@ class BookAppointment extends React.Component {
       instance: "instanceOne",
       requestBody
     })
-    if (apiResponse.doctor) {
+    if (apiResponse) {
+      apiResponse.doctor_speciality = specialistsName;
+      apiResponse.doctor_name = bookAppointment.doctor_name;
       setAppData("spinner", true)
       let snackbar = {
         open: true,
@@ -95,7 +101,7 @@ class BookAppointment extends React.Component {
             justify="center"
             direction="row"
             style={{ height: "13vh", marginTop: "3.5%" }}>
-            <Typography align="center" color="textSecondary" style={{ margin: "5px 5px 2px 5px", fontSize: "15px", fontWeight: 500 }}>We recommend you to meet {bookAppointment && bookAppointment.doctor && bookAppointment.doctor.doctor_name} at  our Hospital</Typography>
+            <Typography align="center" color="textSecondary" style={{ margin: "5px 5px 2px 5px", fontSize: "15px", fontWeight: 500 }}>We recommend you to meet {bookAppointment && bookAppointment.doctor && bookAppointment.doctor_name} at  our Hospital</Typography>
             {"\n"}
           </Grid>
           <Card>
@@ -106,10 +112,10 @@ class BookAppointment extends React.Component {
                 </Grid>
                 <Grid item xs={9}>
                   <Typography variant="h6">
-                    {bookAppointment && bookAppointment.doctor && bookAppointment.doctor.doctor_name}
+                    {bookAppointment && bookAppointment && bookAppointment.doctor_name}
                   </Typography>
                   <Typography color="textSecondary" variant="subtitle2">
-                    {bookAppointment && bookAppointment.doctor && bookAppointment.doctor.speciality}
+                    {bookAppointment && bookAppointment && bookAppointment.doctor_speciality}
                   </Typography>
                 </Grid>
               </Grid>
@@ -151,7 +157,7 @@ class BookAppointment extends React.Component {
                             setAppData("bookAppointment.slot", data.slot)
                             setAppData("bookAppointment.selectedSlotIndex", index)
                           }}>
-                          <Typography color="textSecondary" variant="h5">{data.slot}</Typography>
+                          <Typography color="textSecondary" variant="h5">{data.slot>12 ? data.slot-12:data.slot}</Typography>
                           {data.slot === 9 || data.slot === 10 || data.slot === 11 ?
                             <Typography color="textSecondary">AM</Typography> : <Typography color="textSecondary">PM</Typography>}
                         </Card>
@@ -163,7 +169,7 @@ class BookAppointment extends React.Component {
                 <Grid container>
                   <Typography align="center" variant="h6" color="textSecondary" style={{ fontWeight: 500, fontSize: "15px", margin: "3px" }}>Your appointment
                    with {bookAppointment && bookAppointment.doctor && bookAppointment.doctor.doctor_name} has been
-                    scheduled on August {new Date(appointment_datetime).getDate()}, {day} at {slot}{slot === 9 || slot === 10 || slot === 11 ?
+                    scheduled on {monthNames[new Date(appointment_datetime).getMonth()]} {new Date(appointment_datetime).getDate()}, {day} at {slot>12 ? slot-12:slot}{slot === 9 || slot === 10 || slot === 11 ?
                       "AM" : "PM"}</Typography>
                 </Grid> : ""}
             </div> : ""}

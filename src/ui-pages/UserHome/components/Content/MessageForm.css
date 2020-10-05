@@ -27,4 +27,45 @@
   .MessageForm input {
     padding: 0 0 0 4px;
   }
-  
+  .inputmsg{
+    box-shadow: none;
+    padding:10px;
+    background: white;
+    position : fixed;
+    bottom : 12%;
+    width: 96%;
+    margin-right: 2%;
+  }
+  @media screen and (max-height: 450px) {
+    .inputmsg{
+      box-shadow: none;
+      padding:10px;
+      background: white;
+      position : fixed;
+      bottom : 15%;
+      width: 96%;
+      margin-right: 2%;
+    }
+  }
+  @media  screen and (max-height: 375px) {
+    .inputmsg{
+      box-shadow: none;
+      padding:10px;
+      background: white;
+      position : fixed;
+      bottom : 20%;
+      width: 96%;
+      margin-right: 2%;
+    }
+  }
+  @media  screen and (max-height: 300px) {
+    .inputmsg{
+      box-shadow: none;
+      padding:10px;
+      background: white;
+      position : fixed;
+      bottom : 23%;
+      width: 96%;
+      margin-right: 2%;
+    }
+  }

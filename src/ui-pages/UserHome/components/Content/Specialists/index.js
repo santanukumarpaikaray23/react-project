@@ -32,9 +32,9 @@ class Specialists extends React.Component {
       instance: "instanceOne",
       requestBody
     })
-    if (apiResponse.doctor) {
+    if (apiResponse) {
       setAppData("bookAppointment", apiResponse)
-      setAppData("specialists.doctorId", apiResponse.doctor.doctor_id)
+      setAppData("specialists.doctorId", apiResponse.doctor_id)
       history.push("/user-home/book-appointment")
     }
     else {

@@ -5,6 +5,7 @@ import TwilioChat from 'twilio-chat'
 import { httpRequest } from "../../../../../ui-utils/api"
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 import { connect } from "react-redux";
+import {Typography,Grid,Avatar,Card,CardContent,AppBar} from "@material-ui/core"
 
 class Chat extends Component {
   constructor(props) {
@@ -73,7 +74,9 @@ class Chat extends Component {
   }
 
   addMessage = (message) => {
-    const messageData = { ...message, me: message.author === this.state.username }
+    debugger
+    const { appointment } = this.props;
+    const messageData = { ...message, me: message.author === appointment.patient_id }
     this.setState({
       messages: [...this.state.messages, messageData],
     })
@@ -100,15 +103,42 @@ class Chat extends Component {
   }
 
   render() {
+    const { appointment } = this.props;
     return (
-      <div className="content">
-        <div style={{marginTop: "3.5%" }}></div>
-      <div className="upper">
-        <MessageList messages={this.state.messages} />
-       </div>
-       <div className="bottom">
-        <MessageForm onMessageSend={this.handleNewMessage} />
-        </div>
+      // <div className="content">
+      //   <div style={{marginTop: "3.5%" }}></div>
+      // <div className="upper">
+      //   <MessageList messages={this.state.messages} />
+      //  </div>
+      //  <div className="bottom">
+      //   <MessageForm onMessageSend={this.handleNewMessage} />
+      //   </div>
+      // </div>
+      <div class="flex-container" style={{padding:"2px"}}>
+            <div class="flex-item-left">
+            <Card style={{ width:"96%",marginLeft:"2%"}}>
+             <CardContent>
+              <Grid style={{ display: "flex"}}>
+                  <Grid item xs={3}>
+                      <Avatar />
+                  </Grid>
+                <Grid item md={9}>
+                      <Typography variant="h6" >{appointment.doctor_name}</Typography>
+                      <Typography color="textSecondary" variant="subtitle2">
+                            {/* {dData.doctor_speciality} */} {appointment.doctor_speciality}
+                      </Typography>
+                </Grid>
+                </Grid>
+                  {/* <Typography color="textSecondary" variant="subtitle2">Answers on chat time</Typography> */}
+              </CardContent>
+         </Card>
+            </div>
+            <div class="flex-it em-right" style={{marginLeft:"2%",marginRight:"2%"}} >
+            <MessageList messages={this.state.messages}></MessageList>
+            </div>
+            <div class="flex-item-right" style={{width:"96%", marginLeft:"2%",position: "fixed",bottom: "11%"}}>
+            <MessageForm onMessageSend={this.handleNewMessage} />
+            </div>
       </div>
     )
   }

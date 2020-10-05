@@ -10,21 +10,55 @@ class Message extends Component {
     me: PropTypes.bool,
   }
 
-  render() {
-    const classes = classNames('Message', {
-      log: !this.props.author,
-      me: this.props.me
-    })
 
+  renderMessage(message) {
+    debugger
+    const {me, body} = message;
+    //const {currentMember} = this.props;
+    // const messageFromMe = member.id === currentMember.id;
+    // console.log(currentMember)
+    const className = me ?
+      "Messages-message currentMember" : "Messages-message";
     return (
-      <div className={classes}>
-        {this.props.author && (
-          <span className="author">{this.props.author}:</span>
-        )}
-        {this.props.body}
-      </div>
-    )
+      <li className={className}>
+        <div className="Message-content">
+          <div className="username">
+          </div>
+          <div className="text">{body}</div>
+        </div>
+      </li>
+    );
   }
+
+  render() {
+    //const {messages} = this.props;
+    return (
+      <ul className="Messages-list">
+        {/* {this.props.map(m => this.renderMessage(m))} */}
+        {this.renderMessage(this.props)}
+      </ul>
+);
+
+    }
+
+//     author: "a1faccfd-3717-4369-9ffa-734c81a11da9"
+// body: "ffff"
+// me: true
+  // render() {
+  //   const classes = classNames('Message', {
+  //     log: !this.props.author,
+  //     me: this.props.me
+  //   })
+
+  //   return (
+  //     <div className={classes}>
+  //       {this.props.author && (
+  //         <span className="author"></span>//{this.props.author}:
+  //       )}
+  //       {this.props.body}
+  //     </div>
+  //   )
+  // }
 }
 
 export default Message

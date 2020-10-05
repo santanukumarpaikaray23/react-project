@@ -80,22 +80,11 @@ class Login extends React.Component {
   loginChange = () => {
     const { setAppData } = this.props
     setAppData("login.receiveOtp", true)
-    // history.push("/Otp")
   }
-  // validatePhoneNumber = (e) => {
-  //   const { setAppData } = this.props;
-  //   let phone = /^\d{10}$/;
-  //   setAppData("login.phoneno", parseInt(e, 10));
-  //   const { phoneno } = this.props;
-  //   if (isNaN(phoneno)) {
-  //     setAppData("login.phoneno","");
-  //   }
-  // };
-
   validatePhoneNumber = (e) => {
     
     // const { setAppData,login={} } = this.props;
-    // setAppData("login.phoneno",'9008337558');//7022463389
+    // setAppData("login.phoneno",'9008337558');//7022463389  7091921338
     const { setAppData,login={} } = this.props;
     const {phoneno}=login;
     let phone = /^\d+$/;
@@ -107,16 +96,51 @@ class Login extends React.Component {
     }
   };
   handlerRequestOtp = async () => {
-    
-    const { history, checked, phoneno } = this.props;
+    const { history, checked, phoneno, setAppData } = this.props;
+    //const {checked} = login;
+    if(phoneno !== '' && phoneno !== undefined ){
+      if(phoneno.length == 10){
+      if(checked){
     const apiResponse = await httpRequest({
       endPoint: `/requestOtp/${phoneno}/Patient`,
       method: "get",
       instance: "instanceOne",
     })
-    if ((apiResponse === true) && (checked === true)) {
+    if ((apiResponse === true)){// && (checked === true)) {
       history.push(`/Otp`)
+    }else{
+      let snackbar = {
+        open: true,
+        message: "Try again with valid number",
+        variant: "error"
+      }
+      setAppData("snackbar", snackbar)
     }
+  }else{
+    let snackbar = {
+      open: true,
+      message: "Agree Terms and Conditions.",
+      variant: "error"
+    }
+    setAppData("snackbar", snackbar)
+  }
+}else{
+  let snackbar = {
+    open: true,
+    message: "Provide Valid number",
+    variant: "error"
+  }
+  setAppData("snackbar", snackbar)
+
+}
+  }else{
+    let snackbar = {
+      open: true,
+      message: "Mobile Number not empty.",
+      variant: "error"
+    }
+    setAppData("snackbar", snackbar)
+  }
   }
   render() {
     const { setAppData, phoneno, mobile, receiveOtp, checked,history } = this.props
@@ -133,7 +157,6 @@ class Login extends React.Component {
                required={true}
                fullWidth
               value={phoneno}
-                // style={{ borderBottom: "1px solid #2FC9B9"}}
                 onChange={(e) => validatePhoneNumber(e)}>
               </TextField>
             </ThemeProvider >

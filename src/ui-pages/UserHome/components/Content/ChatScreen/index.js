@@ -10,7 +10,6 @@ class ChatScreen extends React.Component {
 
   }
   componentDidMount(){
-    ;
     const {todayAppointment, setAppData} = this.props
     if(todayAppointment != '' && todayAppointment != undefined){
     this.getDoctorsList(todayAppointment[0].patient_id);
@@ -33,7 +32,7 @@ class ChatScreen extends React.Component {
   }
 
   render() {
-    
+    debugger
     const { history, todayAppointment, setAppData, docterRes } = this.props
     console.log(docterRes.doctorList);
     return (
@@ -48,6 +47,7 @@ class ChatScreen extends React.Component {
           {"\n"}
         </Grid>
         {docterRes && docterRes.doctorList && docterRes.doctorList.map((dData, index) => {
+          dData.patient_id = todayAppointment[0].patient_id
           return (
                   <div>
                    

@@ -126,11 +126,15 @@ const styles = (theme) => ({
   bottom: {
     // paddingLeft:"10px",
     // paddingRight:"10px",
-    width: "360px",
+    width: "100%",
     position: "fixed",
     top: "auto",
     background: "#eeeeee",
     bottom: 0
+  },
+  wrapper : {
+    minWidth: "10px",
+    padding: "1vh 2vh 2vh",
   }
 });
 
@@ -150,6 +154,11 @@ const theme = createMuiTheme({
         paddingRight: "0px"
       }
     },
+    MuiBottomNavigationAction : {
+      root:{
+        minWidth : "0px"
+      }
+  }
   },
 });
 
@@ -212,25 +221,25 @@ class MiniDrawer extends React.Component {
           <UserRoutes />
         </main>
         <BottomNavigation value={value} onChange={handleChange} className={classes.bottom}>
-          <BottomNavigationAction label="Home" value="home" icon={
+          <BottomNavigationAction className={classes.wrapper} label="Home" value="home" icon={
             userInfo.home ?
               <img width="60%" height="60%" src='ic_home_f.svg' alt="verify_icon"
               />
               : <img width="60%" height="60%" src='ic_home_o.svg' alt="verify_icon" />}
             onClick={() => { history.push("/user-home") }} />
-          <BottomNavigationAction label="Chat" value="chat" icon={!userInfo.chat ?
+          <BottomNavigationAction className={classes.wrapper} label="Chat" value="chat" icon={!userInfo.chat ?
             <img width="60%" height="60%" src='ic_chat_o.svg' alt="verify_icon" /> :
             <img width="60%" height="60%" src='ic_chat_f.svg' alt="verify_icon" />}
             onClick={() => history.push("/user-home/chat")} />
-          <BottomNavigationAction label="Calendar" value="calendar" icon={!userInfo.calendar ?
+          <BottomNavigationAction className={classes.wrapper} label="Calendar" value="calendar" icon={!userInfo.calendar ?
             <img width="60%" height="60%" src='ic_caleandar_o.svg' alt="verify_icon" /> :
             <img width="60%" height="60%" src='ic_caleandar_f.svg' alt="verify_icon" />}
             onClick={() => history.push("/user-home/calendar")} />
-          <BottomNavigationAction label="Profile" value="profile" icon={!userInfo.profile ?
+          <BottomNavigationAction className={classes.wrapper} label="Profile" value="profile" icon={!userInfo.profile ?
             <img width="60%" height="60%" src='ic_profile_o.svg' alt="verify_icon" /> :
             <img width="60%" height="60%" src='ic_profile_f.svg' alt="verify_icon" />}
             onClick={() => history.push("/user-home/profile")} />
-          <BottomNavigationAction label="Records" value="recents" icon={!userInfo.recents ?
+          <BottomNavigationAction className={classes.wrapper} label="Records" value="recents" icon={!userInfo.recents ?
             <img width="60%" height="60%" src='ic_records_o.svg' alt="verify_icon" /> :
             <img width="60%" height="60%" src='ic_records_f.svg' alt="verify_icon" />}
             onClick={() => history.push("/user-home/records")} />

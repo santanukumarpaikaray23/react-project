@@ -55,64 +55,77 @@ class Landing extends React.Component {
     let b = []
     tempVar && tempVar.forEach((data) => {
       if (data.slot_time !== null) {
-      if (data.slot_time === "9:00") {
-        console.log(data.slot_time);
+        let hrs = new Date(data.current_time).getHours();
+        let tmnts = new Date(data.current_time).getMinutes() //=== 0 ? 00 : new Date(data.current_time).getMinutes();
+        let fmnts;
+        if(tmnts === 0){
+          tmnts = "00"
+        }
+        if(data.slot_time > hrs+":"+tmnts){
+          console.log(data.slot_time);
         setAppData("landing.latestAppointment",data)
-      }else if(data.slot_time === "9:30"){
-        console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-      }else if(data.slot_time === "10:00"){
-        console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-      }else if(data.slot_time === "10:30"){
-        console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-      }else if(data.slot_time === "11:00"){
-        console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-      }else if(data.slot_time === "11:30"){
-        console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-      }else if(data.slot_time === "12:00"){
-        console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-      }else if(data.slot_time === "12:30"){
-        console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-      }else if(data.slot_time === "1:00"){
-        console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-      }else if(data.slot_time === "1:30"){
-        console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-      }else if(data.slot_time === "2:00"){
-        console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-      }else if(data.slot_time === "2:30"){
-        console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-      }else if(data.slot_time === "3:00"){
-        console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-      }else if(data.slot_time === "3:30"){
-        console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-      }else if(data.slot_time === "4:00"){
-        console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-      }else if(data.slot_time === "4:30"){
-        console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-      }else if(data.slot_time === "5:00"){
-        console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-      }else if(data.slot_time === "5:30"){
-        console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-      }
+        }else{
+          // console.log(data.slot_time);
+          // setAppData("landing.latestAppointment","No Appointment")
+        }
+      // if (data.slot_time === "9:00") {
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }else if(data.slot_time === "9:30"){
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }else if(data.slot_time === "10:00"){
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }else if(data.slot_time === "10:30"){
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }else if(data.slot_time === "11:00"){
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }else if(data.slot_time === "11:30"){
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }else if(data.slot_time === "12:00"){
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }else if(data.slot_time === "12:30"){
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }else if(data.slot_time === "1:00"){
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }else if(data.slot_time === "1:30"){
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }else if(data.slot_time === "2:00"){
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }else if(data.slot_time === "2:30"){
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }else if(data.slot_time === "3:00"){
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }else if(data.slot_time === "3:30"){
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }else if(data.slot_time === "4:00"){
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }else if(data.slot_time === "4:30"){
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }else if(data.slot_time === "5:00"){
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }else if(data.slot_time === "5:30"){
+      //   console.log(data.slot_time);
+      //   setAppData("landing.latestAppointment",data)
+      // }
      }else{
       console.log("data.slot_time");
-      setAppData("landing.latestAppointment",null)
+      setAppData("landing.latestAppointment",'')
      }
     })
   }
@@ -121,6 +134,17 @@ class Landing extends React.Component {
     const { history, setAppData, landing } = this.props
     //console.log(landing.latestAppointment);
     let latestAppointment = landing.latestAppointment;
+debugger
+//     let time;
+// if(latestAppointment !== undefined && latestAppointment != ''){
+//     let mnts = new Date(latestAppointment.appointment_datetime).getMinutes();
+//     let hrs = new Date(latestAppointment.appointment_datetime).getHours();
+//     if(hrs>12){
+//       time = hrs-12+":"+mnts+" PM"
+//     }else{
+//       time = hrs+":"+mnts+" AM"
+//     }
+//   }
     return (
       <div style={{ background: "#eeeeee", height: "100vh" }}>
         {latestAppointment ?

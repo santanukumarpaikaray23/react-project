@@ -14,7 +14,8 @@ class Otp extends React.Component {
     setAppData(value, otp)
   };
   handlerVerifyOtp = async () => {
-    const {history, phoneno, otpValue } = this.props;
+    const {history, phoneno, otpValue, setAppData } = this.props;
+    if(otpValue !== '' && otpValue != undefined){
     let requestBody = {
       number: phoneno,
       user_type: "patient",
@@ -29,7 +30,22 @@ class Otp extends React.Component {
     })
     if (apiResponse.OtpVerification === true) {
       history.push("/user-home")
+    }else{
+      let snackbar = {
+        open: true,
+        message: "Incorrect OTP!",
+        variant: "error"
+      }
+      setAppData("snackbar", snackbar)
     }
+  }else{
+    let snackbar = {
+      open: true,
+      message: "Provide Valid OTP!",
+      variant: "error"
+    }
+    setAppData("snackbar", snackbar)
+  }
   }
   resendOtp=async(phoneno)=>{
     const { history } = this.props;
