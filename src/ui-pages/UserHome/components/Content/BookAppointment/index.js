@@ -39,7 +39,18 @@ class BookAppointment extends React.Component {
       var uniqueSet = {};
       jsonObject = dates.map(JSON.stringify);
       uniqueSet = new Set(jsonObject);
-      uniqueArray = Array.from(uniqueSet).map(JSON.parse);
+      uniqueArray = Array.from(uniqueSet).map(JSON.parse).sort(function (a, b) {
+        var key1 = new Date(a.actualDate);
+        var key2 = new Date(b.actualDate);
+    
+        if (key1 < key2) {
+            return -1;
+        } else if (key1 == key2) {
+            return 0;
+        } else {
+            return 1;
+        }
+      });
       console.log(uniqueArray, "hhh")
       setAppData("bookAppointment.dates", uniqueArray)
       setAppData("bookAppointment.response", apiResponse)
@@ -123,7 +134,7 @@ class BookAppointment extends React.Component {
           </Card>
           <Grid style={{ display: "flex", marginTop: "10px", marginBottom: "10px" }}>
             <Typography variant="h6" >SELECT DATE {'&'} TIME:</Typography>
-            <Typography variant="h6" color="primary" style={{ marginLeft: "7px" }}> {""}AUGUST</Typography>
+            <Typography variant="h6" color="primary" style={{ marginLeft: "7px" }}> {""}{monthNames[new Date().getMonth()]}</Typography>
           </Grid>
           <Typography align="center" color="textSecondary" variant="subtitle2" style={{ margin: "5px 0px 5px 0px" }}>Select your date</Typography>
           <Grid container>
