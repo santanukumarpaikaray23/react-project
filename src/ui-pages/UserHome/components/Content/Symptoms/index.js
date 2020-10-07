@@ -230,10 +230,11 @@ class Symptoms extends React.Component {
 }
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { symptoms = {}, login = {} } = preparedFinalObject;
+  const { symptoms = {}, landing={},  login = {} } = preparedFinalObject;
   const { phoneno } = login
+  const { todayAppointment } = landing
 
-  return { symptoms, phoneno, login }
+  return { symptoms, phoneno, login, todayAppointment, landing }
 };
 
 export default connect(

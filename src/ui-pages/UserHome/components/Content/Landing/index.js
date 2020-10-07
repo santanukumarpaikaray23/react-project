@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 
 class Landing extends React.Component {
   componentDidMount = async () => {
-    
     const { setAppData, phoneno } = this.props;
     let tempVar = []
     let tempVar1 = []

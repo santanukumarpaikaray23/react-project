@@ -89,11 +89,12 @@ class Specialists extends React.Component {
 }
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { specialists = {}, login = {} } = preparedFinalObject;
+  const { specialists = {}, landing={}, login = {} } = preparedFinalObject;
   const { phoneno } = login
   const { specialistsName } = specialists
+  const { todayAppointment } = landing
 
-  return { specialists, phoneno, login, specialistsName }
+  return { specialists, phoneno, landing, login, specialistsName, todayAppointment }
 };
 
 export default connect(
