@@ -97,21 +97,33 @@ const styles = (theme) => ({
     }),
     // background: "white"
   },
-  toolbar: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    // padding: "0 8px",
-    // ...theme.mixins.toolbar,
-    minHeight: "47px",
+  // toolbar: {
+  //   display: "flex",
+  //   alignItems: "center",
+  //   justifyContent: "flex-end",
+  //   // padding: "0 8px",
+  //   // ...theme.mixins.toolbar,
+  //   minHeight: "47px",
 
-  },
-  content: {
-    // flexGrow: 1,
-    // padding: "8px 8px 8px",
-    // background:"#eeeeee"
+  // },
+  // content: {
+  //   // flexGrow: 1,
+  //   // padding: "8px 8px 8px",
+  //   // background:"#eeeeee"
 
+  // },
+  content : {
+    padding: "0 0",
+    overflowY: "auto",
+    marginTop : "56px"
   },
+    toolbar: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "start",
+      flexDirection: "column"
+      // ...theme.mixins.toolbar,
+    },
   webHeader: {
     display: "flex",
     alignItems: "center",

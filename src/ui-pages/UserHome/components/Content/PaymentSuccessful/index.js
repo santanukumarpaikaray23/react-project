@@ -14,10 +14,21 @@ class PaymentSuccessful extends React.Component {
     let mnts = new Date(bookAppointmentResponse.appointment_datetime).getMinutes();
     let hrs = new Date(bookAppointmentResponse.appointment_datetime).getHours();
     let time;
+    let fmnts;
     if(hrs>12){
-      time = hrs-12+":"+mnts+" PM"
+      if(mnts == 0){
+          fmnts = '00';
+        }else{
+          fmnts = mnts;
+        }
+      time = hrs-12+":"+ fmnts +" PM"
     }else{
-      time = hrs+":"+mnts+" AM"
+      if(mnts == 0){
+        fmnts = '00';
+      }else{
+        fmnts = mnts;
+      }
+      time = hrs+":"+ fmnts +" AM"
     }
     return (
       <div style={{ background: "#f7f7f7", height: "100vh" }}>
@@ -29,8 +40,8 @@ class PaymentSuccessful extends React.Component {
             direction="row"
             style={{ height: "13vh", marginTop: "3.5%" }}>
             <Typography align="center" color="textSecondary" style={{ margin: "5px 5px 2px 5px", 
-            fontSize: "15px", fontWeight: 500 }}>You have selected Monday, {new Date(bookAppointmentResponse.appointment_datetime).getDate()}  
-            at {time} for Video Call
+            fontSize: "15px", fontWeight: 500 }}>You have selected, {new Date(bookAppointmentResponse.appointment_datetime).getDate()}  {" "}
+            at{" "} {time} for Video Call
             consulting with {bookAppointmentResponse.doctor_name}</Typography>
             {"\n"}
           </Grid>
@@ -55,7 +66,7 @@ class PaymentSuccessful extends React.Component {
             <Typography variant="h6" align="center"  
             style={{ fontSize: "15px", fontWeight: 1200 }}>We thank you for Payment of Rs.200/</Typography>
           </Grid>
-          {/* <Button
+          <Button
             size="large"
             variant="contained"
             style={{
@@ -66,8 +77,8 @@ class PaymentSuccessful extends React.Component {
               marginLeft: "10%"
             }}
           >
-            <Typography align="center" variant="h6" onClick={() => history.push("/user-home")}>Generate Token</Typography>
-          </Button> */}
+            <Typography align="center" variant="h6" onClick={() => history.push("/user-home")}>Home</Typography>
+          </Button>
         </div>
       </div>
     );

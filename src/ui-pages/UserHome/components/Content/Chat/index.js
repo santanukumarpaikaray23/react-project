@@ -5,7 +5,8 @@ import TwilioChat from 'twilio-chat'
 import { httpRequest } from "../../../../../ui-utils/api"
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 import { connect } from "react-redux";
-import {Typography,Grid,Avatar,Card,CardContent,AppBar} from "@material-ui/core"
+import {Typography,Grid,Avatar,Card,CardContent,AppBar} from "@material-ui/core";
+import '../MessageList.css';
 
 class Chat extends Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class Chat extends Component {
     const { setAppData,appointment } = this.props;
     console.log(appointment);
     const chatRes = await httpRequest({
-      endPoint: `/connectChat/${appointment.appointment_id}`,
+      endPoint: `/connectChatV2/${appointment.appointment_id}`,
       method: "get",
       instance: "instanceOne",
     })
@@ -114,7 +115,7 @@ class Chat extends Component {
       //   <MessageForm onMessageSend={this.handleNewMessage} />
       //   </div>
       // </div>
-      <div class="flex-container" style={{padding:"2px"}}>
+      <div class="flex-container">
             <div class="flex-item-left">
             <Card style={{ width:"96%",marginLeft:"2%"}}>
              <CardContent>
@@ -133,7 +134,7 @@ class Chat extends Component {
               </CardContent>
          </Card>
             </div>
-            <div class="flex-it em-right" style={{marginLeft:"2%",marginRight:"2%"}} >
+            <div style={{marginLeft:"2%",marginRight:"2%"}} >
             <MessageList messages={this.state.messages}></MessageList>
             </div>
             <div class="flex-item-right" style={{width:"96%", marginLeft:"2%",position: "fixed",bottom: "11%"}}>

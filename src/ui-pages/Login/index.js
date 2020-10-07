@@ -83,17 +83,17 @@ class Login extends React.Component {
   }
   validatePhoneNumber = (e) => {
     
-    const { setAppData,login={} } = this.props;
-    setAppData("login.phoneno",'9008337558');//7022463389  7091921338
     // const { setAppData,login={} } = this.props;
-    // const {phoneno}=login;
-    // let phone = /^\d+$/;
-    // if (phoneno&&phoneno.length===1) {
-    //   setAppData("login.phoneno", "");
-    // }
-    // if(e.target.value.match(phone)){
-    // setAppData("login.phoneno",e.target.value);
-    // }
+    // setAppData("login.phoneno",'7795002169');//7022463389  7091921338
+    const { setAppData,login={} } = this.props;
+    const {phoneno}=login;
+    let phone = /^\d+$/;
+    if (phoneno&&phoneno.length===1) {
+      setAppData("login.phoneno", "");
+    }
+    if(e.target.value.match(phone)){
+    setAppData("login.phoneno",e.target.value);
+    }
   };
   handlerRequestOtp = async () => {
     const { history, checked, phoneno, setAppData } = this.props;
@@ -136,7 +136,7 @@ class Login extends React.Component {
   }else{
     let snackbar = {
       open: true,
-      message: "Mobile Number not empty.",
+      message: "Mobile Number cannot be empty.",
       variant: "error"
     }
     setAppData("snackbar", snackbar)
@@ -168,7 +168,7 @@ class Login extends React.Component {
             )}
           {/* <Typography variant="caption" color="textSecondary" >Assistive Text</Typography> */}
           <br />
-          {receiveOtp ?
+          {/* {receiveOtp ? */}
             <Grid container>
               <AntSwitch
                 checked={checked}
@@ -176,9 +176,10 @@ class Login extends React.Component {
                 name="ViewSwitch" />
               <Typography variant="subtitle2" color="textSecondary" style={{ marginLeft: "3%", marginTop: "4%" }}>Agree</Typography>
               <Typography variant="subtitle2" color="primary" style={{ marginLeft: "1%", marginTop: "4%" }}>Terms and Conditions</Typography>
-            </Grid> : ""}
+            </Grid> 
+            {/* : ""} */}
           <br />
-          {receiveOtp ?
+          {/* {receiveOtp ? */}
             <Button
               size="large"
               variant="contained"
@@ -191,21 +192,21 @@ class Login extends React.Component {
               onClick={() => handlerRequestOtp()}>
               <Typography variant="h6">RECEIVE OTP</Typography>
             </Button>
-            :
-            <Button
-              size="large"
-              variant="contained"
-              style={{
-                background: "#2FC9B9",
-                borderRadius: "20px",
-                width: "257px",
-                color: "white"
-              }}
-              onClick={() => this.loginChange()}
-              // onClick={() => history.push("/user-home/video-call")}
-              >
-              <Typography variant="h6">Login</Typography>
-            </Button>}
+             {/* :
+             <Button
+               size="large"
+               variant="contained"
+               style={{
+                 background: "#2FC9B9",
+                 borderRadius: "20px",
+                 width: "257px",
+                 color: "white"
+               }}
+               onClick={() => this.loginChange()}
+               // onClick={() => history.push("/user-home/video-call")}
+               >
+               <Typography variant="h6">Login</Typography>
+             </Button>} */}
           <br />
           <br />
           <Typography align="center" variant="subtitle2" color="textSecondary">Verify with the OTP once received

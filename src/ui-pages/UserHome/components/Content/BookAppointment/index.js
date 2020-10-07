@@ -37,6 +37,7 @@ class BookAppointment extends React.Component {
       })
       let jsonObject = {};
       var uniqueSet = {};
+      
       jsonObject = dates.map(JSON.stringify);
       uniqueSet = new Set(jsonObject);
       uniqueArray = Array.from(uniqueSet).map(JSON.parse).sort(function (a, b) {
