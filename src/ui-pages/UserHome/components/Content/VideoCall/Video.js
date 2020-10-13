@@ -4,6 +4,7 @@ import Video from 'twilio-video';
 import { httpRequest } from "../../../../../ui-utils/api"
 import { connect } from "react-redux";
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
+import {Typography,Grid,Avatar,Card,CardContent,AppBar} from "@material-ui/core";
 
 class VideoChat extends Component {
 
@@ -86,11 +87,31 @@ class VideoChat extends Component {
 
 
         return (
-            <Room roomName={roomName}
+            <div>
+            <div style={{marginTop: "10px",position:"fixed", minHeight :"80vh"}}>
+          <Card style={{ width:"100%", boxShadow: "none", background:"transparent", overflow: "hidden"}}>
+             <CardContent>
+              <Grid style={{ display: "flex"}}>
+                  <Grid item xs={3}>
+                      <Avatar />
+                  </Grid>
+                <Grid item md={9}>
+                      <Typography variant="h6" >dhanush</Typography>
+                      <Typography color="textSecondary" variant="subtitle2">
+                            {/* {dData.doctor_speciality} */} speciality
+                      </Typography>
+                </Grid>
+                </Grid>
+                  <Typography color="textSecondary" variant="subtitle2">Answers on chat time</Typography>
+              </CardContent>
+         </Card>
+         <Room roomName={roomName}
                 token={token}
                 handleLogout={handleLogout}
-                //muteAudio={muteAudio} 
+                //muteAudio={muteAudio}
                 />
+    </div>
+    </div>
         )
     }
 }
