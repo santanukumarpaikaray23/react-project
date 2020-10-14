@@ -59,7 +59,7 @@ const Room = ({ token, roomName, handleLogout, muteAudio }) => {
     }, [roomName, token]);
 
     let remoteParticipants = participants.map(participant => (
-        <Participant key={participant.sid} participant={participant} />
+        <Participant key={participant.sid} participant={participant}/>
     ));
 
     remoteParticipants = remoteParticipants.length > 1 ? remoteParticipants.pop() : remoteParticipants

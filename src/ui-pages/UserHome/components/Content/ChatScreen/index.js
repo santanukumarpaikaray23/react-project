@@ -21,7 +21,7 @@ class ChatScreen extends React.Component {
   getDoctorsList = async(patientId) =>{
     const { setAppData } = this.props;
     const doctorRes = await httpRequest({
-      endPoint: `/doctor-list/`+patientId,
+      endPoint: `/patientChatDashboard/${patientId}`,
       method: "get",
       instance: "instanceOne",
     })
@@ -59,13 +59,14 @@ class ChatScreen extends React.Component {
                           <Avatar />
                         </Grid>
                         <Grid item md={9}>
-                          <Typography variant="h6" >{dData.doctor_name}</Typography>
+                          <Typography variant="h6" >{dData.doctorName}</Typography>
                           <Typography color="textSecondary" variant="subtitle2">
-                            {dData.doctor_speciality}
+                            {dData.doctorSpeciality}
                           </Typography>
                         </Grid>
                       </Grid>
-                  <Typography color="textSecondary" variant="subtitle2">Answers on chat {dData.slot_time}</Typography>
+                  <Typography color="textSecondary" variant="subtitle2">Answers on chat 
+               {""} {new Date(dData.appointmentDate).getHours()>12?new Date(dData.appointmentDate).getHours()-12+":" : new Date(dData.appointmentDate).getHours()+":" }{+new Date(dData.appointmentDate).getMinutes()=== 0?"00":+new Date(dData.appointmentDate).getMinutes()}{""} {new Date(dData.appointmentDate).getHours() === 9 || new Date(dData.appointmentDate).getHours() === 10 || new Date(dData.appointmentDate).getHours() === 11 ? "AM":"PM"} </Typography>
                     </CardContent>
                   </Card>
                   </div>

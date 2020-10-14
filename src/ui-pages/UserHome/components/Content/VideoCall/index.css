@@ -29,13 +29,21 @@
   }
   header{
     justify-content: space-between;    
-  } */
-  participant {
+  } 
+  .participant {
     padding: 2px;
    display: inline-block;
    overflow: hidden;
    border-radius: 10px;
  }
+ video {
+   width: 100%;
+   max-width: 600px;
+   display: block;
+   margin: 0 auto;
+   border-radius: 6px;
+ }
+ */
  .remote-participants {
    display: flex;
    flex-wrap: nowrap;
@@ -45,13 +53,7 @@
  button{
      margin-left: 89%;
  }
- video {
-   width: 100%;
-   max-width: 600px;
-   display: block;
-   margin: 0 auto;
-   border-radius: 6px;
- }
+ 
  .main{
    background: rgb(222 243 240);
  }
@@ -68,7 +70,7 @@
    height: 80vh;
    overflow: hidden;
    display: block;
-   position: fixed;
+   /* position: fixed; */
    border-radius: 6px;
  }
  div.absolute1 {
@@ -88,3 +90,31 @@
    height: 50px;
    margin : 5%;
  }
+
+ .Doctor{
+  width: 100%;
+  object-fit: fill;
+  max-width: 600px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 6px;
+  height:90vh;
+}
+.Pateint{
+  width: 100%;
+  object-fit: fill;
+  width: 20%;
+  display: block;
+  margin: 0 auto;
+  border-radius: 6px;
+}
+video {
+  width: 100%;
+}
+.participant {
+   padding: 2px;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 10px;
+  width:100%;
+}

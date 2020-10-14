@@ -48,14 +48,19 @@ class Otp extends React.Component {
   }
   }
   resendOtp=async(phoneno)=>{
-    const { history } = this.props;
+    const { history, setAppData } = this.props;
     const apiResponse = await httpRequest({
       endPoint: `/resendOtp/${phoneno}/patient`,
       method: "get",
       instance: "instanceOne",
     })
     if (apiResponse===true) {
-      history.push("/user-home")
+      let snackbar = {
+        open: true,
+        message: "OTP sent successfully!",
+        variant: "error"
+      }
+      setAppData("snackbar", snackbar)
     }
   }
   render() {

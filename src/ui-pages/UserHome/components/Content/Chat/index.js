@@ -31,13 +31,14 @@ class Chat extends Component {
       })
   }
   componentDidUpdate = () => {
+    debugger
     this.node.scrollTop = this.node.scrollHeight
   }
   getToken = async() => {
     const { setAppData,appointment } = this.props;
     console.log(appointment);
     const chatRes = await httpRequest({
-      endPoint: `/connectChatV2/${appointment.appointment_id}`,
+      endPoint: `/patientConnectChat/${appointment.twilioChatChannelId}/${appointment.patient_id}`,
       method: "get",
       instance: "instanceOne",
     })
@@ -47,17 +48,16 @@ class Chat extends Component {
 
   createChatClient = (res) => {
     return new Promise((resolve, reject) => {
-      resolve(new TwilioChat(res.patient_chat_access_token))
+      resolve(new TwilioChat(res.patientChatAccessToken))
     })
   }
 
   joinGeneralChannel = (chatClient) => {
-    
-    const {chatdet} = this.props
-    console.log(chatdet.ChannelId);
+    const {appointment} = this.props
+    console.log(appointment.twilioChatChannelId);
     return new Promise((resolve, reject) => {
       chatClient.getSubscribedChannels().then(() => {
-        chatClient.getChannelByUniqueName(chatdet.ChannelId).then((channel) => {
+        chatClient.getChannelByUniqueName(appointment.twilioChatChannelId).then((channel) => {
           this.setState({ channel })
           this.channel = channel
           channel.join().then(() => {
@@ -104,16 +104,6 @@ class Chat extends Component {
     messagePage.items.map(this.addMessage)
   }
 
-  // messageAdded(message) {
-  //   this.setState(prevState => ({
-  //     messages: [
-  //       ...prevState.messages,
-  //       this.addMessage(message)
-  //     ]
-  //   }));
-  // }
-
-
 
 
   
@@ -158,9 +148,9 @@ class Chat extends Component {
                       <Avatar />
                   </Grid>
                 <Grid item md={9}>
-                      <Typography variant="h6" >{appointment.doctor_name}</Typography>
+                      <Typography variant="h6" >{appointment.doctorName}</Typography>
                       <Typography color="textSecondary" variant="subtitle2">
-                            {appointment.doctor_speciality}
+                            {appointment.doctorSpeciality}
                       </Typography>
                 </Grid>
                 </Grid>

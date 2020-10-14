@@ -63,11 +63,12 @@ class BookAppointment extends React.Component {
       //number: phoneno ? phoneno : 7895328523,
       number: phoneno,
       speciality: specialistsName,
+      symptom: "teeth pain",
       appointment_datetime: appointment_datetime,
       slot: slot
     }
     const apiResponse = await httpRequest({
-      endPoint: `/bookAppointment`,
+      endPoint: `/bookAppointmentV2`,
       method: "post",
       instance: "instanceOne",
       requestBody
@@ -76,12 +77,12 @@ class BookAppointment extends React.Component {
       apiResponse.doctor_speciality = specialistsName;
       apiResponse.doctor_name = bookAppointment.doctor_name;
       setAppData("spinner", true)
-      let snackbar = {
-        open: true,
-        message: "Your Appointment is successfully booked",
-        variant: "error"
-      }
-      setAppData("snackbar", snackbar)
+      // let snackbar = {
+      //   open: true,
+      //   message: "Your Appointment is successfully booked",
+      //   variant: "error"
+      // }
+      // setAppData("snackbar", snackbar)
       setAppData("spinner", false)
       setAppData("bookAppointment.bookAppointmentResponse", apiResponse)
       history.push("/user-home/confirm-booking")

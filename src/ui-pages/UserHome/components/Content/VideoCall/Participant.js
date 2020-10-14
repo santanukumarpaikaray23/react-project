@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-
+debugger
 const Participant = ({ participant }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
@@ -66,7 +66,7 @@ const Participant = ({ participant }) => {
   return (
     <div className="participant">
       {/* <h3>{participant.identity}</h3> */}
-      <video ref={videoRef} autoPlay={true} isStopped={true}/>
+      <video className={participant.identity} ref={videoRef} autoPlay={true} isStopped={true}/>
       <audio ref={audioRef} autoPlay={true} muted={false} />
      </div>
   );
