@@ -113,7 +113,7 @@ class BookAppointment extends React.Component {
             justify="center"
             direction="row"
             style={{ height: "13vh", marginTop: "3.5%" }}>
-            <Typography align="center" color="textSecondary" style={{ margin: "5px 5px 2px 5px", fontSize: "15px", fontWeight: 500 }}>We recommend you to meet {bookAppointment && bookAppointment.doctor && bookAppointment.doctor_name} at  our Hospital</Typography>
+            <Typography align="center" color="textSecondary" style={{ margin: "5px 5px 2px 5px", fontSize: "15px", fontWeight: 500 }}>We recommend you to meet {" "}{bookAppointment && bookAppointment.doctor && bookAppointment.doctor_name} at  our Hospital</Typography>
             {"\n"}
           </Grid>
           <Card>

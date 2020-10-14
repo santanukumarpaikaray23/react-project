@@ -7,13 +7,11 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 ];
 class TodayAppointments extends React.Component {
   render() {
-    
-    const { history, todayAppointment,setAppData } = this.props
+    const { history, todaylatest,setAppData } = this.props
     return (
       <div style={{ background: "#f7f7f7", height: "100vh" }}>
         <div style={{ margin: "0px 15px 15px 15px" }}>
-          {todayAppointment.map((data) => {
-    console.log("asdfghjkl"+new Date(data.appointment_datetime).getHours());
+          {todaylatest.map((data) => {
             return (
               <div>
                 <Grid
@@ -58,9 +56,9 @@ class TodayAppointments extends React.Component {
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
   const { landing = {} } = preparedFinalObject;
-  const { todayAppointment = [] } = landing
+  const { todaylatest = [] } = landing
 
-  return { todayAppointment,landing }
+  return { todaylatest,landing }
 };
 
 export default connect(

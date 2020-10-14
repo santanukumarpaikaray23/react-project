@@ -12,7 +12,7 @@ class Message extends Component {
 
 
   renderMessage(message) {
-    
+    debugger
     const {me, body} = message;
     //const {currentMember} = this.props;
     // const messageFromMe = member.id === currentMember.id;
@@ -24,16 +24,17 @@ class Message extends Component {
         <div className="Message-content">
           <div className="username">
           </div>
-          <div className="text">{body}</div>
+          <div className="text">{message.text}</div>
         </div>
       </li>
     );
   }
 
+  
   render() {
     //const {messages} = this.props;
     return (
-      <ul className="Messages-list">
+      <ul className="Messages-list" >
         {/* {this.props.map(m => this.renderMessage(m))} */}
         {this.renderMessage(this.props)}
       </ul>

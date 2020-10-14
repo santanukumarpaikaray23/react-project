@@ -33,7 +33,6 @@ class MessageForm extends Component {
   }
 
   handleFormSubmit = (event) => {
-    console.log(this.cText.value)
     event.preventDefault()
     if(this.cText.value != ''){
     this.props.onMessageSend(this.cText.value)

@@ -48,10 +48,9 @@ class Landing extends React.Component {
   }
 
   checkLatestAppointemnt = (tempVar) => {
-    
     const { setAppData, todayAppointment,morningSlots,afternoonSlots} = this.props
     let a = []
-    let b = []
+    let finalAppointment = []
     tempVar && tempVar.forEach((data) => {
       if (data.slot_time !== null) {
         let hrs = new Date(data.current_time).getHours();
@@ -60,78 +59,40 @@ class Landing extends React.Component {
         if(tmnts === 0){
           tmnts = "00"
         }
-        if(data.slot_time > hrs+":"+tmnts){
+        if(data.appointment_datetime > data.current_time){// hrs.toString()+":"+tmnts.toString()){
           console.log(data.slot_time);
-        setAppData("landing.latestAppointment",data)
-        }else{
-          // console.log(data.slot_time);
-          // setAppData("landing.latestAppointment","No Appointment")
+          a.push(data);
+        //setAppData("landing.latestAppointment",data)
         }
-      // if (data.slot_time === "9:00") {
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }else if(data.slot_time === "9:30"){
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }else if(data.slot_time === "10:00"){
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }else if(data.slot_time === "10:30"){
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }else if(data.slot_time === "11:00"){
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }else if(data.slot_time === "11:30"){
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }else if(data.slot_time === "12:00"){
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }else if(data.slot_time === "12:30"){
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }else if(data.slot_time === "1:00"){
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }else if(data.slot_time === "1:30"){
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }else if(data.slot_time === "2:00"){
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }else if(data.slot_time === "2:30"){
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }else if(data.slot_time === "3:00"){
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }else if(data.slot_time === "3:30"){
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }else if(data.slot_time === "4:00"){
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }else if(data.slot_time === "4:30"){
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }else if(data.slot_time === "5:00"){
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }else if(data.slot_time === "5:30"){
-      //   console.log(data.slot_time);
-      //   setAppData("landing.latestAppointment",data)
-      // }
      }else{
       console.log("data.slot_time");
       setAppData("landing.latestAppointment",'')
      }
     })
+    //this.getFinalAppointment(a)
+    finalAppointment = a.sort(function (a, b) {
+      var key1 = new Date(a.actualDate);
+      var key2 = new Date(b.actualDate);
+  
+      if (key1 < key2) {
+          return -1;
+      } else if (key1 == key2) {
+          return 0;
+      } else {
+          return 1;
+      }
+    });
+    setAppData("landing.todaylatest",finalAppointment)
+    setAppData("landing.latestAppointment",finalAppointment[0])
   }
+
+  // getFinalAppointment = (finalData) =>{
+
+  // }
 
   render() {
     const { history, setAppData, landing } = this.props
-    //console.log(landing.latestAppointment);
+    console.log(landing.latestAppointment);
     let latestAppointment = landing.latestAppointment;
 
 //     let time;
@@ -153,7 +114,7 @@ class Landing extends React.Component {
               style={{ background: "#343434", color: "white", padding: "10px", marginTop: "10px" }}>
               <Typography onClick={() => {setAppData("generateToken.appointment",latestAppointment);
                      history.push("/user-home/generate-token")}}>You are having upcomming appointment on {latestAppointment.date} {latestAppointment.day}
-               {""} {latestAppointment.slot_time} with doctor {latestAppointment.doctor_name}</Typography>
+               {""} {new Date(latestAppointment.appointment_datetime).getHours()>12?new Date(latestAppointment.appointment_datetime).getHours()-12+":" : new Date(latestAppointment.appointment_datetime).getHours()+":" }{+new Date(latestAppointment.appointment_datetime).getMinutes()=== 0?"00":+new Date(latestAppointment.appointment_datetime).getMinutes()}{""} {new Date(latestAppointment.appointment_datetime).getHours() === 9 || new Date(latestAppointment.appointment_datetime).getHours() === 10 || new Date(latestAppointment.appointment_datetime).getHours() === 11 ? "AM":"PM"} with doctor {latestAppointment.doctor_name}</Typography>
               {/* <MessageIcon style={{ marginLeft: "4%", marginTop: "1%" }} onClick={() => history.push("/user-home/video-call")} /> */}
             </Grid>
           </Card> : ""}
@@ -225,9 +186,9 @@ class Landing extends React.Component {
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
   const { login = {}, landing = {} } = preparedFinalObject;
-  const { todayAppointment } = landing
+  const { todayAppointment, todaylatest } = landing
   const { phoneno } = login
-  return { phoneno, landing, todayAppointment }
+  return { phoneno, landing, todayAppointment, todaylatest }
 };
 
 export default connect(

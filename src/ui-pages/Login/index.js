@@ -83,17 +83,17 @@ class Login extends React.Component {
   }
   validatePhoneNumber = (e) => {
     
-    // const { setAppData,login={} } = this.props;
-    // setAppData("login.phoneno",'7795002169');//7022463389  7091921338
     const { setAppData,login={} } = this.props;
-    const {phoneno}=login;
-    let phone = /^\d+$/;
-    if (phoneno&&phoneno.length===1) {
-      setAppData("login.phoneno", "");
-    }
-    if(e.target.value.match(phone)){
-    setAppData("login.phoneno",e.target.value);
-    }
+    setAppData("login.phoneno",'9008337558');//7022463389  7091921338 7795002169
+    // const { setAppData,login={} } = this.props;
+    // const {phoneno}=login;
+    // let phone = /^\d+$/;
+    // if (phoneno&&phoneno.length===1) {
+    //   setAppData("login.phoneno", "");
+    // }
+    // if(e.target.value.match(phone)){
+    // setAppData("login.phoneno",e.target.value);
+    // }
   };
   handlerRequestOtp = async () => {
     const { history, checked, phoneno, setAppData } = this.props;

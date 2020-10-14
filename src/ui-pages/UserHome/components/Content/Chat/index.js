@@ -16,6 +16,8 @@ class Chat extends Component {
       username: null,
       channel: null,
     }
+    this.messagesLoaded = this.messagesLoaded.bind(this);
+   // this.messageAdded = this.messageAdded.bind(this);
   }
 
   componentDidMount = () => {
@@ -27,6 +29,9 @@ class Chat extends Component {
       .catch((error) => {
         this.addMessage({ body: `Error: ${error.message}` })
       })
+  }
+  componentDidUpdate = () => {
+    this.node.scrollTop = this.node.scrollHeight
   }
   getToken = async() => {
     const { setAppData,appointment } = this.props;
@@ -54,14 +59,20 @@ class Chat extends Component {
       chatClient.getSubscribedChannels().then(() => {
         chatClient.getChannelByUniqueName(chatdet.ChannelId).then((channel) => {
           this.setState({ channel })
-
+          this.channel = channel
           channel.join().then(() => {
             window.addEventListener('beforeunload', () => channel.leave())
           }).catch(() => reject(Error('Could not Join')))
-
+          
           resolve(channel)
-        }).catch(() => this.createGeneralChannel(chatClient))
-      }).catch(() => reject(Error('Could not get channel list.')))
+        })
+        .then(() =>{
+          this.channel.getMessages().then(this.messagesLoaded);
+          //this.channel.on('messageAdded', this.messageAdded);
+          })
+        .catch(() => this.createGeneralChannel(chatClient))
+      })
+      .catch(() => reject(Error('Could not chat!.')))
     })
   }
 
@@ -77,12 +88,35 @@ class Chat extends Component {
   addMessage = (message) => {
     
     const { appointment } = this.props;
-    const messageData = { ...message, me: message.author === appointment.patient_id }
+    const messageData = { ...message, me: message.author === appointment.patient_id, text: message.body }
     this.setState({
       messages: [...this.state.messages, messageData],
     })
   }
 
+
+
+
+  messagesLoaded(messagePage) {
+    // this.setState({
+    //   messages: messagePage.items.map(this.addMessage)
+    // });
+    messagePage.items.map(this.addMessage)
+  }
+
+  // messageAdded(message) {
+  //   this.setState(prevState => ({
+  //     messages: [
+  //       ...prevState.messages,
+  //       this.addMessage(message)
+  //     ]
+  //   }));
+  // }
+
+
+
+
+  
   handleNewMessage = (text) => {
     if (this.state.channel) {
       this.state.channel.sendMessage(text)
@@ -114,10 +148,10 @@ class Chat extends Component {
       //  <div className="bottom">
       //   <MessageForm onMessageSend={this.handleNewMessage} />
       //   </div>
-      // </div>
-      <div class="flex-container">
+      // </div>width:"96%",marginLeft:"2%"
+      <div class="flex-container" ref={(node) => (this.node = node)}>
             <div class="flex-item-left">
-            <Card style={{ width:"96%",marginLeft:"2%"}}>
+            <Card style={{width:"100%",background:"#f7f7f7",boxShadow:"none" }}>
              <CardContent>
               <Grid style={{ display: "flex"}}>
                   <Grid item xs={3}>
@@ -126,7 +160,7 @@ class Chat extends Component {
                 <Grid item md={9}>
                       <Typography variant="h6" >{appointment.doctor_name}</Typography>
                       <Typography color="textSecondary" variant="subtitle2">
-                            {/* {dData.doctor_speciality} */} {appointment.doctor_speciality}
+                            {appointment.doctor_speciality}
                       </Typography>
                 </Grid>
                 </Grid>
