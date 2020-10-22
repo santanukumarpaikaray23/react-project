@@ -21,9 +21,8 @@ class ConfirmBooking extends React.Component {
             direction="row"
             style={{ height: "13vh", marginTop: "3.5%" }}>
             <Typography align="center" color="textSecondary" style={{ margin: "5px 5px 2px 5px",
-             fontSize: "15px", fontWeight: 500 }}>We recommend you to meet {" "}
-             { bookAppointmentResponse.doctor_name} at 
-              our Hospital</Typography>
+             fontSize: "15px", fontWeight: 500 }}>Please consult with {" "}Dr.
+             { bookAppointmentResponse.doctor_name}</Typography>
             {"\n"}
           </Grid>
           <Card >
@@ -42,7 +41,7 @@ class ConfirmBooking extends React.Component {
             </CardContent>
           </Card>
           <Grid style={{ display: "flex", marginTop: "10px", marginBottom: "10px" }}>
-            <Typography variant="h6" align="center" color="textSecondary" style={{ fontSize: "15px", fontWeight: 1200 }}>Kindly click on the pay button to make the payment of Rs. 200/-</Typography>
+            <Typography variant="h6" align="center" color="textSecondary" style={{ fontSize: "15px", fontWeight: 1200 }}>Kindly click ‘Pay’  below to make the payment of &#x20b9;200.00</Typography>
           </Grid>
           <Button
             size="large"

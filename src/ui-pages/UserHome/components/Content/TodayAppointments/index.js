@@ -1,10 +1,8 @@
 import React from "react";
 import { Card, Grid, CardContent, Typography, Avatar } from "@material-ui/core";
 import { connect } from "react-redux";
-import { mapDispatchToProps } from "../../../../../ui-utils/commons";
-const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
+import { mapDispatchToProps, getTime, getDateandDay } from "../../../../../ui-utils/commons";
+
 class TodayAppointments extends React.Component {
   render() {
     const { history, todaylatest,setAppData } = this.props
@@ -23,9 +21,8 @@ class TodayAppointments extends React.Component {
                   <Typography align="center" color="textSecondary" style={{
                     margin: "5px 5px 2px 5px",
                     fontSize: "15px", fontWeight: 500
-                  }}>Your next appontment is on {monthNames[new Date(data.appointment_datetime).getMonth()]} {""}
-                {data.date},{data.day}
-                {""} at {new Date(data.appointment_datetime).getHours()>12?new Date(data.appointment_datetime).getHours()-12+":" : new Date(data.appointment_datetime).getHours()+":" }{+new Date(data.appointment_datetime).getMinutes()=== 0?"00":+new Date(data.appointment_datetime).getMinutes()}{""} {new Date(data.appointment_datetime).getHours() === 9 || new Date(data.appointment_datetime).getHours() === 10 || new Date(data.appointment_datetime).getHours() === 11 ? "AM":"PM"} with {data.doctor_name}</Typography>
+                  }}>Your next appointment is {""}{getDateandDay(data.appointment_datetime)}
+                {""} {getTime(data.appointment_datetime)} with Dr. {data.doctor_name}</Typography>
                     
                   {"\n"}
                 </Grid>

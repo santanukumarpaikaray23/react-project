@@ -13,7 +13,8 @@ class MessageList extends Component {
   }
 
   componentDidUpdate = () => {
-    this.node.scrollTop = this.node.scrollHeight
+    //this.scrollToBottom();
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
 
   render() {
@@ -22,6 +23,9 @@ class MessageList extends Component {
         {this.props.messages.map((message, i) => (
           <Message key={i} {...message} />
         ))}
+        <span
+             ref={(el) => { this.messagesEnd = el; }}>
+        </span>
       </div>
     )
   }

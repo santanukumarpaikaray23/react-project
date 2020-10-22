@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Grid, CardContent, Typography, Avatar, Button } from "@material-ui/core";
 import { connect } from "react-redux";
-import { mapDispatchToProps } from "../../../../../ui-utils/commons";
+import { mapDispatchToProps, getTime, getDateandDay } from "../../../../../ui-utils/commons";
 
 class PaymentSuccessful extends React.Component {
   handleChange = () => {
@@ -11,25 +11,7 @@ class PaymentSuccessful extends React.Component {
   render() {
     
     const { history,bookAppointmentResponse,bookAppointment } = this.props;
-    let mnts = new Date(bookAppointmentResponse.appointment_datetime).getMinutes();
-    let hrs = new Date(bookAppointmentResponse.appointment_datetime).getHours();
-    let time;
-    let fmnts;
-    if(hrs>12){
-      if(mnts == 0){
-          fmnts = '00';
-        }else{
-          fmnts = mnts;
-        }
-      time = hrs-12+":"+ fmnts +" PM"
-    }else{
-      if(mnts == 0){
-        fmnts = '00';
-      }else{
-        fmnts = mnts;
-      }
-      time = hrs+":"+ fmnts +" AM"
-    }
+    
     return (
       <div style={{ background: "#f7f7f7", height: "100vh" }}>
         <div style={{ margin: "0px 15px 15px 15px" }}>
@@ -40,9 +22,8 @@ class PaymentSuccessful extends React.Component {
             direction="row"
             style={{ height: "13vh", marginTop: "3.5%" }}>
             <Typography align="center" color="textSecondary" style={{ margin: "5px 5px 2px 5px", 
-            fontSize: "15px", fontWeight: 500 }}>You have selected, {new Date(bookAppointmentResponse.appointment_datetime).getDate()}  {" "}
-            at{" "} {time} for Video Call
-            consulting with {bookAppointmentResponse.doctor_name}</Typography>
+            fontSize: "15px", fontWeight: 500 }}>You have selected {getDateandDay(bookAppointmentResponse.appointment_datetime)} {" "} {getTime(bookAppointmentResponse.appointment_datetime)} for Video Clinic
+            consultation with Dr. {bookAppointmentResponse.doctor_name}</Typography>
             {"\n"}
           </Grid>
           <Card >
@@ -64,7 +45,7 @@ class PaymentSuccessful extends React.Component {
             justify="center"
             direction="row" style={{ display: "flex", marginTop: "10px", marginBottom: "10px" }}>
             <Typography variant="h6" align="center"  
-            style={{ fontSize: "15px", fontWeight: 1200 }}>We thank you for Payment of Rs.200/</Typography>
+            style={{ fontSize: "15px", fontWeight: 1200 }}>Thank you for the payment.</Typography>
           </Grid>
           <Button
             size="large"

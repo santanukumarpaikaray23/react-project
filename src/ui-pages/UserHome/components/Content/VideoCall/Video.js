@@ -82,9 +82,7 @@ class VideoChat extends Component {
     }
     render() {
         const { handleLogout, muteAudio } = this;
-        const { token, roomName } = this.props;
-
-
+        const { token, roomName, appointment } = this.props;
 
         return (
             <div>
@@ -96,13 +94,13 @@ class VideoChat extends Component {
                       <Avatar />
                   </Grid>
                 <Grid item md={9}>
-                      <Typography variant="h6" >dhanush</Typography>
+        <Typography variant="h6" >{appointment.doctor_name}</Typography>
                       <Typography color="textSecondary" variant="subtitle2">
-                            {/* {dData.doctor_speciality} */} speciality
+                            {appointment.Doctor_speciality} 
                       </Typography>
                 </Grid>
                 </Grid>
-                  <Typography color="textSecondary" variant="subtitle2">Answers on chat time</Typography>
+                  {/* <Typography color="textSecondary" variant="subtitle2">Answers on chat time</Typography> */}
               </CardContent>
          </Card>
          <Room roomName={roomName}

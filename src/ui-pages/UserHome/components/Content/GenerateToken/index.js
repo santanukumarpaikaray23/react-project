@@ -1,19 +1,15 @@
 import React from "react";
 import { Card, Grid, CardContent, Typography, Avatar, Button } from "@material-ui/core";
 import { connect } from "react-redux";
-import { mapDispatchToProps } from "../../../../../ui-utils/commons";
-const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
+import { mapDispatchToProps, getTime, getDateandDay } from "../../../../../ui-utils/commons";
+
 class GenerateToken extends React.Component {
   
   render() {
-    const { history,appointment,setAppData } = this.props
+    const { history,appointment } = this.props
     return (
       <div style={{ background: "#f7f7f7", height: "100vh" }}>
         <div style={{ margin: "0px 15px 15px 15px" }}>
-          {/* {todayAppointment.map((data) => {
-            return ( */}
               <div>
                 <Grid
                   container
@@ -25,9 +21,9 @@ class GenerateToken extends React.Component {
                 <Typography align="center" color="textSecondary" style={{
                     margin: "5px 5px 2px 5px",
                     fontSize: "15px", fontWeight: 500
-                  }}>{appointment.date_status ? 'Your Appontment is today at':'Your next appontment is on'} {""}{monthNames[new Date(appointment.appointment_datetime).getMonth()]} {""}
-                {appointment.date},{appointment.day}
-                {""} at {new Date(appointment.appointment_datetime).getHours()>12?new Date(appointment.appointment_datetime).getHours()-12+":" : new Date(appointment.appointment_datetime).getHours()+":" }{+new Date(appointment.appointment_datetime).getMinutes()=== 0?"00":+new Date(appointment.appointment_datetime).getMinutes()}{""} {new Date(appointment.appointment_datetime).getHours() === 9 || new Date(appointment.appointment_datetime).getHours() === 10 || new Date(appointment.appointment_datetime).getHours() === 11 ? "AM":"PM"} with {appointment.doctor_name}</Typography>
+                  }}>{appointment.date_status ? 'Your next appontment is ':'Your next appontment is on'}
+                  {""}{getDateandDay(appointment.appointment_datetime)}
+                  {""} {getTime(appointment.appointment_datetime)} with Dr. {appointment.doctor_name}</Typography>
 
                   {/* <Typography align="center" color="textSecondary" style={{
                     margin: "5px 5px 2px 5px",
@@ -60,7 +56,7 @@ class GenerateToken extends React.Component {
                   justify="center"
                   direction="row" style={{ display: "flex", marginTop: "10px", marginBottom: "10px" }}>
                   <Typography variant="h6" align="center"
-                    style={{ fontSize: "15px", fontWeight: 1200 }}>Click below to generate your token:</Typography>
+                    style={{ fontSize: "15px", fontWeight: 1200 }}>Click below to confirm your appointment and earn credits</Typography>
                 </Grid>
                   
                 <Button
@@ -75,7 +71,7 @@ class GenerateToken extends React.Component {
                   }}
                 >
                   <Typography align="center" variant="h6" onClick={()=>{//setAppData("doctorvidcall",appointment);
-                             history.push("/user-home/video-call")}}>Generate Token</Typography>
+                             history.push("/user-home/video-call")}}>Confirmation Token</Typography>
                 </Button></div>
                 : ''}
               </div>

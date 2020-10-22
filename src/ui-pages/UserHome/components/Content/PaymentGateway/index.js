@@ -20,14 +20,14 @@ class PaymentGateway extends React.Component {
             direction="row"
             style={{ height: "13vh", marginTop: "3.5%" }}>
             <Typography align="center" variant="h3" style={{ margin: "5px 5px 2px 5px", 
-            fontSize: "15px", fontWeight: 500 }}>Payment Gateway Screen's flow will happen as per the Payment Gateway</Typography>
+            fontSize: "15px", fontWeight: 500 }}>Please wait for confirmation while the payment gets processed by our partner</Typography>
             {"\n"}
           </Grid>
           <Grid container  alignItems="center"
             justify="center"
             direction="row" style={{ display: "flex", marginTop: "10px", marginBottom: "10px" }}>
             <Typography variant="h6" align="center"  
-            style={{ fontSize: "15px", fontWeight: 1200 }}>Kindly click on the pay button to make the payment of Rs. 200/-</Typography>
+            style={{ fontSize: "15px", fontWeight: 1200 }}>Kindly click ‘Pay’  below to make the payment of &#x20b9;200.00</Typography>
           </Grid>
           <Button
             size="large"

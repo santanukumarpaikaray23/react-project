@@ -12,7 +12,6 @@ class Message extends Component {
 
 
   renderMessage(message) {
-    debugger
     const {me, body} = message;
     //const {currentMember} = this.props;
     // const messageFromMe = member.id === currentMember.id;

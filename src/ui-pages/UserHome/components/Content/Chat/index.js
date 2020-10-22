@@ -5,7 +5,7 @@ import TwilioChat from 'twilio-chat'
 import { httpRequest } from "../../../../../ui-utils/api"
 import { mapDispatchToProps } from "../../../../../ui-utils/commons";
 import { connect } from "react-redux";
-import {Typography,Grid,Avatar,Card,CardContent,AppBar} from "@material-ui/core";
+import {Typography,Grid,Avatar,Card,CardContent} from "@material-ui/core";
 import '../MessageList.css';
 
 class Chat extends Component {
@@ -31,7 +31,6 @@ class Chat extends Component {
       })
   }
   componentDidUpdate = () => {
-    debugger
     this.node.scrollTop = this.node.scrollHeight
   }
   getToken = async() => {
@@ -154,7 +153,7 @@ class Chat extends Component {
                       </Typography>
                 </Grid>
                 </Grid>
-                  {/* <Typography color="textSecondary" variant="subtitle2">Answers on chat time</Typography> */}
+                  {/* <Typography color="textSecondary" variant="subtitle2">Answers on chat time {getTime(dData.appointmentDate)}</Typography> */}
               </CardContent>
          </Card>
             </div>

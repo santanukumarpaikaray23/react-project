@@ -126,3 +126,45 @@ export const headings = [
     heading: "Upload RC",
   },
 ];
+
+export const getTime = (datetime) =>{
+
+let cDate = new Date(datetime);
+let cHrs = cDate.getHours();
+let CMins = cDate.getMinutes();
+let tHrsFrm = " PM";
+
+if(cHrs>12){
+  cHrs = cHrs-12
+  cHrs = String(cHrs).padStart(2, '0')
+}
+if(CMins === 0){
+  CMins = "00"
+}
+if(cHrs === 9 || cHrs === 10 || cHrs === 11){
+tHrsFrm = " AM"
+if(cHrs < 10){
+  cHrs = String(cHrs).padStart(2, '0')
+}
+}
+
+  return cHrs +":"+ CMins +tHrsFrm; 
+}
+ 
+export const getDateandDay = (datetime) => {
+
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+];
+const day = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+
+let cDatime = new Date(datetime);
+let cDay = day[cDatime.getDay()];
+let cMon = monthNames[cDatime.getMonth()];
+let cDate = cDatime.getDate();
+if(cDate < 10){
+  cDate = String(cDate).padStart(2, '0')
+}
+
+return cDate+", "+cMon+", "+cDay;
+}

@@ -119,7 +119,7 @@ class Login extends React.Component {
   }else{
     let snackbar = {
       open: true,
-      message: "Agree Terms and Conditions.",
+      message: "Agree to Terms and Conditions.",
       variant: "error"
     }
     setAppData("snackbar", snackbar)
@@ -174,7 +174,7 @@ class Login extends React.Component {
                 checked={checked}
                 onChange={(e) => setAppData("login.checked", !checked)}
                 name="ViewSwitch" />
-              <Typography variant="subtitle2" color="textSecondary" style={{ marginLeft: "3%", marginTop: "4%" }}>Agree</Typography>
+              <Typography variant="subtitle2" color="textSecondary" style={{ marginLeft: "3%", marginTop: "4%" }}>Agree to</Typography>
               <Typography variant="subtitle2" color="primary" style={{ marginLeft: "1%", marginTop: "4%" }}>Terms and Conditions</Typography>
             </Grid> 
             {/* : ""} */}
@@ -190,7 +190,7 @@ class Login extends React.Component {
                 color: "white"
               }}
               onClick={() => handlerRequestOtp()}>
-              <Typography variant="h6">RECEIVE OTP</Typography>
+              <Typography variant="h6">Receive OTP</Typography>
             </Button>
              {/* :
              <Button
@@ -209,7 +209,7 @@ class Login extends React.Component {
              </Button>} */}
           <br />
           <br />
-          <Typography align="center" variant="subtitle2" color="textSecondary">Verify with the OTP once received
+          <Typography align="center" variant="subtitle2" color="textSecondary">Verify with OTP (check messages)
         </Typography>
         </Grid>
       </div>

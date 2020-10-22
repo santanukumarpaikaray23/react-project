@@ -84,7 +84,7 @@ const Room = ({ token, roomName, handleLogout, muteAudio }) => {
                     )}
                 </div>
             <div class="absolute2">
-                <Grid style={{display : "flex", flexDirection : "coloumn"}}>
+                {/* <Grid style={{display : "flex", flexDirection : "coloumn"}}>
                 <Grid item xs={2}>
                 <img src="ic_video_off.svg" width="50%"></img>
                 </Grid>
@@ -94,7 +94,7 @@ const Room = ({ token, roomName, handleLogout, muteAudio }) => {
                 <Grid item xs={2}>
                     <img src="ic_video_off.svg" width="50%" ></img>
                 </Grid>
-                </Grid>
+                </Grid> */}
             </div>
             </div>
             </span>

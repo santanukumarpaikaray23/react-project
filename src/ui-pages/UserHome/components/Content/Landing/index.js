@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Grid, CardContent, Typography } from "@material-ui/core";
 import MessageIcon from "@material-ui/icons/Message";
-import { mapDispatchToProps } from "../../../../../ui-utils/commons";
+import { mapDispatchToProps,getTime,getDateandDay } from "../../../../../ui-utils/commons";
 import { httpRequest } from "../../../../../ui-utils/api"
 import { connect } from "react-redux";
 
@@ -11,7 +11,7 @@ class Landing extends React.Component {
     const { setAppData, phoneno } = this.props;
     let tempVar = []
     let tempVar1 = []
-    let days = [{ number: 1, day: "Mon" }, { number: 2, day: "Tue" }, { number: 3, day: "Wed" }, { number: 4, day: "Thru" }, { number: 5, day: "Fri" },
+    let days = [{ number: 1, day: "Mon" }, { number: 2, day: "Tue" }, { number: 3, day: "Wed" }, { number: 4, day: "Thu" }, { number: 5, day: "Fri" },
     { number: 6, day: "Sat" }, { number: 7, day: "Sun" }]
     let dat = {}
     const apiResponse = await httpRequest({
@@ -113,8 +113,9 @@ class Landing extends React.Component {
               container
               style={{ background: "#343434", color: "white", padding: "10px", marginTop: "10px" }}>
               <Typography onClick={() => {setAppData("generateToken.appointment",latestAppointment);
-                     history.push("/user-home/generate-token")}}>You are having upcomming appointment on {latestAppointment.date} {latestAppointment.day}
-               {""} {new Date(latestAppointment.appointment_datetime).getHours()>12?new Date(latestAppointment.appointment_datetime).getHours()-12+":" : new Date(latestAppointment.appointment_datetime).getHours()+":" }{+new Date(latestAppointment.appointment_datetime).getMinutes()=== 0?"00":+new Date(latestAppointment.appointment_datetime).getMinutes()}{""} {new Date(latestAppointment.appointment_datetime).getHours() === 9 || new Date(latestAppointment.appointment_datetime).getHours() === 10 || new Date(latestAppointment.appointment_datetime).getHours() === 11 ? "AM":"PM"} with doctor {latestAppointment.doctor_name}</Typography>
+                     history.push("/user-home/generate-token")}}>Upcoming appointment{' '}{getDateandDay(latestAppointment.appointment_datetime)}
+               {""} {getTime(latestAppointment.appointment_datetime)}{" "}for video consultaion with Dr.{' '}{latestAppointment.doctor_name}
+               </Typography>
               {/* <MessageIcon style={{ marginLeft: "4%", marginTop: "1%" }} onClick={() => history.push("/user-home/video-call")} /> */}
             </Grid>
           </Card> : ""}
@@ -136,10 +137,9 @@ class Landing extends React.Component {
                 <img width="90%" height="100%" src='ic_video_on.svg' alt="verify_icon" />
               </Grid>
               <Grid item md={8} onClick={() => history.push("/user-home/home")}>
-                <Typography variant="h6"> Video call a Doctor</Typography>
+                <Typography variant="h6">Consult on Video</Typography>
                 <Typography color="textSecondary" variant="subtitle2">
-                  You can book a video confrence and meet our doctors sitting at
-                  comfort in your home
+                Book a video consultation and consult online using chat, call, or video with doctors from the comfort of your home
                   </Typography>
               </Grid>
             </Grid>
@@ -155,8 +155,7 @@ class Landing extends React.Component {
               <Grid item md={8}>
                 <Typography variant="h6"> Clinic Appointment</Typography>
                 <Typography color="textSecondary" variant="subtitle2">
-                  You can book a video confrence and meet our doctors sitting at
-                  comfort in your home
+                Book an appointment to consult at your chosen doctor’s clinic
                   </Typography>
               </Grid>
             </Grid>

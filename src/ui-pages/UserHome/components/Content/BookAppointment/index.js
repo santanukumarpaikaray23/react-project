@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Grid, CardContent, Typography, Avatar, Paper, Button } from "@material-ui/core";
 import { httpRequest } from "../../../../../ui-utils/api"
 import { connect } from "react-redux";
-import { mapDispatchToProps } from "../../../../../ui-utils/commons";
+import { mapDispatchToProps,getTime,getDateandDay } from "../../../../../ui-utils/commons";
 // import Symptoms from "../Symptoms";
 
 // videoid,hospital,token,chatid/useRadioGroup
@@ -60,7 +60,6 @@ class BookAppointment extends React.Component {
   handleNextButton = async () => {
     const { setAppData, history, phoneno, appointment_datetime, slot, specialistsName, bookAppointment } = this.props;
     let requestBody = {
-      //number: phoneno ? phoneno : 7895328523,
       number: phoneno,
       speciality: specialistsName,
       symptom: "teeth pain",
@@ -114,7 +113,7 @@ class BookAppointment extends React.Component {
             justify="center"
             direction="row"
             style={{ height: "13vh", marginTop: "3.5%" }}>
-            <Typography align="center" color="textSecondary" style={{ margin: "5px 5px 2px 5px", fontSize: "15px", fontWeight: 500 }}>We recommend you to meet {" "}{bookAppointment && bookAppointment.doctor && bookAppointment.doctor_name} at  our Hospital</Typography>
+            <Typography align="center" color="textSecondary" style={{ margin: "5px 5px 2px 5px", fontSize: "15px", fontWeight: 500 }}>Meet {" "}Dr.{bookAppointment && bookAppointment && bookAppointment.doctor_name}</Typography>
             {"\n"}
           </Grid>
           <Card>
@@ -138,7 +137,7 @@ class BookAppointment extends React.Component {
             <Typography variant="h6" >SELECT DATE {'&'} TIME:</Typography>
             <Typography variant="h6" color="primary" style={{ marginLeft: "7px" }}> {""}{monthNames[new Date().getMonth()]}</Typography>
           </Grid>
-          <Typography align="center" color="textSecondary" variant="subtitle2" style={{ margin: "5px 0px 5px 0px" }}>Select your date</Typography>
+          <Typography align="center" color="textSecondary" variant="subtitle2" style={{ margin: "5px 0px 5px 0px" }}>Select Date</Typography>
           <Grid container>
             {dates && dates.map((data, index) => {
               return (
@@ -159,7 +158,7 @@ class BookAppointment extends React.Component {
           </Grid>
           {appointment_datetime ?
             <div>
-              <Typography align="center" color="textSecondary" variant="subtitle2" style={{ margin: "5px 0px 5px 0px" }}>Select your time</Typography>
+              <Typography align="center" color="textSecondary" variant="subtitle2" style={{ margin: "5px 0px 5px 0px" }}>Select Time Slot</Typography>
               <Grid container>
                 {response && response.map((data, index) => {
                   return (
@@ -181,9 +180,15 @@ class BookAppointment extends React.Component {
               {slot ?
                 <Grid container>
                   <Typography align="center" variant="h6" color="textSecondary" style={{ fontWeight: 500, fontSize: "15px", margin: "3px" }}>Your appointment
-                   with {bookAppointment && bookAppointment.doctor && bookAppointment.doctor.doctor_name} has been
-                    scheduled on {monthNames[new Date(appointment_datetime).getMonth()]} {new Date(appointment_datetime).getDate()}, {day} at {slot>12 ? slot-12:slot}{slot === 9 || slot === 10 || slot === 11 ?
-                      "AM" : "PM"}</Typography>
+              with {" "}{bookAppointment && bookAppointment && bookAppointment.doctor_name} has been
+                    scheduled on {""}
+                    {/* {monthNames[new Date(appointment_datetime).getMonth()]} {new Date(appointment_datetime).getDate()}, {day} at {slot>12 ? slot-12:slot}{slot === 9 || slot === 10 || slot === 11 ?
+                      "AM" : "PM"} */}
+                      {getDateandDay(appointment_datetime)}
+               {""} at {slot>12 ? slot-12:slot}{slot === 9 || slot === 10 || slot === 11 ?
+                      " AM" : " PM"}
+                      
+                      </Typography>
                 </Grid> : ""}
             </div> : ""}
             {slot&&appointment_datetime&&

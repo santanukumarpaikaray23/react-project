@@ -81,8 +81,8 @@ class Symptoms extends React.Component {
           direction="row"
         // style={{ height: "5vh" }}
         >
-          <Typography variant="h6" color="textSecondary" style={{ marginTop: "20px" }}>
-            Find your doctor by symptoms</Typography>
+          <Typography variant="h6" color="textSecondary" style={{ marginTop: "20px",padding:'10px' }}>
+          Choose your symptoms for a suggested medical specialist</Typography>
           {"\n"}
         </Grid>
         <Grid container style={{ padding: "20px" }}>

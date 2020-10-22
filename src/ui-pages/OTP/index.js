@@ -82,7 +82,7 @@ class Otp extends React.Component {
           // style={{ height: "100vh" }}
           style={{ padding: "0px 30px 0px 30px" }}
         >
-          <Typography variant="subtitle2" color="textSecondary" gutterBottom >Enter OTP Code</Typography>
+          <Typography variant="subtitle2" color="textSecondary" gutterBottom >Enter</Typography>
           <Typography>
             <OtpInput
               value={otpValue}
@@ -98,7 +98,7 @@ class Otp extends React.Component {
             />
           </Typography>
             <Typography variant="subtitle2" color="textSecondary" gutterBottom style={{ marginTop: "2%" }}>{count}/6</Typography>
-          <Typography variant="subtitle2" color="textSecondary" gutterBottom onClick={() => this.resendOtp(phoneno)}>Resend Otp</Typography>
+          <Typography variant="subtitle2" color="textSecondary" gutterBottom onClick={() => this.resendOtp(phoneno)}>Resend OTP</Typography>
           <Button
             size="large"
             variant="contained"

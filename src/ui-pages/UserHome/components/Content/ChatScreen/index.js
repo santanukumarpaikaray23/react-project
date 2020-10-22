@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Grid, CardContent, Typography, Avatar } from "@material-ui/core";
-import { mapDispatchToProps } from "../../../../../ui-utils/commons";
+import { mapDispatchToProps, getTime } from "../../../../../ui-utils/commons";
 import { httpRequest } from "../../../../../ui-utils/api"
 import { connect } from "react-redux";
 
@@ -65,8 +65,8 @@ class ChatScreen extends React.Component {
                           </Typography>
                         </Grid>
                       </Grid>
-                  <Typography color="textSecondary" variant="subtitle2">Answers on chat 
-               {""} {new Date(dData.appointmentDate).getHours()>12?new Date(dData.appointmentDate).getHours()-12+":" : new Date(dData.appointmentDate).getHours()+":" }{+new Date(dData.appointmentDate).getMinutes()=== 0?"00":+new Date(dData.appointmentDate).getMinutes()}{""} {new Date(dData.appointmentDate).getHours() === 9 || new Date(dData.appointmentDate).getHours() === 10 || new Date(dData.appointmentDate).getHours() === 11 ? "AM":"PM"} </Typography>
+                  <Typography color="textSecondary" variant="subtitle2">Available to chat with you 
+               {""} {getTime(dData.appointmentDate)} </Typography>
                     </CardContent>
                   </Card>
                   </div>

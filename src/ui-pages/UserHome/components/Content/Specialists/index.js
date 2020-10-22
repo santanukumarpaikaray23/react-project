@@ -59,7 +59,7 @@ class Specialists extends React.Component {
           justify="center"
           direction="row"
           style={{ height: "10vh" }}>
-          <Typography variant="h6" color="textSecondary">Find your doctor by specialists</Typography>
+          <Typography variant="h6" color="textSecondary">Consult by Specialisation</Typography>
           {"\n"}
         </Grid>
         {specialists && specialists.response && specialists.response.map((data, index) => {
