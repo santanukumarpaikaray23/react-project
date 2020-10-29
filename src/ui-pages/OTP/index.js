@@ -11,6 +11,7 @@ class Otp extends React.Component {
   };
   handleChanage = (value, otp) => {
     const { setAppData } = this.props
+    //const pVal = otp.replace(/\D/g, "");
     setAppData(value, otp)
   };
   handlerVerifyOtp = async () => {
@@ -66,7 +67,6 @@ class Otp extends React.Component {
   render() {
     const {otpValue,phoneno } = this.props
     let count=otpValue.toString().length;
-    console.log(count,"hiii")
     return (
       <div>
         <img width="100%" height="100%" src='background.png' alt="verify_icon" style={{
@@ -93,6 +93,7 @@ class Otp extends React.Component {
                 // width: "0em",
                 borderWidth: "0px",
                 width: "22px",
+                outline : "none",
                 borderBottom: "2px solid #2FC9B9"
               }}
             />

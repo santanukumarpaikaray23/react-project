@@ -10,7 +10,7 @@ import store from "../ui-redux/store";
 
 let axiosInstances = {
   instanceOne: axios.create({
-    baseURL: process.env.NODE_ENV !== 'production'?window.location.origin:"https://demo.dewhive.biz/backend/",
+    baseURL: process.env.NODE_ENV !== 'production'?window.location.origin:"https://dev.dewhive.biz/backend/",
 
     headers: {
       "Content-Type": "application/json"
