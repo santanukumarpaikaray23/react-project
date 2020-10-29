@@ -133,10 +133,10 @@ class Landing extends React.Component {
         <Card style={{ margin: "15px" }} >
           <CardContent>
             <Grid style={{ display: "flex" }}>
-              <Grid item xs={4} >
+              <Grid item xs={2} md={4} >
                 <img width="90%" height="100%" src='ic_video_on.svg' alt="verify_icon" />
               </Grid>
-              <Grid item md={8} onClick={() => history.push("/user-home/home")}>
+              <Grid item xs={10} md={8} onClick={() => history.push("/user-home/home")}>
                 <Typography variant="h6">Consult on Video</Typography>
                 <Typography color="textSecondary" variant="subtitle2">
                 Book a video consultation and consult online using chat, call, or video with doctors from the comfort of your home
@@ -148,11 +148,11 @@ class Landing extends React.Component {
         <Card style={{ margin: "15px" }}>
           <CardContent>
             <Grid style={{ display: "flex" }}>
-              <Grid item xs={4}>
+              <Grid item xs={2} md={4}>
                 <img width="90%" height="100%" src='ic_clinic_o.svg' alt="verify_icon" />
 
               </Grid>
-              <Grid item md={8}>
+              <Grid item xs={10} md={8}>
                 <Typography variant="h6"> Clinic Appointment</Typography>
                 <Typography color="textSecondary" variant="subtitle2">
                 Book an appointment to consult at your chosen doctor’s clinic
@@ -164,11 +164,11 @@ class Landing extends React.Component {
         <Card style={{ margin: "15px" }}>
           <CardContent>
             <Grid style={{ display: "flex" }}>
-              <Grid item xs={4}>
+              <Grid item xs={2} md={4}>
                 <img width="90%" height="100%" src='ic_home_clinic_f.svg' alt="verify_icon" />
 
               </Grid>
-              <Grid item md={8}>
+              <Grid item xs={10} md={8}>
                 <Typography variant="h6"> Doctor at Home</Typography>
                 <Typography color="textSecondary" variant="subtitle2">
                   You can book a video confrence and meet our doctors sitting at comfort in your home

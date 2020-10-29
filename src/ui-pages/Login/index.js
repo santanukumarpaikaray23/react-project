@@ -82,17 +82,12 @@ class Login extends React.Component {
     setAppData("login.receiveOtp", true)
   }
   validatePhoneNumber = (e) => {
-    
     // const { setAppData,login={} } = this.props;
-    // setAppData("login.phoneno",'9008337558');//7022463389  7091921338 7795002169
-    const { setAppData,login={} } = this.props;
-    const {phoneno}=login;
-    let phone = /^\d+$/;
-    if (phoneno&&phoneno.length===1) {
-      setAppData("login.phoneno", "");
-    }
-    if(e.target.value.match(phone)){
-    setAppData("login.phoneno",e.target.value);
+    // setAppData("login.phoneno",'9008337558');//  7348852569 7795002169
+    if( e.target.value.length !== 11){
+    const { setAppData} = this.props;
+    const pVal = e.target.value.replace(/\D/g, "");
+    setAppData("login.phoneno",pVal);
     }
   };
   handlerRequestOtp = async () => {
