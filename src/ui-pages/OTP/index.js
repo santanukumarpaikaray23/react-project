@@ -10,9 +10,8 @@ class Otp extends React.Component {
     otpValue: ""
   };
   handleChanage = (value, otp) => {
-    const { setAppData } = this.props
-    //const pVal = otp.replace(/\D/g, "");
-    setAppData(value, otp)
+    const { setAppData } = this.props;
+      setAppData(value, otp);
   };
   handlerVerifyOtp = async () => {
     const {history, phoneno, otpValue, setAppData } = this.props;
@@ -88,6 +87,8 @@ class Otp extends React.Component {
               value={otpValue}
               onChange={otp => this.handleChanage("otp.otpValue", otp)}
               numInputs={6}
+              isInputNum={true}
+              input
               separator={<span>&nbsp;&nbsp;&nbsp;</span>}
               inputStyle={{
                 // width: "0em",
