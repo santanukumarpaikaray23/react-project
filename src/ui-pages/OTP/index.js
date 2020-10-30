@@ -10,6 +10,7 @@ class Otp extends React.Component {
     otpValue: ""
   };
   handleChanage = (value, otp) => {
+    debugger
     const { setAppData } = this.props;
       setAppData(value, otp);
   };
@@ -88,7 +89,7 @@ class Otp extends React.Component {
               onChange={otp => this.handleChanage("otp.otpValue", otp)}
               numInputs={6}
               isInputNum={true}
-              input
+              //input
               separator={<span>&nbsp;&nbsp;&nbsp;</span>}
               inputStyle={{
                 // width: "0em",

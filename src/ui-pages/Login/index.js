@@ -151,7 +151,6 @@ class Login extends React.Component {
               <TextField pattern = "[0-9] {3} - [0-9] {2} - [0-9] {3}"
                required={true}
                fullWidth
-               type="number"
               value={phoneno}
                 onChange={(e) => validatePhoneNumber(e)}>
               </TextField>
