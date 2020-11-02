@@ -10,7 +10,6 @@ class Otp extends React.Component {
     otpValue: ""
   };
   handleChanage = (value, otp) => {
-    debugger
     const { setAppData } = this.props;
       setAppData(value, otp);
   };

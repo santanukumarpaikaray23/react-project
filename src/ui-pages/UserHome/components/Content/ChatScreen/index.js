@@ -65,8 +65,8 @@ class ChatScreen extends React.Component {
                           </Typography>
                         </Grid>
                       </Grid>
-                  <Typography color="textSecondary" variant="subtitle2">Available to chat with you 
-               {""} {getTime(dData.appointmentDate)} </Typography>
+                  {/* <Typography color="textSecondary" variant="subtitle2">Available to chat with you 
+               {""} {getTime(dData.appointmentDate)} </Typography> */}
                     </CardContent>
                   </Card>
                   </div>
