@@ -135,7 +135,7 @@ class BookAppointment extends React.Component {
           </Card>
           <Grid style={{ display: "flex", marginTop: "10px", marginBottom: "10px" }}>
             <Typography variant="h6" >SELECT DATE {'&'} TIME:</Typography>
-            <Typography variant="h6" color="primary" style={{ marginLeft: "7px" }}> {""}{monthNames[new Date().getMonth()]}</Typography>
+            <Typography variant="h6" color="primary" style={{ marginLeft: "7px" }}> {""}{bookAppointment && bookAppointment && bookAppointment.Month}</Typography>
           </Grid>
           <Typography align="center" color="textSecondary" variant="subtitle2" style={{ margin: "5px 0px 5px 0px" }}>Select Date</Typography>
           <Grid container>

@@ -39,8 +39,8 @@ class PaymentGateway extends React.Component {
               color: "white",
               marginLeft: "10%"
             }}
-          >
-            <Typography align="center" variant="h6" onClick={() => history.push("/user-home/payment-successful")}>Pay</Typography>
+            onClick={() => history.push("/user-home/payment-successful")} >
+            <Typography align="center" variant="h6" >Pay</Typography>
           </Button>
         </div>
       </div>

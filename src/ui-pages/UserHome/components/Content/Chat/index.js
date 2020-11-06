@@ -129,15 +129,6 @@ class Chat extends Component {
   render() {
     const { appointment } = this.props;
     return (
-      // <div className="content">
-      //   <div style={{marginTop: "3.5%" }}></div>
-      // <div className="upper">
-      //   <MessageList messages={this.state.messages} />
-      //  </div>
-      //  <div className="bottom">
-      //   <MessageForm onMessageSend={this.handleNewMessage} />
-      //   </div>
-      // </div>width:"96%",marginLeft:"2%"
       <div class="flex-container" ref={(node) => (this.node = node)}>
             <div class="flex-item-left">
             <Card style={{width:"100%",background:"#f7f7f7",boxShadow:"none" }}>

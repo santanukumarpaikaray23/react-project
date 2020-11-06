@@ -23,11 +23,11 @@ class Specialists extends React.Component {
     const { setAppData, history, phoneno } = this.props;
     setAppData("specialists.specialistsName", value)
     let requestBody = {
-      number: phoneno ? phoneno : 7895328523,
+      number: phoneno,
       speciality: value
     }
     const apiResponse = await httpRequest({
-      endPoint: `/bookAppointment`,
+      endPoint: `/bookAppointmentV2`,
       method: "post",
       instance: "instanceOne",
       requestBody

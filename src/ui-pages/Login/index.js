@@ -31,41 +31,6 @@ const AntSwitch = withStyles(theme => ({
   },
   checked: {},
   track: {},
-  // root: {
-  //   width: 50,
-  //   height: 24,
-  //   padding: 2
-  // },
-  // switchBase: {
-  //   padding: 2,
-  //   color: theme.palette.grey[500],
-  //   "&$checked": {
-  //     transform: "translateX(12px)",
-  //     color: theme.palette.common.white,
-  //     "& + $track": {
-  //       opacity: 1,
-  //       backgroundColor: theme.palette.primary.main,
-  //       borderColor: theme.palette.primary.main
-  //     }
-  //   }
-  // },
-  // thumb: {
-  //   marginTop: "1%",
-  //   width: 20,
-  //   height: 20,
-  //   boxShadow: "none"
-  // },
-  // track: {
-  //   border: `0.5px solid ${theme.palette.grey[500]}`,
-  //   // borderRadius: 16 / 2,
-  //   borderRadius: "31px",
-  //   borderRadius: "31px",
-  //   opacity: 1,
-  //   backgroundColor: theme.palette.common.white
-  // },
-  // checked: {
-  //   color:"white"
-  // }
 }))(Switch);
 
 class Login extends React.Component {
@@ -83,7 +48,7 @@ class Login extends React.Component {
   }
   validatePhoneNumber = (e) => {
     // const { setAppData,login={} } = this.props;
-    // setAppData("login.phoneno",'9008337558');//  7348852569 7795002169
+    // setAppData("login.phoneno",'7348852569');//  7348852569 9035408969
     if( e.target.value.length !== 11){
     const { setAppData} = this.props;
     const pVal = e.target.value.replace(/\D/g, "");

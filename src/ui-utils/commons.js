@@ -166,5 +166,5 @@ if(cDate < 10){
   cDate = String(cDate).padStart(2, '0')
 }
 
-return cDate+", "+cMon+", "+cDay;
+return cDate+" "+cMon+" "+cDay;
 }

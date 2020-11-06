@@ -20,7 +20,8 @@ class Otp extends React.Component {
       number: phoneno,
       user_type: "patient",
       fcm_id: "fklnloOczYI:APA91bGX7PuCimRXDelXpMICeVvqDOzMOTN6cEEffoh89DoYvrFzUFdB_qVW1ZTZEPfa2lHl0BYlG8rQc6ilK2TXkMRwae2Y8SDXKwRM7hk0EFJDMp8FA8PXd7Cf8nmnpK3saO1Xetee",
-      otp: otpValue
+      otp: otpValue,
+      privilegeType: 2
     }
     const apiResponse = await httpRequest({
       endPoint: `/verifyOtp`,
@@ -29,7 +30,8 @@ class Otp extends React.Component {
       requestBody
     })
     if (apiResponse.OtpVerification === true) {
-      history.push("/user-home")
+      setAppData("otp.otpresponse",apiResponse);
+      history.push("/user-home");
     }else{
       let snackbar = {
         open: true,
@@ -123,9 +125,9 @@ class Otp extends React.Component {
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
   const { login = {}, otp = {} } = preparedFinalObject;
-  const { otpValue="" } = otp
+  const { otpValue="", otpresponse ={} } = otp
   const { phoneno } = login
-  return { login, phoneno, otpValue, otp }
+  return { login, phoneno, otpValue, otp, otpresponse }
 };
 
 export default connect(

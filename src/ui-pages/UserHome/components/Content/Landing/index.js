@@ -91,20 +91,8 @@ class Landing extends React.Component {
   // }
 
   render() {
-    const { history, setAppData, landing } = this.props
-    console.log(landing.latestAppointment);
+    const { history, setAppData, landing, otpresponse } = this.props
     let latestAppointment = landing.latestAppointment;
-
-//     let time;
-// if(latestAppointment !== undefined && latestAppointment != ''){
-//     let mnts = new Date(latestAppointment.appointment_datetime).getMinutes();
-//     let hrs = new Date(latestAppointment.appointment_datetime).getHours();
-//     if(hrs>12){
-//       time = hrs-12+":"+mnts+" PM"
-//     }else{
-//       time = hrs+":"+mnts+" AM"
-//     }
-//   }
     return (
       <div style={{ background: "#eeeeee", height: "100vh" }}>
         {latestAppointment ?
@@ -118,7 +106,17 @@ class Landing extends React.Component {
                </Typography>
               {/* <MessageIcon style={{ marginLeft: "4%", marginTop: "1%" }} onClick={() => history.push("/user-home/video-call")} /> */}
             </Grid>
-          </Card> : ""}
+          </Card> : <Card>
+            <Grid
+              container
+              style={{ background: "#343434", color: "white", padding: "10px", marginTop: "10px" }}>
+              <Typography>
+                You don't have appointment
+               </Typography>
+            </Grid>
+          </Card>}
+          {otpresponse && otpresponse.privilege_type == 2 ? 
+          <span>
         <Grid
           container
           alignItems="center"
@@ -161,12 +159,14 @@ class Landing extends React.Component {
             </Grid>
           </CardContent>
         </Card>
+        </span>
+        :
         <Card style={{ margin: "15px" }}>
           <CardContent>
             <Grid style={{ display: "flex" }}>
               <Grid item xs={2} md={4}>
                 <img width="90%" height="100%" src='ic_home_clinic_f.svg' alt="verify_icon" />
-
+          
               </Grid>
               <Grid item xs={10} md={8}>
                 <Typography variant="h6"> Doctor at Home</Typography>
@@ -177,6 +177,7 @@ class Landing extends React.Component {
             </Grid>
           </CardContent>
         </Card>
+  }
       </div>
     );
   }
@@ -184,10 +185,11 @@ class Landing extends React.Component {
 // export default withRouter(Landing) ;
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { login = {}, landing = {} } = preparedFinalObject;
+  const { login = {}, landing = {}, otp={} } = preparedFinalObject;
   const { todayAppointment, todaylatest } = landing
+  const { otpresponse } = otp
   const { phoneno } = login
-  return { phoneno, landing, todayAppointment, todaylatest }
+  return { phoneno, landing, todayAppointment, otp, todaylatest, otpresponse }
 };
 
 export default connect(
