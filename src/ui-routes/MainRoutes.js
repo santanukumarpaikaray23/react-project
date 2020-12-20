@@ -3,6 +3,7 @@ import { Route,Redirect} from "react-router";
 import Loadable from "react-loadable";
 import Loading from "../ui-molecules/Loading";
 
+
 const UserHome = Loadable({
   loader: () => import("../ui-pages/UserHome"),
   loading: Loading
@@ -25,7 +26,15 @@ const MainRoutes = () => {
       <Route path="/user-home" component={UserHome} />
       <Route path="/Otp" component={OTP} />
       <Redirect to="/" />
+
+      {/* <Route exact path="/user-home" component={UserHome} />
+      <Route path="/user-home" component={UserHome} />
+       <Route path="/user-home" component={UserHome} /> 
+      <Redirect to="/user-home" /> */}
     </div>
+
+
+  
   )
 }
 

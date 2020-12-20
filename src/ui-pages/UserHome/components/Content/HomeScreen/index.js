@@ -66,8 +66,8 @@ class TabsWrappedLabel extends React.Component {
 }
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { bookAppointment = {}, symptoms } = preparedFinalObject;
-  return { bookAppointment, symptoms }
+  const { bookAppointment = {}, symptoms, userProfile } = preparedFinalObject;
+  return { bookAppointment, symptoms, userProfile }
 };
 
 export default connect(

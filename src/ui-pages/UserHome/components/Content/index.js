@@ -14,6 +14,7 @@ import { mapDispatchToProps } from "../../../../ui-utils/commons";
 import { withRouter } from "react-router-dom";
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import UserProfile from '../Content/UserProfile'
 import "./index.css"
 
 var headings = [
@@ -50,7 +51,15 @@ var headings = [
     heading: "CALENDAR",
   },
   {
-    id: "/user-home/profile",
+    id: "/user-home/user-profile",
+    heading: "PROFILE",
+  },
+  {
+    id: "/user-home/user-profile/user-personal",
+    heading: "PROFILE",
+  },
+  {
+    id: "/user-home/user-profile/user-password",
     heading: "PROFILE",
   },
   {
@@ -250,7 +259,7 @@ class MiniDrawer extends React.Component {
           <BottomNavigationAction className={classes.wrapper} label="Profile" value="profile" icon={!userInfo.profile ?
             <img width="60%" height="60%" src='ic_profile_o.svg' alt="verify_icon" /> :
             <img width="60%" height="60%" src='ic_profile_f.svg' alt="verify_icon" />}
-            onClick={() => history.push("/user-home/profile")} />
+            onClick={() => history.push("/user-home/user-profile")} />
           <BottomNavigationAction className={classes.wrapper} label="Records" value="recents" icon={!userInfo.recents ?
             <img width="60%" height="60%" src='ic_records_o.svg' alt="verify_icon" /> :
             <img width="60%" height="60%" src='ic_records_f.svg' alt="verify_icon" />}

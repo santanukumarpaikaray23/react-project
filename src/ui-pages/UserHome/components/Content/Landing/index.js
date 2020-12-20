@@ -185,7 +185,7 @@ class Landing extends React.Component {
 // export default withRouter(Landing) ;
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { login = {}, landing = {}, otp={} } = preparedFinalObject;
+  const { login = {}, landing = {}, otp={}, userProfile = {} } = preparedFinalObject;
   const { todayAppointment, todaylatest } = landing
   const { otpresponse } = otp
   const { phoneno } = login

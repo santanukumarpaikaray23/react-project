@@ -124,10 +124,11 @@ class Otp extends React.Component {
 }
 const mapStateToProps = ({ screenConfiguration }) => {
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { login = {}, otp = {} } = preparedFinalObject;
+  const { login = {}, otp = {}, userProfile = {} } = preparedFinalObject;
   const { otpValue="", otpresponse ={} } = otp
   const { phoneno } = login
-  return { login, phoneno, otpValue, otp, otpresponse }
+  const { userData } = userProfile
+  return { login, phoneno, otpValue, otp, otpresponse, userData }
 };
 
 export default connect(

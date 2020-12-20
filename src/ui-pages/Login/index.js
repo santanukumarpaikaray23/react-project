@@ -179,9 +179,10 @@ class Login extends React.Component {
 const mapStateToProps = ({ screenConfiguration }) => {
   
   const { preparedFinalObject = {} } = screenConfiguration;
-  const { login = {} } = preparedFinalObject;
+  const { login = {}, userProfile={} } = preparedFinalObject;
   const { phoneno, mobile, receiveOtp = false, checked = false } = login
-  return { login, phoneno, mobile, receiveOtp, checked }
+  const { userData } = userProfile
+  return { login, phoneno, mobile, receiveOtp, checked, userData }
 };
 
 export default connect(

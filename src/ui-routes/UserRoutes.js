@@ -22,6 +22,7 @@ const Calendar = Loadable({
     import("../ui-pages/UserHome/components/Content/Calendar"),
   loading: Loading,
 });
+
 const Specialists = Loadable({
   loader: () =>
     import("../ui-pages/UserHome/components/Content/Specialists"),
@@ -77,6 +78,21 @@ const PaymentSuccessful = Loadable({
     import("../ui-pages/UserHome/components/Content/PaymentSuccessful"),
   loading: Loading,
 });
+const UserProfile = Loadable({
+  loader: () =>
+    import("../ui-pages/UserHome/components/Content/UserProfile"),
+  loading: Loading,
+});
+const Personal = Loadable({
+  loader: () =>
+    import("../ui-pages/UserHome/components/Content/Personal"),
+  loading: Loading,
+});
+const Password = Loadable({
+  loader: () =>
+    import("../ui-pages/UserHome/components/Content/Password"),
+  loading: Loading,
+});
 
 const UserRoutes = () => {
   return (
@@ -87,6 +103,9 @@ const UserRoutes = () => {
       <Route  path="/user-home/chating" component={Chat}/>
       <Route  path="/user-home/book-appointment" component={BookAppointment}/>
       <Route  path="/user-home/calendar" component={Calendar}/>
+      <Route  path="/user-home/user-profile" component={UserProfile}/>
+      <Route  path="/user-home/user-profile/user-password" component={Password}/>
+      <Route  path="/user-home/user-profile/user-personal" component={Personal}/>
       <Route  path="/user-home/calendar/today-appointments" component={TodayAppointments}/>
       <Route  path="/user-home/calendar/future-appointments" component={FutureAppointments}/>
       <Route  path="/user-home/home/specialists" component={Specialists}/>

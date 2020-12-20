@@ -19,6 +19,7 @@ class App extends React.Component {
     const { spinner } = this.props;
     return (
       <div>
+        
         <Hidden only={["xs"]}>
           <Grid
             container
@@ -32,7 +33,7 @@ class App extends React.Component {
           </Grid>
         </Hidden>
         <Hidden only={["sm", "md", "lg", "xl"]}>
-          <MainRoutes />
+        <MainRoutes />
         </Hidden>
         <Snackbar />
         {spinner && (

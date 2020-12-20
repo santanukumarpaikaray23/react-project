@@ -8,6 +8,11 @@ const intialState = {
       variant: "success",
       message: ""
     },
+    // userProfile:{
+    //   calender:'',
+    //   address:"",
+    //   mobile:""
+    // },
     spinner: false,
     selectedLanguage: window.localStorage.getItem("selectedLanguage") || "en"
   },
