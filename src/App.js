@@ -9,18 +9,18 @@ import { mapDispatchToProps } from "./ui-utils/commons";
 import MainRoutes from "./ui-routes/MainRoutes";
 import { connect } from "react-redux";
 import "./App.css";
-import Amplify from "aws-amplify"
-import aws_exports from "../src/aws-exports"
+import Amplify from "aws-amplify";
+import aws_eorts from "../src/aws-exports";
 // import { withAuthenticator } from "aws-amplify-react"
-Amplify.configure(aws_exports)
+
 class App extends React.Component {
 
   render() {
     const { spinner } = this.props;
     return (
       <div>
-        
-        <Hidden only={["xs"]}>
+       
+      <Hidden only={["xs"]}>
           <Grid
             container
             alignItems="center"
