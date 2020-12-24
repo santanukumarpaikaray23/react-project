@@ -16,10 +16,10 @@ import aws_eorts from "../src/aws-exports";
 class App extends React.Component {
 
   render() {
-    const { spinner } = this.props;
+     const { spinner } = this.props;
     return (
       <div>
-       
+    
       <Hidden only={["xs"]}>
           <Grid
             container
